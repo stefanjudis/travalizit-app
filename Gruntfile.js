@@ -40,7 +40,7 @@ module.exports = function(grunt) {
         }
       },
       src: {
-        files: ['lib/**/*', 'test/**/*.js', 'Gruntfile.js'],
+        files: ['lib/**/*', 'test/**/*.js', 'app.js', 'Gruntfile.js'],
         tasks: ['default']
       }
     }
