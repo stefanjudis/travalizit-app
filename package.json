@@ -1,0 +1,16 @@
+{
+  "name": "travalizit",
+  "version": "0.0.0",
+  "description": "'Travis' - analyze it!!!",
+  "main": "app.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stefanjudis/travalizit.git"
+  },
+  "author": "stefan judis",
+  "license": "BSD",
+  "readmeFilename": "README.md"
+}
