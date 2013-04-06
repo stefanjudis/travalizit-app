@@ -3,6 +3,7 @@ header {
   height: 4em;
 
   position: fixed;
+  top: 0;
 
   padding: 1em;
 
@@ -11,8 +12,9 @@ header {
   border-bottom: 1px solid $darkGrey;
 
   h1 {
-    width: 73px;
     height: 30px;
+
+    margin: 0;
 
     padding-left: 73px;
 
