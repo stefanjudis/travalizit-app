@@ -1,9 +1,9 @@
+@import "compass/css3";
 @import "variables";
 
-body {
-  color: $red;
-}
+@import "reset";
 
-h1 {
-  color: blue;
-}
+@import "chartsContainer";
+@import "chartsCanvas";
+@import "header";
+

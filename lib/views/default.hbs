@@ -5,12 +5,15 @@
   </head>
   <body>
     <header>
-
+      <h1>{{title}}</h1>
     </header>
+    <section id="chartsContainer"></section>
+    <section id="chartsCanvas"></section>
     {{{body}}}
 
-    {{> scripts}}
 
     {{{block "pageScripts"}}}
+    <footer></footer>
+    {{> scripts}}
   </body>
 </html>
