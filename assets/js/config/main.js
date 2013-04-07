@@ -15,12 +15,16 @@ requirejs.config({
     chartView : 'views/chartView',
 
     // collections
-    chartCollection : 'collections/chartsCollection'
+    chartCollection : 'collections/chartsCollection',
 
+    // templates
+    chartTemplate : 'templates/chartView.hbs'
   }
 });
 
 // Start the main app logic.
 requirejs([ 'appView' ], function( AppView ) {
+  var charts;
+
   new AppView();
 });

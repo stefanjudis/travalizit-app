@@ -12,6 +12,7 @@
     "requirejs": "~2.1.5",
     "backbone-amd": "~1.0.0",
     "underscore-amd": "~1.4.4",
-    "require-handlebars-plugin": "~0.4.0"
+    "require-handlebars-plugin": "~0.4.0",
+    "requirejs-text": "~2.0.5"
   }
 }
