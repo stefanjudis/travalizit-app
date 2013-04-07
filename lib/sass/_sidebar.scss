@@ -69,7 +69,9 @@
   list-style: none;
 
   & > li {
-    height: 5em;
+    position: relative;
+
+    height: 0;
     width: 100%;
 
     padding: 1em;
@@ -77,12 +79,14 @@
     background-color: $grey;
     border-bottom: 1px solid $darkGrey;
 
-    @include transition( background-color 0.2 linear, width 0.2s linear );
+    @include transition( background-color 0.2 linear, width 0.2s linear, height 0.2s ease-in);
 
     &:hover {
       width: 120%;
       background-color: adjust-lightness($grey, 2);
-      @include box-shadow(0 2px 5px #000);
+      @include box-shadow(0 1px 5px #000);
+
+      z-index: 5;
 
       button {
         opacity: 1;
@@ -92,9 +96,6 @@
 }
 
 .chartItem {
-  position: relative;
-  display: none;
-
   button {
     position: absolute;
 
@@ -111,7 +112,7 @@
     opacity: 0;
 
     top: 0.5em;
-    right: 0.5em;
+    right: 5%;
 
     border: 0;
 

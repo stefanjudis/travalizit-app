@@ -27,7 +27,7 @@ define([
 
       this.$( '#chartsContainer' ).append( html );
 
-      $( html ).slideDown();
+      $( html ).css( 'height', '5em' );
     },
 
     createChart: function() {

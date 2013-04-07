@@ -28,10 +28,9 @@ define([
     },
 
     deleteChart: function() {
-      this.$el.slideUp(function() {
-        this.model.destroy();
+      this.$el.height( 0 );
 
-      });
+      this.model.destroy();
     }
   });
 
