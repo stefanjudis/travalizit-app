@@ -5,8 +5,6 @@ define([
   'chartCollection',
   'chartView'
 ], function( $, _, Backbone, Charts, ChartView ) {
-  var charts;
-
   var AppView = Backbone.View.extend({
     el  : '#sidebar',
     // don't want to have jshint error
@@ -25,9 +23,8 @@ define([
 
     addChart: function( chart ) {
       var view = new ChartView( chart );
-      debugger
 
-      this.$el.find( '#chartsContainer' ).append( view.render() );
+      this.$( '#chartsContainer' ).append( view.render() );
     },
 
     createChart: function() {

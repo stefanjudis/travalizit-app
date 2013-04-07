@@ -14,6 +14,7 @@
   "strict": false,
   "predef": [
     "define",
-    "requirejs"
+    "requirejs",
+    "charts"
   ]
 }

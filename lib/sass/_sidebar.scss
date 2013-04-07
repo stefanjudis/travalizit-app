@@ -10,6 +10,8 @@
 
   background-color: $darkGrey;
 
+  z-index: 2;
+
   #addBtn {
     background-color: $grey;
     border: 0;
@@ -78,10 +80,69 @@
     @include transition( background-color 0.2 linear, width 0.2s linear );
 
     &:hover {
-      width: 110%;
+      width: 120%;
       background-color: adjust-lightness($grey, 2);
       @include box-shadow(0 2px 5px #000);
+
+      button {
+        opacity: 1;
+      }
     }
   }
 }
 
+.chartItem {
+  position: relative;
+
+  button {
+    position: absolute;
+
+    overflow: hidden;
+
+    padding: 1.5em 0 0 0;
+
+    width: 1.5em;
+    height: 1.5em;
+    line-height: 1.5em;
+    text-align: center;
+    color: $red;
+
+    opacity: 0;
+
+    top: 0.5em;
+    right: 0.5em;
+
+    border: 0;
+
+    @include transition(opacity 0.5s ease-in, border-color 0.2s ease-in);
+
+    &:hover {
+      &:before, &:after {
+        border-color: $red;
+      }
+    }
+
+    &:before, &:after {
+      content: '';
+
+      position: absolute;
+      width: 2em;
+      height: 2em;
+
+      @include rotate(45deg);
+    }
+
+    &:before {
+      top: -1em;
+      left: -1em;
+      border-right: 2px solid $grey;
+    }
+
+    &:after {
+      top: 0.4em;
+      left: -1em;
+
+      border-top: 2px solid $grey;
+    }
+  }
+}
