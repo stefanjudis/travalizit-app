@@ -9,6 +9,8 @@ define([
     tagName: 'li',
     className: 'chartItem',
 
+    template: Handlebars.compile( ChartTemplate ),
+
     events: {
       'click button' : 'deleteChart'
     },
@@ -20,13 +22,16 @@ define([
     },
 
     render: function() {
-      this.$el.html( Handlebars.compile( ChartTemplate ) );
+      this.$el.html( this.template( { id : this.model.cid } ) );
 
       return this.el;
     },
 
     deleteChart: function() {
-      this.model.destroy();
+      this.$el.slideUp(function() {
+        this.model.destroy();
+
+      });
     }
   });
 

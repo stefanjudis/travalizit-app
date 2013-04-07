@@ -22,9 +22,12 @@ define([
     },
 
     addChart: function( chart ) {
-      var view = new ChartView( chart );
+      var view = new ChartView( chart ),
+          html = view.render();
 
-      this.$( '#chartsContainer' ).append( view.render() );
+      this.$( '#chartsContainer' ).append( html );
+
+      $( html ).slideDown();
     },
 
     createChart: function() {
