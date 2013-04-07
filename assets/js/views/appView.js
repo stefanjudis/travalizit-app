@@ -12,7 +12,8 @@ define([
     $el : $( this.el ),
 
     events: {
-      'click #addBtn' : 'createChart'
+      'click #addBtn' : 'createChart',
+      'click #minimizeBtn' : 'minimizeView'
     },
 
     initialize: function() {
@@ -33,6 +34,10 @@ define([
     createChart: function() {
       console.log( 'Function: createChart' );
       charts.create();
+    },
+
+    minimizeView: function() {
+      this.$el.addClass("minimized");
     }
   });
 

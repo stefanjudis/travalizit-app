@@ -1,6 +1,7 @@
 @import "compass/css3";
 @import "variables";
-@import "header/*.png";
+
+$header: sprite-map("header/*.png", $spacing: 15px);
 
 @import "sidebar";
 @import "chartsCanvas";

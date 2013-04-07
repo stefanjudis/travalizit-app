@@ -21,7 +21,7 @@
     margin: 1em;
     padding: 1em;
 
-    @include transition( background-color 0.3s ease-in);
+    @include transition( background-color 0.2s ease-in);
 
     &:hover {
       background-color: adjust-lightness($grey, 10);
@@ -29,6 +29,40 @@
 
     &:active {
       background-color: $red;
+    }
+  }
+
+  #maximizeBtn {
+    display: none;
+
+  }
+
+  #minimizeBtn {
+    position: absolute;
+
+    width: image-width("header/arrow-left.png") + 10px;
+    height: image-height("header/arrow-left.png") + 10px;
+
+    overflow: hidden;
+
+    padding-top: image-height("header/arrow-left.png") + 10;
+
+    top: 0;
+    left: 105%;
+
+    margin: 0.5em 0 0 1%;
+
+    background: sprite($header, arrow-left, 5px, 5px);
+    background-color: $red;
+
+    border: 0;
+
+    color: #fff;
+
+    @include transition(background-color 0.2s ease-in);
+
+    &:hover {
+      background-color: adjust-lightness($red, 15);
     }
   }
 
@@ -46,10 +80,14 @@
 
     padding: 0 0 0 32px;
 
-     @include header-sprite(travis64);
-     background-repeat: no-repeat;
+    background: sprite($header, travis64);
+    background-repeat: no-repeat;
 
-     @include transition(color 0.5s linear 0, text-shadow 0.5 linear 0);
+    @include transition(color 0.5s linear 0, text-shadow 0.5 linear 0);
+  }
+
+  &.minimized {
+    width: 5%;
   }
 
   &:hover {
