@@ -11,5 +11,9 @@
   "eqnull": true,
   "node": true,
   "es5": true,
-  "strict": false
+  "strict": false,
+  "predef": [
+    "define",
+    "requirejs"
+  ]
 }

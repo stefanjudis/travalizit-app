@@ -5,10 +5,11 @@ module.exports = function(grunt) {
     compass : {                  // Task
       dist : {                   // Target
         options: {              // Target options
-          sassDir     : 'lib/sass',
-          cssDir      : 'assets/css',
-          environment : 'production',
-          imagesDir   : 'assets/css'
+          sassDir        : 'lib/sass',
+          cssDir         : 'assets/css',
+          environment    : 'production',
+          imagesDir      : 'assets/images',
+          raw            : 'http_images_path = \'/images\' \nhttp_generated_images_path = \'/images\''
         }
       },
       dev : {                    // Another target
@@ -26,7 +27,15 @@ module.exports = function(grunt) {
     // },
     //
     jshint : {
-      all : [ 'Gruntfile.js', 'lib/**/*.js', 'test/**/*.js' ],
+      all : [
+        'Gruntfile.js',
+        'lib/**/*.js',
+        'assets/js/collections/*.js',
+        'assets/js/config/*.js',
+        'assets/js/models/*.js',
+        'assets/js/views/*.js',
+        'test/**/*.js'
+      ],
       options : {
         jshintrc : '.jshintrc'
       }
@@ -41,7 +50,7 @@ module.exports = function(grunt) {
         }
       },
       src : {
-        files : [ 'lib/**/*', 'test/**/*.js', 'app.js', 'Gruntfile.js' ],
+        files : [ 'lib/**/*', 'test/**/*.js', 'assets/**/*.*', 'app.js', 'Gruntfile.js' ],
         tasks : [ 'default' ]
       }
     }

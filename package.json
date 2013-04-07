@@ -11,7 +11,6 @@
     "url": "git://github.com/stefanjudis/travalizit.git"
   },
   "author": "stefan judis",
-  "license": "BSD",
   "readmeFilename": "README.md",
   "devDependencies": {
     "grunt": "~0.4.1",

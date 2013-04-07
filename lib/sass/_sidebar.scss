@@ -1,0 +1,87 @@
+#sidebar {
+  position: absolute;
+
+  width: 15%;
+
+  top: 0;
+  bottom: 0;
+
+  padding: 0;
+
+  background-color: $darkGrey;
+
+  #addBtn {
+    background-color: $grey;
+    border: 0;
+    color: $lightGrey;
+
+    margin: 1em;
+    padding: 1em;
+
+    @include transition( background-color 0.3s ease-in);
+
+    &:hover {
+      background-color: adjust-lightness($grey, 10);
+    }
+
+    &:active {
+      background-color: $red;
+    }
+  }
+
+  h1 {
+    position: relative;
+
+    height: image-height("header/travis64.png");
+
+    color: transparent;
+    @include text-shadow(0 0 8px $red);
+    font-family: 'Great Vibes', cursive;
+    letter-spacing: 1px;
+
+    margin: 0.5em 0.6em;
+
+    padding: 0 0 0 32px;
+
+     @include header-sprite(travis64);
+     background-repeat: no-repeat;
+
+     @include transition(color 0.5s linear 0, text-shadow 0.5 linear 0);
+  }
+
+  &:hover {
+    h1 {
+      color: $red;
+
+      @include text-shadow( 0 0 0 transparent );
+    }
+  }
+}
+
+#chartsContainer {
+  margin: 0;
+  padding: 1em 0 0 0;
+
+  color: $lightGrey;
+
+  list-style: none;
+
+  & > li {
+    height: 5em;
+    width: 100%;
+
+    padding: 1em;
+
+    background-color: $grey;
+    border-bottom: 1px solid $darkGrey;
+
+    @include transition( background-color 0.2 linear, width 0.2s linear );
+
+    &:hover {
+      width: 110%;
+      background-color: adjust-lightness($grey, 2);
+      @include box-shadow(0 2px 5px #000);
+    }
+  }
+}
+

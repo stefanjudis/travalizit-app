@@ -1,11 +1,9 @@
 @import "compass/css3";
 @import "variables";
+@import "header/*.png";
 
-@import "reset";
-
-@import "chartsContainer";
+@import "sidebar";
 @import "chartsCanvas";
-@import "header";
 
 * {
   box-sizing: border-box;

@@ -3,12 +3,16 @@
     <title>{{title}}</title>
     <link type="text/css" rel="stylesheet" href="css/normalize.css"/>
     <link type="text/css" rel="stylesheet" href="css/app.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
+    <script data-main="js/config/main" src="js/libs/requirejs/require.js"></script>
   </head>
   <body>
-    <header>
+    <section id="sidebar">
       <h1>{{title}}</h1>
-    </header>
-    <section id="chartsContainer"></section>
+      <button id="addBtn">Add Chart, Dude!</button>
+      <ul id="chartsContainer">
+      </ul>
+    </section>
     <section id="chartsCanvas"></section>
     {{{body}}}
 
