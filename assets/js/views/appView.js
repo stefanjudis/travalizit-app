@@ -2,9 +2,8 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'chartCollection',
-  'chartView'
-], function( $, _, Backbone, Charts, ChartView ) {
+  'chartCollection'
+], function( $, _, Backbone, Charts ) {
   var AppView = Backbone.View.extend({
     el  : '#sidebar',
     // don't want to have jshint error
@@ -13,7 +12,7 @@ define([
 
     events: {
       'click #addBtn' : 'createChart',
-      'click #minimizeBtn' : 'minimizeView'
+      'click #sizeBtn' : 'toggleViewSize'
     },
 
     initialize: function() {
@@ -23,12 +22,14 @@ define([
     },
 
     addChart: function( chart ) {
-      var view = new ChartView( chart ),
-          html = view.render();
+      require( [ 'chartView' ], function(ChartView) {
+        var view = new ChartView( chart ),
+            html = view.render();
 
-      this.$( '#chartsContainer' ).append( html );
+        this.$( '#chartsContainer' ).append( html );
 
-      $( html ).css( 'height', '5em' );
+        $( html ).css( 'height', '5em' );
+      });
     },
 
     createChart: function() {
@@ -36,8 +37,8 @@ define([
       charts.create();
     },
 
-    minimizeView: function() {
-      this.$el.addClass("minimized");
+    toggleViewSize: function() {
+      this.$el.toggleClass( 'minimized' );
     }
   });
 

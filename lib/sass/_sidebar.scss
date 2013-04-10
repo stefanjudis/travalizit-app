@@ -13,6 +13,8 @@
 
   z-index: 2;
 
+  @include transition( width 0.2s ease-in);
+
   #addBtn {
     background-color: $grey;
     border: 0;
@@ -32,37 +34,59 @@
     }
   }
 
-  #maximizeBtn {
-    display: none;
-
-  }
-
-  #minimizeBtn {
+  #sizeBtn {
     position: absolute;
 
-    width: image-width("header/arrow-left.png") + 10px;
-    height: image-height("header/arrow-left.png") + 10px;
+    width: image-width("header/arrow-left.png") + 6px;
+    height: image-height("header/arrow-left.png") + 6px;
 
     overflow: hidden;
 
-    padding-top: image-height("header/arrow-left.png") + 10;
-
     top: 0;
-    left: 105%;
+    left: 100%;
 
-    margin: 0.5em 0 0 1%;
+    margin: 0.3em;
 
-    background: sprite($header, arrow-left, 5px, 5px);
+    background: sprite($header, arrow-left, 3px, 3px);
     background-color: $red;
 
+    font-size: 2em;
     border: 0;
 
-    color: #fff;
+    color: transparent;
 
     @include transition(background-color 0.2s ease-in);
 
+    @include border-radius(3px);
+
     &:hover {
       background-color: adjust-lightness($red, 15);
+    }
+  }
+
+  &.minimized {
+    width: 5%;
+
+    #sizeBtn {
+      background: sprite($header, arrow-right, 3px, 3px);
+      background-color: $red;
+    }
+
+    h1 {
+      color: transparent;
+      text-shadow: none;
+    }
+
+    & + section {
+      width: 95%;
+      left: 5%;
+    }
+
+    &:hover {
+      h1 {
+        color: transparent;
+        text-shadow: none;
+      }
     }
   }
 
@@ -76,7 +100,7 @@
     font-family: 'Great Vibes', cursive;
     letter-spacing: 1px;
 
-    margin: 0.5em 0.6em;
+    margin: 0.3em;
 
     padding: 0 0 0 32px;
 
@@ -84,10 +108,6 @@
     background-repeat: no-repeat;
 
     @include transition(color 0.5s linear 0, text-shadow 0.5 linear 0);
-  }
-
-  &.minimized {
-    width: 5%;
   }
 
   &:hover {
