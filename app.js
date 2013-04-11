@@ -27,7 +27,7 @@ app.use(express.static(__dirname + '/assets'));
 
 app.get( '/',  function( req, res ){
   res.render( 'index', {
-    title  : 'ravalizit'
+    title  : 'Travalizit'
   });
 });
 

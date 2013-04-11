@@ -3,6 +3,8 @@
 
   width: 15%;
 
+  min-width: image-width("header/travis64.png");
+
   top: 0;
   bottom: 0;
   left: 0;
@@ -15,15 +17,25 @@
 
   @include transition( width 0.2s ease-in);
 
+  @include box-shadow(-1px 0 3px #000 inset);
+
   #addBtn {
+    position: absolute;
+
+    height: image-height("header/travis64.png");
+
+    left: 0;
+    right: 0;
+
     background-color: $grey;
     border: 0;
     color: $lightGrey;
 
     margin: 1em;
-    padding: 1em;
 
-    @include transition( background-color 0.2s ease-in);
+    @include transition( background-color 0.2s ease-in, width 0.2s ease-in, height 0.2s ease-in, padding 0.2s ease-in 0.4s);
+
+    @include border-radius(3px);
 
     &:hover {
       background-color: adjust-lightness($grey, 10);
@@ -37,21 +49,20 @@
   #sizeBtn {
     position: absolute;
 
-    width: image-width("header/arrow-left.png") + 6px;
-    height: image-height("header/arrow-left.png") + 6px;
+    width: image-width("header/arrow-left.png") -2px;
+    height: image-height("header/arrow-left.png") -2px;
 
     overflow: hidden;
 
     top: 0;
     left: 100%;
 
-    margin: 0.3em;
+    margin: 1em;
 
-    background: sprite($header, arrow-left, 3px, 3px);
+    background: sprite($header, arrow-left, -1px, -2px);
     background-color: $red;
 
-    font-size: 2em;
-    border: 0;
+    border: 1px solid adjust-lightness($red, -10);
 
     color: transparent;
 
@@ -65,10 +76,35 @@
   }
 
   &.minimized {
-    width: 5%;
+    width: image-width("header/travis64.png") + 36px;
+
+    #addBtn {
+      width: image-width("header/travis64.png");
+
+
+      padding: 0 image-width("header/travis64.png") 0 0;
+      color: transparent;
+
+      &:before {
+        content: "+";
+
+        position: absolute;
+
+        width: image-width("header/travis64.png");
+        height: image-height("header/travis64.png");
+
+        top: 0;
+        left: 0;
+
+        color: adjust-lightness($lightGrey, 10);
+
+        line-height: image-height("header/travis64.png");
+        font-size: 3em;
+      }
+    }
 
     #sizeBtn {
-      background: sprite($header, arrow-right, 3px, 3px);
+      background: sprite($header, arrow-right, -1px, -2px);
       background-color: $red;
     }
 
@@ -94,34 +130,34 @@
     position: relative;
 
     height: image-height("header/travis64.png");
+    width: image-width("header/travis64.png");
 
     color: transparent;
-    @include text-shadow(0 0 8px $red);
+
     font-family: 'Great Vibes', cursive;
     letter-spacing: 1px;
 
-    margin: 0.3em;
+    margin: 0.5em;
 
-    padding: 0 0 0 32px;
+    padding: image-height("header/travis64.png") 0 0 0;
+
+    overflow: hidden;
+
 
     background: sprite($header, travis64);
     background-repeat: no-repeat;
-
-    @include transition(color 0.5s linear 0, text-shadow 0.5 linear 0);
-  }
-
-  &:hover {
-    h1 {
-      color: $red;
-
-      @include text-shadow( 0 0 0 transparent );
-    }
   }
 }
 
 #chartsContainer {
   margin: 0;
   padding: 1em 0 0 0;
+
+  position: absolute;
+
+  top: 12em;
+  left: 0;
+  right: 0;
 
   color: $lightGrey;
 
