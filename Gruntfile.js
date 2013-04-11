@@ -20,6 +20,10 @@ module.exports = function(grunt) {
       }
     },
 
+    concurrent: {
+      target1: [ 'compass', 'jshint' ]
+    },
+
     pkg: grunt.file.readJSON( 'package.json' ),
 
     // nodeunit: {
@@ -58,11 +62,12 @@ module.exports = function(grunt) {
 
 
   grunt.loadNpmTasks( 'grunt-contrib-jshint' );
-  //grunt.loadNpmTasks( 'grunt-contrib-nodeunit' );
   grunt.loadNpmTasks( 'grunt-contrib-watch' );
   grunt.loadNpmTasks( 'grunt-contrib-compass' );
+  grunt.loadNpmTasks( 'grunt-concurrent' );
+  //grunt.loadNpmTasks( 'grunt-contrib-nodeunit' );
 
   // Default task.
-  grunt.registerTask( 'default', [ 'jshint', 'compass' ] );
+  grunt.registerTask( 'default', [ 'concurrent:target1' ]);
   //grunt.registerTask('travis', ['jshint', 'nodeunit']);
 };
