@@ -27,8 +27,6 @@ define([
             html = view.render();
 
         this.$( '#chartsContainer' ).append( html );
-
-        $( html ).css( 'height', '5em' );
       });
     },
 

@@ -166,7 +166,7 @@
   & > li {
     position: relative;
 
-    height: 0;
+    height: 5em;
     width: 100%;
 
     padding: 1em;
@@ -174,7 +174,7 @@
     background-color: $grey;
     border-bottom: 1px solid $darkGrey;
 
-    @include transition( background-color 0.2 linear, width 0.2s linear, height 0.2s ease-in);
+    @include transition( background-color 0.2 linear, width 0.2s linear);
 
     &:hover {
       width: 120%;
