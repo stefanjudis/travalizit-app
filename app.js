@@ -41,6 +41,7 @@ fs.readdir( apiPath, function( err, files ) {
     var callPath = '/' + value.replace( '.js', '' ),
         verb     = require( apiPath + '/' + callPath );
 
+    // make that in a loop
     app.get( callPath, verb.list );
     app.get( callPath + '/:id', verb.get );
 
