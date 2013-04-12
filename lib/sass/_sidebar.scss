@@ -159,8 +159,6 @@
   }
 }
 
-@import "animations/flyIn";
-
 #chartsContainer {
   margin: 0;
   padding: 1em 0 0 0;
@@ -188,6 +186,10 @@
 
     @include transition(background-color 0.2 linear, width 0.2s linear);
     @include animation(flyIn, 0.5s);
+
+    &.removed {
+      @include animation(flyOut, 0.5s);
+    }
 
     &:hover {
       width: 120%;

@@ -28,10 +28,19 @@ define([
     },
 
     deleteChart: function() {
-      this.$el.height( 0 );
-
       this.model.destroy();
+    },
+
+    remove: function() {
+      this.$el.addClass( 'removed' )
+              .on(
+                'animationend webkitAnimationEnd otransitionend',
+                _.bind( function() {
+                  this.$el.remove();
+                }, this )
+              );
     }
+
   });
 
   return ChartView;

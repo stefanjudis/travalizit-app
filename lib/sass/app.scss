@@ -1,6 +1,7 @@
 @import "compass/css3";
 @import "variables";
 @import "mixins/mixins";
+@import "animations/animations";
 
 $header: sprite-map("header/*.png", $spacing: 15px);
 
