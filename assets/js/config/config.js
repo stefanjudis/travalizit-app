@@ -1,9 +1,9 @@
 define([], function() {
   return {
-    charts: {
-      builds: {
-        srcPath: '/builds',
-        params: [
+    charts : {
+      builds : {
+        srcPath : '/builds',
+        params : [
           'number',
           'status',
           'started_at',
@@ -26,7 +26,28 @@ define([], function() {
           'event_type'
         ]
       },
-      urls: {
+      commits : {
+
+      },
+      dimensions : {
+
+      },
+      jobs : {
+
+      },
+      memberships : {
+
+      },
+      organizations : {
+
+      },
+      repositories : {
+
+      },
+      requests : {
+
+      },
+      urls : {
       }
     }
   };

@@ -100,28 +100,48 @@ define([
         _.bind(function( Handlebars, ChartParamsTemplate ) {
           var button   = $( event.target ),
               type     = button.data( 'type' ),
+              params   = this.$chartMenu.find( '#chartParams' ),
               template = Handlebars.compile( ChartParamsTemplate ),
               html     = template({
                 chartParams : Config.charts[ type ].params
               });
 
-              this.$chartMenu.find( '#chartParams' ).remove();
+              if ( params.length && params.hasClass( 'shown' ) ) {
+                params.removeClass( 'shown' );
 
-              this.$chartMenu
-                .append( html );
+                params.on(
+                  'animationend webkitAnimationEnd otransitionend',
+                  _.bind(function() {
+                    params.remove();
 
-              this.$chartMenu
-                .find( '#chartParams' )
-                .addClass( 'shown' );
-              this.$chartMenu
-                .find( '#paramInput-type' )
-                .val( type );
+                    this._addParamsContainer( html, type );
+                  }, this)
+                );
+              } else {
+                params.remove();
+
+                this._addParamsContainer( html, type );
+              }
         }, this )
       );
     },
 
+
     toggleViewSize : function() {
       this.$el.toggleClass( 'minimized' );
+    },
+
+
+    _addParamsContainer : function( html, type ) {
+      this.$chartMenu
+          .append( html );
+
+      this.$chartMenu
+          .find( '#chartParams' )
+          .addClass( 'shown' );
+      this.$chartMenu
+          .find( '#paramInput-type' )
+          .val( type );
     }
   });
 
