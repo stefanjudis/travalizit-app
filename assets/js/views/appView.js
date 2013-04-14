@@ -13,7 +13,7 @@ define([
     $chartMenu : undefined,
 
 
-    events: {
+    events : {
       'click #addBtn'   : 'showChartMenu',
       'click .addChart' : 'showParamMenu',
       'click #sizeBtn'  : 'toggleViewSize',
@@ -22,16 +22,17 @@ define([
     },
 
 
-    initialize: function() {
+    initialize : function() {
       charts = new Charts();
 
       this.$chartMenu = this.$el.find( '#chartSelectMenu' );
 
       this.listenTo( charts, 'add', this.addChart );
+      this.listenTo( charts, 'change', this.hideMenues );
     },
 
 
-    addChart: function( chart ) {
+    addChart : function( chart ) {
       require( [ 'chartView' ], function( ChartView ) {
         var view = new ChartView( chart );
         var html = view.render();
@@ -41,7 +42,7 @@ define([
     },
 
 
-    createChart: function( event ) {
+    createChart : function( event ) {
       event.preventDefault();
 
       require(
@@ -58,32 +59,45 @@ define([
                             }
                           );
 
+          // TODO delegate that
+          chart.on( 'request', this.hideMenues );
+
           charts.add( chart );
         }
       );
     },
 
 
-    showChartMenu: function() {
+    hideMenues : function() {
+      // TODO cache that stuff
+      $( '.animationContainer' )
+        .removeClass( 'shown' )
+    },
+
+    showChartMenu : function() {
       require(
         [ 'handlebars', 'text!chartSelectTemplate' ],
         _.bind(function( Handlebars, ChartSelectTemplate ) {
-          var template = Handlebars.compile( ChartSelectTemplate ),
-              html     = template({
+          var template,
+              html;
+
+          if ( this.$chartMenu.html() === '' ) {
+            template = Handlebars.compile( ChartSelectTemplate );
+            html     = template({
                 chartTypes : _.keys( Config.charts )
               });
 
-          this.$chartMenu
-            .html( html )
-            .find( '.animationContainer' )
-            .addClass( 'shown' );
+            this.$chartMenu.html( html )
+          }
 
+          this.$chartMenu.find( '#chartTypes' )
+            .addClass( 'shown' );
         }, this )
       );
     },
 
 
-    showParamMenu: function( event ) {
+    showParamMenu : function( event ) {
       require(
         [ 'handlebars', 'text!chartParamsTemplate'],
         _.bind(function( Handlebars, ChartParamsTemplate ) {
@@ -93,6 +107,8 @@ define([
               html     = template({
                 chartParams : Config.charts[ type ].params
               });
+
+              this.$chartMenu.find( '#chartParams' ).remove();
 
               this.$chartMenu
                 .append( html );
@@ -107,7 +123,7 @@ define([
       );
     },
 
-    toggleViewSize: function() {
+    toggleViewSize : function() {
       this.$el.toggleClass( 'minimized' );
     }
   });

@@ -39,17 +39,11 @@ app.get( '/',  function( req, res ){
 fs.readdir( apiPath, function( err, files ) {
   files.forEach(function( value ) {
     var callPath = '/' + value.replace( '.js', '' ),
-        verb     = require( apiPath + '/' + callPath );
+        source   = require( apiPath + '/' + callPath);
 
-    // make that in a loop
-    app.get( callPath, verb.list );
-    app.get( callPath + '/:id', verb.get );
-
-    app.post( callPath + '/:id', verb.create );
-
-    app.put( callPath + '/id', verb.update );
-
-    app.delete( callPath + '/:id', ver.delete );
+    Object.keys( source ).forEach( function( verb ) {
+      app[ verb ]( callPath, source[ verb ] );
+    });
   });
 });
 

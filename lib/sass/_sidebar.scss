@@ -88,7 +88,11 @@
     #chartTypes, #chartParams {
       float:left;
 
+      @include transform(translateX(-200%));
+      @include animation(flyOut, 0.5s);
+
       &.shown {
+        @include transform(translateX(0));
         @include animation(flyIn, 0.5s);
       }
     }
