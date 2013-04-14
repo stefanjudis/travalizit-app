@@ -2,8 +2,9 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'config',
   'chartCollection'
-], function( $, _, Backbone, Charts ) {
+], function( $, _, Backbone, Config, Charts ) {
   var AppView = Backbone.View.extend({
     el  : '#sidebar',
     // don't want to have jshint error
