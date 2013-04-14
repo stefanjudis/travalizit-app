@@ -19,7 +19,9 @@ requirejs.config({
     chartCollection : 'collections/chartsCollection',
 
     // templates
-    chartTemplate : 'templates/chartView.hbs',
+    chartTemplate       : 'templates/chartView.hbs',
+    chartSelectTemplate : 'templates/chartSelectTemplate.hbs',
+    chartParamsTemplate : 'templates/chartParamsTemplate.hbs',
 
     config : 'config/config'
   }

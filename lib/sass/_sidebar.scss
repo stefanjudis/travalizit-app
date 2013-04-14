@@ -68,6 +68,88 @@
     }
   }
 
+  #chartSelectMenu {
+    position: absolute;
+    left: 100%;
+    top: 6em;
+
+    width: 300%;
+
+    color: #fff;
+    text-align: center;
+
+    overflow: hidden;
+
+    .animationContainer {
+      padding: 1em;
+      background-color: grey;
+    }
+
+    #chartTypes, #chartParams {
+      float:left;
+
+      &.shown {
+        @include animation(flyIn, 0.5s);
+      }
+    }
+
+    #chartTypes {
+      width: 33.333%;
+    }
+
+    #chartParams {
+      width: 66.666%;
+    }
+
+    button {
+      width: 100%;
+
+      border: 0;
+
+      padding: 0.5em;
+      margin: 0.5em 0;
+
+      background-color: $red;
+
+      color: #fff;
+
+      @include transition(background-color 0.2s ease-in);
+
+      &:hover {
+        background-color: adjust-lightness($red, 15);
+      }
+    }
+
+    form {
+      text-align: left;
+    }
+
+    input, label {
+      height: 1.5em;
+      line-height: 1.5em;
+
+      margin-bottom: 0.4em;
+    }
+
+    input {
+      width: 50%;
+      float: right;
+      clear: right;
+
+      border: 0;
+    }
+
+    label {
+      display: block;
+    }
+
+    ul {
+      list-style: none;
+      marign: 0;
+      padding: 0;
+    }
+  }
+
   #sizeBtn {
     position: absolute;
 
