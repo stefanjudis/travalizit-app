@@ -71,8 +71,8 @@
   #sizeBtn {
     position: absolute;
 
-    width: image-width("header/arrow-left.png") -2px;
-    height: image-height("header/arrow-left.png") -2px;
+    width: image-width("header/travis64.png");
+    height: image-height("header/travis64.png");
 
     overflow: hidden;
 
@@ -81,7 +81,6 @@
 
     margin: 1em;
 
-    background: sprite($header, arrow-left, -1px, -2px);
     background-color: $red;
 
     border: 1px solid adjust-lightness($red, -10);
@@ -91,6 +90,22 @@
     @include transition(background-color 0.2s ease-in);
 
     @include border-radius(3px);
+
+    &:before {
+      content: "\f053";;
+
+      position: absolute;
+
+      top: 0;
+      left: 0;
+
+      width: image-width("header/travis64.png");
+      height: image-height("header/travis64.png");
+
+      color: white;
+      font-size: 36px;
+      line-height: 64px;
+    }
 
     &:hover {
       background-color: adjust-lightness($red, 15);
@@ -110,8 +125,9 @@
     }
 
     #sizeBtn {
-      background: sprite($header, arrow-right, -1px, -2px);
-      background-color: $red;
+      &:before {
+        content: "\f054";
+      }
 
       &:hover {
        background-color: adjust-lightness($red, 15);

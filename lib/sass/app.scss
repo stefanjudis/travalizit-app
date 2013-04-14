@@ -11,3 +11,10 @@ $header: sprite-map("header/*.png", $spacing: 15px);
 * {
   box-sizing: border-box;
 }
+
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+/* fontawesome */
+[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+}
