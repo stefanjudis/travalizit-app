@@ -16,7 +16,9 @@ define([
     events: {
       'click #addBtn'   : 'showChartMenu',
       'click .addChart' : 'showParamMenu',
-      'click #sizeBtn'  : 'toggleViewSize'
+      'click #sizeBtn'  : 'toggleViewSize',
+
+      'submit #chartParamsForm' : 'createChart'
     },
 
 
@@ -30,18 +32,28 @@ define([
 
 
     addChart: function( chart ) {
-      require( [ 'chartView' ], function(ChartView) {
-        var view = new ChartView( chart ),
-            html = view.render();
+      require( [ 'chartView' ], function( ChartView ) {
+        var view = new ChartView( chart );
+        var html = view.render();
 
         this.$( '#chartsContainer' ).append( html );
       });
     },
 
 
-    createChart: function() {
-      console.log( 'Function: createChart' );
-      charts.create();
+    createChart: function( event ) {
+      event.preventDefault();
+
+      require(
+        [ 'chartModel' ],
+        function( ChartModel ) {
+          var form  = $( event.target ),
+              data  = form.serializeArray(),
+              chart = new ChartModel( data, { parse: true });
+
+          charts.add( chart );
+        }
+      );
     },
 
 
@@ -76,10 +88,14 @@ define([
               });
 
               this.$chartMenu
-                .append( html )
+                .append( html );
+
+              this.$chartMenu
                 .find( '#chartParams' )
                 .addClass( 'shown' );
-
+              this.$chartMenu
+                .find( '#paramInput-type' )
+                .val( type );
         }, this )
       );
     },
