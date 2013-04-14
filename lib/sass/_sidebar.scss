@@ -110,7 +110,10 @@
     }
 
     button {
+      position: relative;
+
       width: 100%;
+      height: 3em;
 
       border: 0;
 
@@ -122,6 +125,10 @@
       color: #fff;
 
       @include transition(background-color 0.2s ease-in);
+
+      &:before {
+        margin-right: 5px;
+      }
 
       &:hover {
         background-color: adjust-lightness($red, 15);
@@ -214,6 +221,20 @@
       }
     }
 
+    #chartSelectMenu {
+      button {
+        &:before {
+          position: relative;
+          display: block;
+
+          width: 100%;
+          height: 2em;
+
+          font-size: 1.5em;
+        }
+      }
+    }
+
     #sizeBtn {
       &:before {
         content: "\f054";
@@ -221,6 +242,16 @@
 
       &:hover {
        background-color: adjust-lightness($red, 15);
+      }
+    }
+
+    .chartItem {
+      h2, dl {
+        display: none;
+      }
+
+      &:before {
+        display: block;
       }
     }
 
@@ -327,7 +358,10 @@
   }
 }
 
+// this one is > li. :(
 .chartItem {
+  height: 92px;
+
   button {
     position: absolute;
 
@@ -378,5 +412,19 @@
 
       border-top: 2px solid $grey;
     }
+  }
+
+  &:before {
+    position: absolute;
+
+    line-height: 92px;
+
+    font-size: 3em;
+
+    padding-left: 0.5em;
+    top: 0;
+    left: 0;
+
+    display: none;
   }
 }

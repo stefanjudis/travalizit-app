@@ -34,8 +34,8 @@ define([
 
     addChart : function( chart ) {
       require( [ 'chartView' ], function( ChartView ) {
-        var view = new ChartView( chart );
-        var html = view.render();
+        var view = new ChartView( chart ),
+            html = view.render();
 
         this.$( '#chartsContainer' ).append( html );
       });
@@ -48,16 +48,26 @@ define([
       require(
         [ 'chartModel' ],
         function( ChartModel ) {
-          var form  = $( event.target ),
-              type  = form.find( '#paramInput-type' ).val(),
-              data  = form.serializeArray(),
-              chart = new ChartModel(
-                            data,
-                            {
-                              parse : true,
-                              url   : type
-                            }
-                          );
+          var form        = $( event.target ),
+              type        = form.find( '#paramInput-type' ).val(),
+              chartConfig = _.find( Config.charts, function( chart ) {
+                              return chart.name === type;
+                            }),
+              data        = form.serializeArray(),
+              chart;
+
+          data.push({
+            name  : 'icon',
+              value : chartConfig.icon
+          });
+
+          chart = new ChartModel(
+                        data,
+                        {
+                          parse : true,
+                          url   : type
+                        }
+                      );
 
           charts.push( chart );
         }
@@ -81,7 +91,7 @@ define([
           if ( this.$chartMenu.html() === '' ) {
             template = Handlebars.compile( ChartSelectTemplate );
             html     = template({
-                chartTypes : _.keys( Config.charts )
+                charts     : Config.charts
               });
 
             this.$chartMenu.html( html );
@@ -103,7 +113,12 @@ define([
               params   = this.$chartMenu.find( '#chartParams' ),
               template = Handlebars.compile( ChartParamsTemplate ),
               html     = template({
-                chartParams : Config.charts[ type ].params
+                chartParams : _.find(
+                                Config.charts,
+                                function( chart ) {
+                                  return chart.name === type;
+                                }
+                              ).params
               });
 
               if ( params.length && params.hasClass( 'shown' ) ) {

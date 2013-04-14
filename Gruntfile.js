@@ -20,8 +20,19 @@ module.exports = function(grunt) {
       }
     },
 
-    concurrent: {
-      target1: [ 'compass', 'jshint' ]
+    concurrent : {
+      target1 : [ 'compass', 'jshint', 'csscss' ]
+    },
+
+    csscss : {
+      options : {
+        colorize         : true,
+        showParserErrors : true
+      },
+      dist : {
+        src : [ 'assets/css/app.css' ]
+      }
+
     },
 
     pkg: grunt.file.readJSON( 'package.json' ),
@@ -64,6 +75,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks( 'grunt-contrib-jshint' );
   grunt.loadNpmTasks( 'grunt-contrib-watch' );
   grunt.loadNpmTasks( 'grunt-contrib-compass' );
+  grunt.loadNpmTasks('grunt-csscss');
   grunt.loadNpmTasks( 'grunt-concurrent' );
   //grunt.loadNpmTasks( 'grunt-contrib-nodeunit' );
 

@@ -7,22 +7,27 @@ define([
 
   var ChartView = Backbone.View.extend({
     tagName: 'li',
-    className: 'chartItem',
 
-    template: Handlebars.compile( ChartTemplate ),
+    className : function() {
+      console.log( this.attributes );
+      return 'chartItem fontawesome-' + this.attributes.icon;
+    },
 
-    events: {
+    template : Handlebars.compile( ChartTemplate ),
+
+    events : {
       'click button' : 'deleteChart'
     },
 
-    initialize: function( chart ) {
+
+    initialize : function( chart ) {
       this.model = chart;
 
       this.listenTo( this.model, 'destroy', this.remove );
     },
 
-    render: function() {
-      console.log( this.model );
+
+    render : function() {
       this.$el.html(
         this.template({
           id : this.model.cid,
@@ -33,11 +38,13 @@ define([
       return this.el;
     },
 
-    deleteChart: function() {
+
+    deleteChart : function() {
       this.model.destroy();
     },
 
-    remove: function() {
+
+    remove : function() {
       this.$el.addClass( 'removed' )
               .on(
                 'animationend webkitAnimationEnd otransitionend',

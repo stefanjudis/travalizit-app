@@ -1,8 +1,9 @@
 define([], function() {
   return {
-    charts : {
-      builds : {
-        srcPath : '/builds',
+    charts : [
+      {
+        icon   : 'wrench',
+        name   : 'builds',
         params : [
           'number',
           'status',
@@ -24,31 +25,34 @@ define([], function() {
           'result',
           'previous_result',
           'event_type'
-        ]
-      },
-      commits : {
+        ],
+        srcPath : '/builds'
+      }, {
+        icon : 'bookmark-empty',
+        name : 'commits'
 
-      },
-      dimensions : {
-
-      },
-      jobs : {
-
-      },
-      memberships : {
-
-      },
-      organizations : {
-
-      },
-      repositories : {
-
-      },
-      requests : {
-
-      },
-      urls : {
+      }, {
+        icon : 'th-large',
+        name : 'dimensions'
+      }, {
+        icon : 'suitcase',
+        name : 'jobs'
+      }, {
+        icon : 'group',
+        name : 'memberships'
+      }, {
+        icon : 'building',
+        name : 'organizations'
+      }, {
+        icon : 'hdd',
+        name : 'repositories'
+      }, {
+        icon : 'phone-sign',
+        name : 'requests'
+      }, {
+        icon : 'signout',
+        name : 'urls'
       }
-    }
+    ]
   };
 });

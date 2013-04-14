@@ -2,9 +2,9 @@
   <span>Which chart do you want?</span>
 
   <ul class="chartTypeList">
-    {{#each chartTypes}}
+    {{#each charts}}
     <li>
-      <button class="addChart" data-type="{{this}}">{{this}}</button>
+      <button class="addChart fontawesome-{{this.icon}}" data-type="{{this.name}}">{{this.name}}</button>
     </li>
     {{/each}}
   </ul>
