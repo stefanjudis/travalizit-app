@@ -11,16 +11,19 @@ define([
     // for not defined $el variable. ;)
     $el : $( this.el ),
 
+
     events: {
-      'click #addBtn' : 'createChart',
+      //'click #addBtn' : 'createChart',
       'click #sizeBtn' : 'toggleViewSize'
     },
+
 
     initialize: function() {
       charts = new Charts();
 
       this.listenTo( charts, 'add', this.addChart );
     },
+
 
     addChart: function( chart ) {
       require( [ 'chartView' ], function(ChartView) {
@@ -31,15 +34,18 @@ define([
       });
     },
 
+
     createChart: function() {
       console.log( 'Function: createChart' );
       charts.create();
     },
 
+
     toggleViewSize: function() {
       this.$el.toggleClass( 'minimized' );
     }
   });
+
 
   return AppView;
 });
