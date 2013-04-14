@@ -3,26 +3,25 @@ define([
   'backbone'
 ], function( _, Backbone) {
   var ChartModel = Backbone.Model.extend({
-    constructor: function() {
+    constructor : function() {
       Backbone.Model.apply(this, arguments);
     },
 
-    parse: function(data, options) {
+    parse : function(data, options) {
       var attributes = {};
 
-      _.each( data, function( index, value ) {
-        attributes[ value.name ] = value.value;
-      })
+      _.each( data, function( value ) {
+        attributes[ value.name.replace( 'paramInput-', '' ) ] = value.value;
+      });
 
       return attributes;
     },
 
 
-    initialize: function( data ) {
+    initialize : function( data ) {
       console.log( 'New ChartModel initialized!!!');
-      _.each( data, _.bind(function( index, value) {
-        this.set( value.name, value.value );
-      }, this));
+
+      this.fetch({ data : $.param( this.attributes ) });
     }
   });
 

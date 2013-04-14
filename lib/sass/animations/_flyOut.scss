@@ -1,0 +1,10 @@
+@include keyframes(flyOut) {
+  0% {
+    @include transform(translateX(0));
+  }
+
+  100% {
+    @include transform(translateX(-100%));
+  }
+
+}

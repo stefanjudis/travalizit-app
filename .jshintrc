@@ -15,6 +15,7 @@
   "predef": [
     "define",
     "requirejs",
-    "charts"
+    "charts",
+    "$"
   ]
 }

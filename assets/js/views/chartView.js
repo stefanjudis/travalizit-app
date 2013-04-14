@@ -22,7 +22,13 @@ define([
     },
 
     render: function() {
-      this.$el.html( this.template( { id : this.model.cid } ) );
+      console.log( this.model );
+      this.$el.html(
+        this.template({
+          id : this.model.cid,
+          attributes: this.model.attributes
+        })
+      );
 
       return this.el;
     },

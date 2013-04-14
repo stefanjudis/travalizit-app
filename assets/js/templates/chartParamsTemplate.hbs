@@ -1,0 +1,16 @@
+<div id="chartParams" class="animationContainer">
+  <span>Do you want to set params?</span>
+
+  <form id="chartParamsForm">
+    <ul id="chartParamsListchartT">
+      <input id="paramInput-type" name="paramInput-type" type="text">
+      {{#each chartParams}}
+      <li>
+        <input id="paramInput-{{this}}" name="paramInput-{{this}}" type="text" >
+        <label for="paramInput-{{this}}">{{this}}</label>
+      </li>
+      {{/each}}
+      <button>Create Chart!!!</button>
+    </ul>
+  </form>
+</div>

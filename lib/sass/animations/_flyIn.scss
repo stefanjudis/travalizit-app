@@ -1,0 +1,9 @@
+@include keyframes(flyIn) {
+  0% {
+    @include transform(translateX(-200%));
+  }
+
+  100% {
+    @include transform(translateX(0));
+  }
+}

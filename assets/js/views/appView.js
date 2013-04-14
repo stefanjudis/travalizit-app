@@ -48,8 +48,15 @@ define([
         [ 'chartModel' ],
         function( ChartModel ) {
           var form  = $( event.target ),
+              type  = form.find( '#paramInput-type' ).val(),
               data  = form.serializeArray(),
-              chart = new ChartModel( data, { parse: true });
+              chart = new ChartModel(
+                            data,
+                            {
+                              parse : true,
+                              url   : type
+                            }
+                          );
 
           charts.add( chart );
         }

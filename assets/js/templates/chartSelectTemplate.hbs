@@ -1,0 +1,11 @@
+<div id="chartTypes" class="animationContainer">
+  <span>Which chart do you want?</span>
+
+  <ul class="chartTypeList">
+    {{#each chartTypes}}
+    <li>
+      <button class="addChart" data-type="{{this}}">{{this}}</button>
+    </li>
+    {{/each}}
+  </ul>
+</div>
