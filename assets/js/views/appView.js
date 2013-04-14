@@ -28,7 +28,7 @@ define([
       this.$chartMenu = this.$el.find( '#chartSelectMenu' );
 
       this.listenTo( charts, 'add', this.addChart );
-      this.listenTo( charts, 'change', this.hideMenues );
+      this.listenTo( charts, 'add', this.hideMenues );
     },
 
 
@@ -59,10 +59,7 @@ define([
                             }
                           );
 
-          // TODO delegate that
-          chart.on( 'request', this.hideMenues );
-
-          charts.add( chart );
+          charts.push( chart );
         }
       );
     },
@@ -71,7 +68,7 @@ define([
     hideMenues : function() {
       // TODO cache that stuff
       $( '.animationContainer' )
-        .removeClass( 'shown' )
+        .removeClass( 'shown' );
     },
 
     showChartMenu : function() {
@@ -87,7 +84,7 @@ define([
                 chartTypes : _.keys( Config.charts )
               });
 
-            this.$chartMenu.html( html )
+            this.$chartMenu.html( html );
           }
 
           this.$chartMenu.find( '#chartTypes' )

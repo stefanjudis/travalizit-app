@@ -4,7 +4,6 @@ define([], function() {
       builds: {
         srcPath: '/builds',
         params: [
-          'id',
           'number',
           'status',
           'started_at',

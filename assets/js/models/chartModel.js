@@ -19,8 +19,6 @@ define([
 
 
     initialize : function( data ) {
-      console.log( 'New ChartModel initialized!!!');
-
       this.fetch({ data : $.param( this.attributes ) });
     },
 

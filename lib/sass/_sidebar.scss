@@ -282,16 +282,32 @@
   & > li {
     position: relative;
 
-    height: 5em;
     width: 100%;
 
-    padding: 1em;
+    padding: 0.5em;
 
     background-color: $grey;
     border-bottom: 1px solid $darkGrey;
 
     @include transition(background-color 0.2 linear, width 0.2s linear);
     @include animation(flyIn, 0.5s);
+
+    h2 {
+      width: 25%;
+
+      float: left;
+    }
+
+    dt {
+      font-size: 0.7em;
+      margin-left: 25%;
+    }
+
+    dd {
+      background-color: adjust-lightness($grey, 5);
+      margin: 2px 0 0 25%;
+      padding: 5px;
+    }
 
     &.removed {
       @include animation(flyOut, 0.5s);
