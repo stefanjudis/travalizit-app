@@ -57,8 +57,10 @@ define([
               chart;
 
           data.push({
-            name  : 'icon',
-              value : chartConfig.icon
+            name  : 'config',
+            value : {
+              icon: chartConfig.icon
+            }
           });
 
           chart = new ChartModel(

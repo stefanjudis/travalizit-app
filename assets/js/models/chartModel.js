@@ -19,9 +19,17 @@ define([
 
 
     initialize : function( data ) {
-      this.fetch({ data : $.param( this.attributes ) });
+      this.fetch({ data : this.getQueryParams() });
     },
 
+    getQueryParams : function() {
+      // filter config params
+      var queryParams = $.param(
+                          _.omit( this.attributes, 'config' )
+                        );
+
+      return queryParams;
+    }
   });
 
 
