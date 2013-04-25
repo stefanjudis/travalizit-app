@@ -10,4 +10,13 @@
   z-index: 1;
 
   @include transition( left 0.2s ease-in );
+
+  .svgChart {
+    display: block;
+
+    width: 33.33%;
+    height: 33.33%;
+
+    background-color: #fff;
+  }
 }

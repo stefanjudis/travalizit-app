@@ -21,13 +21,15 @@ module.exports = function(grunt) {
     },
 
     concurrent : {
-      target1 : [ 'compass', 'jshint', 'csscss' ]
+      target1 : [ 'compass', 'jshint' ],
+      target2 : [ 'csscss' ]
     },
 
     csscss : {
       options : {
         colorize         : true,
-        showParserErrors : true
+        showParserErrors : true,
+        minMatch         : 5
       },
       dist : {
         src : [ 'assets/css/app.css' ]
@@ -80,6 +82,6 @@ module.exports = function(grunt) {
   //grunt.loadNpmTasks( 'grunt-contrib-nodeunit' );
 
   // Default task.
-  grunt.registerTask( 'default', [ 'concurrent:target1' ]);
+  grunt.registerTask( 'default', [ 'concurrent:target1', 'concurrent:target2' ]);
   //grunt.registerTask('travis', ['jshint', 'nodeunit']);
 };

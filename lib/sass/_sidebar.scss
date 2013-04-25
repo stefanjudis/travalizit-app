@@ -19,11 +19,24 @@
 
   @include box-shadow(-1px 0 3px #000 inset);
 
-  #addBtn {
+  #addBtn, #sizeBtn {
     position: absolute;
-
     height: image-height("header/travis64.png");
 
+    margin: 1em;
+
+    overflow: hidden;
+
+    @include border-radius(3px);
+
+    &:before {
+      position: absolute;
+      width: image-width("header/travis64.png");
+      height: image-height("header/travis64.png");
+    }
+  }
+
+  #addBtn {
     left: 0;
     right: 0;
     top: 5em;
@@ -32,13 +45,8 @@
     border: 0;
     color: $lightGrey;
 
-    margin: 1em;
-
-    overflow: hidden;
 
     @include transition( background-color 0.2s ease-in, width 0.2s ease-in, height 0.2s ease-in, padding 0.2s ease-in 0.4s);
-
-    @include border-radius(3px);
 
     &:hover {
       background-color: adjust-lightness($grey, 10);
@@ -51,10 +59,6 @@
     &:before {
       content: "+";
 
-      position: absolute;
-
-      width: image-width("header/travis64.png");
-      height: image-height("header/travis64.png");
 
       top: image-height("header/travis64.png");
       left: 0;
@@ -166,17 +170,10 @@
   }
 
   #sizeBtn {
-    position: absolute;
-
     width: image-width("header/travis64.png");
-    height: image-height("header/travis64.png");
-
-    overflow: hidden;
 
     top: 0;
     left: 100%;
-
-    margin: 1em;
 
     background-color: $red;
 
@@ -186,18 +183,11 @@
 
     @include transition(background-color 0.2s ease-in);
 
-    @include border-radius(3px);
-
     &:before {
       content: "\f053";;
 
-      position: absolute;
-
       top: 0;
       left: 0;
-
-      width: image-width("header/travis64.png");
-      height: image-height("header/travis64.png");
 
       color: white;
       font-size: 36px;
