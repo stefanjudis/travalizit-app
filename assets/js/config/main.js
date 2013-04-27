@@ -27,11 +27,16 @@ requirejs.config({
     chartSvgItem        : 'templates/chartSvgItemTemplate.hbs',
 
     config : 'config/config'
+  },
+  shim : {
+    d3 : {
+      exports : 'd3'
+    }
   }
 });
 
 // Start the main app logic.
-requirejs([ 'appView' ], function( AppView ) {
+requirejs([ 'appView', 'd3' ], function( AppView, d3 ) {
   var charts;
 
   new AppView();
