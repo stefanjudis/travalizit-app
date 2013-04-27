@@ -27,8 +27,7 @@
 
   @include box-shadow( 0 2px 5px $darkGrey );
 
-  @include transform(translateX(-200%));
-  @include transition( flyIn, 0.5s );
+  @include animation( flyIn, 0.5s );
 
   .closeBtn {
     position: relative;
