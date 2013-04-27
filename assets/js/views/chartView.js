@@ -10,7 +10,7 @@ define([
 
     className : function() {
       console.log( this.attributes );
-      return 'chartItem fontawesome-' + this.attributes.icon;
+      return 'chartItem fontawesome-' + this.attributes.config.icon;
     },
 
     template : Handlebars.compile( ChartTemplate ),
