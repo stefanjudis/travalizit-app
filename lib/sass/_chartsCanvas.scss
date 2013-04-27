@@ -70,6 +70,18 @@
     }
   }
 
+  .analyzeBtn, .analyzeBtnText {
+    cursor: pointer;
+  }
+
+  .analyzeBtn {
+    fill: adjust-lightness( $darkGrey, 50 );
+  }
+
+  .analyzeBtnText {
+    fill: $darkGrey;
+  }
+
   .axis {
     path, line {
       fill: none;
@@ -80,12 +92,31 @@
 
   .bar {
     fill: $red;
+    cursor: pointer;
 
-    @include transition( fill 0.2s ease-in );
-
-    &:hover {
-      background-color: adjust-lightness($red, 10);
+    &.active {
+      fill: adjust-lightness( $red, 10 );
     }
+  }
+
+  .closeBtnSvg, .closeBtnSvgText {
+    cursor: pointer;
+  }
+
+  .closeBtnSvg {
+    fill: $darkGrey;
+  }
+
+  .closeBtnSvgText {
+    fill: #fff;
+  }
+
+  .detailInformation {
+    fill: $lightGrey;
+  }
+
+  .date, .label, .value {
+    fill: $darkGrey;
   }
 
   .topBar {
