@@ -27,18 +27,28 @@ define([
 
       this.$chartMenu = this.$el.find( '#chartSelectMenu' );
 
-      this.listenTo( charts, 'add', this.addChart );
+      this.listenTo( charts, 'add', this.addCharts );
       this.listenTo( charts, 'add', this.hideMenues );
     },
 
 
-    addChart : function( chart ) {
-      require( [ 'chartView' ], function( ChartView ) {
-        var view = new ChartView( chart ),
-            html = view.render();
+    addCharts : function( chart ) {
+      require(
+        [ 'chartView', 'chartSVGView' ],
+        function( ChartView, ChartSVGView) {
+          var chartView    = new ChartView( chart ),
+              chartHtml    = chartView.render(),
+              SVGView      = new ChartSVGView( chart ),
+              svgHtml      = SVGView.render();
 
-        this.$( '#chartsContainer' ).append( html );
-      });
+
+          this.$( '#chartsContainer' ).append( chartHtml );
+
+          // TODO change this
+          // shouldn't query the whole dom
+          $( '#chartsCanvas' ).append( svgHtml );
+        }
+      );
     },
 
 
@@ -47,7 +57,7 @@ define([
 
       require(
         [ 'chartModel' ],
-        function( ChartModel ) {
+        _.bind(function( ChartModel ) {
           var form        = $( event.target ),
               type        = form.find( '#paramInput-type' ).val(),
               chartConfig = _.find( Config.charts, function( chart ) {
@@ -78,9 +88,12 @@ define([
 
 
     hideMenues : function() {
-      // TODO cache that stuff
-      $( '.animationContainer' )
-        .removeClass( 'shown' );
+      $( '.animationContainer' ).removeClass( 'shown' );
+
+      // that's super dirty... :()
+      setTimeout( _.bind(function() {
+        this.$chartMenu.hide();
+      }, this) , 500 );
     },
 
     showChartMenu : function() {
@@ -89,6 +102,8 @@ define([
         _.bind(function( Handlebars, ChartSelectTemplate ) {
           var template,
               html;
+
+          this.$chartMenu.show();
 
           if ( this.$chartMenu.html() === '' ) {
             template = Handlebars.compile( ChartSelectTemplate );
@@ -123,9 +138,13 @@ define([
                               ).params
               });
 
+              this.$chartMenu.show();
+
               if ( params.length && params.hasClass( 'shown' ) ) {
                 params.removeClass( 'shown' );
 
+                // hmm should we unbind that somehow
+                // do we run into any trouble????
                 params.on(
                   'animationend webkitAnimationEnd otransitionend',
                   _.bind(function() {
