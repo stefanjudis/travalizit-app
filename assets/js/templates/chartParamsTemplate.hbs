@@ -6,8 +6,8 @@
       <input id="paramInput-type" name="paramInput-type" type="text">
       {{#each chartParams}}
       <li>
-        <input id="paramInput-{{this}}" name="paramInput-{{this}}" type="text" >
-        <label for="paramInput-{{this}}">{{this}}</label>
+        <input id="paramInput-{{this.name}}" name="paramInput-{{this.name}}" type="{{this.type}}" >
+        <label for="paramInput-{{this.name}}">{{this.name}}</label>
       </li>
       {{/each}}
       <button>Create Chart!!!</button>
