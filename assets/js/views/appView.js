@@ -67,12 +67,12 @@ define([
                         data,
                         {
                           parse : true,
-                          url   : type
+                          url   : chartConfig.url
                         }
                       );
 
           charts.push( chart );
-        }
+        }, this)
       );
     },
 
