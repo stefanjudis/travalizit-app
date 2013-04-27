@@ -95,13 +95,29 @@
     background-color: $darkGrey;
   }
 
+  h3 {
+    outline: 0;
+
+    color: $lightGrey;
+    float :left;
+
+    margin: 0;
+    padding: 0 0 0 1em;
+
+    font-size: 1.5em;
+    font-weight: 200;
+    line-height: 2em;
+
+    height: 2em;
+  }
+
   &:after {
     position: absolute;
 
     left: 100%;
     top: 0;
 
-    width: 10%;
+    width: 8%;
     height: 2em;
 
     line-height: 2em;
@@ -112,7 +128,7 @@
     color: #fff;
 
     background-color: adjust-lightness( $darkGrey, 10 );
-    @include box-shadow( inset 1px 0 2px #000);
+    @include box-shadow( inset 1px 0 2px #000 );
   }
 
   &.removed {
