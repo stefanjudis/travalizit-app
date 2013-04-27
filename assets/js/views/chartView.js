@@ -16,7 +16,10 @@ define([
     template : Handlebars.compile( ChartTemplate ),
 
     events : {
-      'click button' : 'deleteChart'
+      'click button' : 'deleteChart',
+      'mouseenter'   : 'highlightChart',
+      'mouseleave'   : 'unhighlighChart'
+
     },
 
 
@@ -43,6 +46,10 @@ define([
       this.model.destroy();
     },
 
+    highlightChart : function() {
+      this.model.set( 'highlighted', true );
+
+    },
 
     remove : function() {
       this.$el.addClass( 'removed' )
@@ -52,6 +59,10 @@ define([
                   this.$el.remove();
                 }, this )
               );
+    },
+
+    unhighlighChart : function() {
+      this.model.set( 'highlighted', false );
     }
 
   });

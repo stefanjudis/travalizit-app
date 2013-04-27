@@ -13,7 +13,7 @@ define([], function() {
           }, {
             name         : 'endDate',
             type         : 'date',
-            defaultValue : '2012-10-23'
+            defaultValue : '2012-10-25'
           }
         ]
       }

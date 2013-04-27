@@ -22,6 +22,7 @@ define([
 
       this.listenTo( this.model, 'destroy', this.remove );
       this.listenTo( this.model, 'sync', this.render );
+      this.listenTo( this.model, 'change:highlighted', this.handleModelHighlight );
     },
 
 
@@ -102,6 +103,13 @@ define([
       this.model.destroy();
     },
 
+    handleModelHighlight : function( model, highlighted ) {
+      if ( highlighted ) {
+        this.$el.addClass( 'highlighted' );
+      } else {
+        this.$el.removeClass( 'highlighted' );
+      }
+    },
 
     remove : function() {
       this.$el.addClass( 'removed' )

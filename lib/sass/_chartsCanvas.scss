@@ -29,7 +29,6 @@
   text-align: center;
 
   @include box-shadow( 0 2px 5px $darkGrey );
-
   @include animation( flyIn, 0.5s );
 
   .closeBtn {
@@ -109,6 +108,8 @@
     line-height: 2em;
 
     height: 2em;
+
+    @include transition( color 0.2s ease-in);
   }
 
   &:after {
@@ -129,6 +130,12 @@
 
     background-color: adjust-lightness( $darkGrey, 10 );
     @include box-shadow( inset 1px 0 2px #000 );
+  }
+
+  &.highlighted {
+    h3 {
+      color: $red;
+    }
   }
 
   &.removed {
