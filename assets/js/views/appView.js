@@ -25,7 +25,8 @@ define([
     initialize : function() {
       charts = new Charts();
 
-      this.$chartMenu = this.$el.find( '#chartSelectMenu' );
+      this.$chartMenu    = this.$el.find( '#chartSelectMenu' );
+      this.$chartsCanvas = $( '#chartsCanvas' );
 
       this.listenTo( charts, 'add', this.addCharts );
       this.listenTo( charts, 'add', this.hideMenues );
@@ -35,7 +36,7 @@ define([
     addCharts : function( chart ) {
       require(
         [ 'chartView', 'chartSVGView' ],
-        function( ChartView, ChartSVGView) {
+        _.bind(function( ChartView, ChartSVGView) {
           var chartView    = new ChartView( chart ),
               chartHtml    = chartView.render(),
               SVGView      = new ChartSVGView( chart ),
@@ -46,8 +47,10 @@ define([
 
           // TODO change this
           // shouldn't query the whole dom
-          $( '#chartsCanvas' ).append( svgHtml );
-        }
+          this.$chartsCanvas.append( svgHtml );
+
+          this.$chartsCanvas.find( '.svgChartItem' ).addClass( 'shown' );
+        }, this )
       );
     },
 

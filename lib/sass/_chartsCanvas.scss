@@ -25,7 +25,10 @@
 
   background-color: #fff;
 
-  @include box-shadow( 0 2px 5px $darkGrey);
+  @include box-shadow( 0 2px 5px $darkGrey );
+
+  @include transform(translateX(-200%));
+  @include transition( flyIn, 0.5s );
 
   .closeBtn {
     position: relative;
@@ -43,7 +46,8 @@
 
     color: transparent;
 
-    @include transition( background-color 0.2s ease-in);
+    @include transition( background-color 0.2s ease-in );
+
 
     &:before {
       position: absolute;
@@ -69,5 +73,9 @@
     height: 3em;
 
     background-color: $darkGrey;
+  }
+
+  &.removed {
+    @include animation( flyOut, 0.5s );
   }
 }
