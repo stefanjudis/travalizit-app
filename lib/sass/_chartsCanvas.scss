@@ -17,6 +17,7 @@
 
 .svgChartItem {
   display: block;
+  position: relative;
 
   width: 46%;
   height: 29.33%;
@@ -92,6 +93,26 @@
     height: 3em;
 
     background-color: $darkGrey;
+  }
+
+  &:after {
+    position: absolute;
+
+    left: 100%;
+    top: 0;
+
+    width: 10%;
+    height: 2em;
+
+    line-height: 2em;
+
+    content: "\f0e4";
+    font-family: 'FontAwesome', sans-serif;
+    font-size: 1.5em;
+    color: #fff;
+
+    background-color: adjust-lightness( $darkGrey, 10 );
+    @include box-shadow( inset 1px 0 2px #000);
   }
 
   &.removed {
