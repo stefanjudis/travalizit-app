@@ -25,6 +25,8 @@
 
   background-color: #fff;
 
+  text-align: center;
+
   @include box-shadow( 0 2px 5px $darkGrey );
 
   @include animation( flyIn, 0.5s );
@@ -62,6 +64,24 @@
       font-size: 1.5em;
       line-height: 1.3333em;
     }
+
+    &:hover {
+      background-color: adjust-lightness($red, 10);
+    }
+  }
+
+  .axis {
+    path, line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+  }
+
+  .bar {
+    fill: $red;
+
+    @include transition( fill 0.2s ease-in );
 
     &:hover {
       background-color: adjust-lightness($red, 10);
