@@ -122,6 +122,63 @@ define([
                             return d.day.substr( 0, 10 );
                           }
                         );
+
+      this.svgSuccessBars = this.svg.selectAll( '.successBar' )
+                              .data( data )
+                              .enter().append( 'rect' )
+                              .attr( 'class', 'successBar' )
+                              .attr( 'x', function( d ) { return x( d.day ); } )
+                              .attr( 'width', x.rangeBand() )
+                              .attr( 'y', function( d ) { return y( d.successful ); } )
+                              .attr( 'data-action-click', 'handleBarClick' )
+                              .transition()
+                              .attr(
+                                'height',
+                                function( d ) {
+                                  return height - y( d.successful );
+                                }
+                              )
+                              .attr( 'data-label', 'Count' )
+                              .attr(
+                                'data-value',
+                                function( d ) {
+                                  return d.successful;
+                                }
+                              )
+                              .attr(
+                                'data-date',
+                                function( d ) {
+                                  return d.day.substr( 0, 10 );
+                                }
+                              );
+
+      this.svgSuccessThumbs = this.svg.selectAll( '.successStar' )
+                              .data( data )
+                              .enter().append( 'text' )
+                              .attr( 'class', 'successStar' )
+                              .attr( 'x', function( d ) { return x( d.day ) + x.rangeBand() / 2  - 12; } )
+                              .attr(
+                                'y',
+                                function( d ) {
+                                  var yPos = y( d.successful );
+
+                                  // adding half font size as well
+                                  return yPos + ( height - yPos ) / 2 + 12 ;
+                                }
+                              )
+                              .attr( 'data-action-click', 'handleBarClick' )
+                              .text(
+                                function( d ) {
+                                  var returnValue = '';
+
+                                  if ( ( height - y( d.successful ) ) > 26 ) {
+                                    returnValue = '☆';
+                                  }
+
+                                  return returnValue;
+                                }
+
+                              );
     },
 
 
