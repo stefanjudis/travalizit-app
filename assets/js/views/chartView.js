@@ -27,6 +27,7 @@ define([
       this.model = chart;
 
       this.listenTo( this.model, 'destroy', this.remove );
+      this.listenTo( this.model, 'change:name', this.render );
     },
 
 

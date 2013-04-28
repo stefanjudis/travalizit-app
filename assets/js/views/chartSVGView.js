@@ -14,7 +14,8 @@ define([
 
     events : {
       'click button' : 'deleteChart',
-      'click svg'    : 'handleSvgClick'
+      'click svg'    : 'handleSvgClick',
+      'blur h3'    : 'handleNameChange'
     },
 
 
@@ -29,7 +30,9 @@ define([
 
     render : function() {
       var html = this.$el.html(
-                this.template()
+                this.template({
+                  name : this.model.get( 'name' )
+                })
               );
 
       // if data is already fetched
@@ -143,6 +146,10 @@ define([
       }
 
       this.showDetailInformation( event.offsetX, event.offsetY, target );
+    },
+
+    handleNameChange : function( event ) {
+      this.model.set( 'name', event.target.innerText );
     },
 
     handleSvgClick : function( event ) {

@@ -140,6 +140,8 @@
 
     height: 2em;
 
+    cursor: pointer;
+
     @include transition( color 0.2s ease-in);
   }
 

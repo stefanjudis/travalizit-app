@@ -3,6 +3,10 @@ define([
   'backbone'
 ], function( _, Backbone) {
   var ChartModel = Backbone.Model.extend({
+    defaults : {
+      name : 'Super fancy chart'
+    },
+
     parse : function(data, options) {
       var attributes = {};
 
