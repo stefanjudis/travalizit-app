@@ -95,7 +95,7 @@
     cursor: pointer;
 
     &.active {
-      fill: adjust-lightness( $red, 10 );
+      fill: adjust-lightness( $red, 15 );
     }
   }
 

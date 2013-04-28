@@ -91,19 +91,34 @@ define([
           .style( 'text-anchor', 'end' )
           .text( 'Builds' );
 
-      this.svg.selectAll( '.bar' )
-          .data( data )
-          .enter().append( 'rect' )
-          .attr( 'class', 'bar' )
-          .attr( 'x', function( d ) { return x( d.day ); } )
-          .attr( 'width', x.rangeBand() )
-          .attr( 'y', function( d ) { return y( d.count ); } )
-          .attr( 'data-action-click', 'handleBarClick' )
-          .transition()
-          .attr( 'height', function( d ) { return height - y( d.count ); } )
-          .attr( 'data-label', 'Count' )
-          .attr( 'data-value', function( d ) { return d.count } )
-          .attr( 'data-date', function( d ) { return d.day.substr( 0, 10 ); } );
+      this.svgBars = this.svg.selectAll( '.bar' )
+                        .data( data )
+                        .enter().append( 'rect' )
+                        .attr( 'class', 'bar' )
+                        .attr( 'x', function( d ) { return x( d.day ); } )
+                        .attr( 'width', x.rangeBand() )
+                        .attr( 'y', function( d ) { return y( d.count ); } )
+                        .attr( 'data-action-click', 'handleBarClick' )
+                        .transition()
+                        .attr(
+                          'height',
+                          function( d ) {
+                            return height - y( d.count );
+                          }
+                        )
+                        .attr( 'data-label', 'Count' )
+                        .attr(
+                          'data-value',
+                          function( d ) {
+                            return d.count;
+                          }
+                        )
+                        .attr(
+                          'data-date',
+                          function( d ) {
+                            return d.day.substr( 0, 10 );
+                          }
+                        );
     },
 
 
@@ -122,17 +137,12 @@ define([
     handleBarClick : function( event, target ) {
       var detailInformation = this.svg.select( '.detailInformation' ),
           d3Target = d3.select( target );
-      // var value = target.attributes.getNamedItem( 'data-value' );
-
-      this.showDetailInformation( event.offsetX, event.offsetY, target );
 
       if ( detailInformation instanceof Array && detailInformation[0][0] ) {
         this.hideDetailInformation( detailInformation );
-
-        d3Target.attr(
-          'class', d3Target.attr( 'class' ).replace( 'active', '' )
-        );
       }
+
+      this.showDetailInformation( event.offsetX, event.offsetY, target );
     },
 
     handleSvgClick : function( event ) {
@@ -164,6 +174,11 @@ define([
         .each( 'end', function() {
           this.parentNode.remove();
         });
+
+      // that feels totally hacky :(
+      this.svgBars[ 0 ].forEach( function( bar, i ) {
+        bar.classList.remove( 'active' );
+      } );
     },
 
     remove : function() {
