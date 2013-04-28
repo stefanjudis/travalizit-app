@@ -163,6 +163,8 @@
 
     background-color: adjust-lightness( $darkGrey, 10 );
     @include box-shadow( inset 1px 0 2px #000 );
+
+    cursor: move;
   }
 
   &.highlighted {

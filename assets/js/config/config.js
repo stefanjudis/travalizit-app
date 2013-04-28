@@ -4,16 +4,16 @@ define([], function() {
       {
         icon   : 'dashboard',
         name   : 'Builds per Time',
-        url   : 'builds',
+        url    : 'builds',
         params : [
           {
             name         : 'startDate',
             type         : 'date',
-            defaultValue : '2012-10-21'
+            defaultValue : '2012-04-27'
           }, {
             name         : 'endDate',
             type         : 'date',
-            defaultValue : '2012-10-25'
+            defaultValue : '2012-05-05'
           }
         ]
       }

@@ -77,7 +77,7 @@ define([
       console.log( data );
 
       x.domain( data.map( function( d ) { return d.day.substring( 0, 10 ); } ) );
-      y.domain( [ 0, d3.max( data, function( d ) { return d.count; } ) ] );
+      y.domain( [ 0, d3.max( data, function( d ) { return d.totalbuilds; } ) ] );
 
       this.svg.append( 'g' )
           .attr( 'class', 'x axis' )
@@ -100,20 +100,20 @@ define([
                         .attr( 'class', 'bar' )
                         .attr( 'x', function( d ) { return x( d.day ); } )
                         .attr( 'width', x.rangeBand() )
-                        .attr( 'y', function( d ) { return y( d.count ); } )
+                        .attr( 'y', function( d ) { return y( d.totalbuilds ); } )
                         .attr( 'data-action-click', 'handleBarClick' )
                         .transition()
                         .attr(
                           'height',
                           function( d ) {
-                            return height - y( d.count );
+                            return height - y( d.totalbuilds );
                           }
                         )
                         .attr( 'data-label', 'Count' )
                         .attr(
                           'data-value',
                           function( d ) {
-                            return d.count;
+                            return d.totalbuilds;
                           }
                         )
                         .attr(
