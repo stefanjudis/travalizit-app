@@ -357,50 +357,46 @@
 
     overflow: hidden;
 
-    padding: 1.5em 0 0 0;
+    padding: 1.2em 0 0 0;
 
-    width: 1.5em;
-    height: 1.5em;
-    line-height: 1.5em;
+    width: 1.2em;
+    height: 1.2em;
+    line-height: 1.2em;
     text-align: center;
-    color: $red;
+    font-size: 1.2em;
+
+    color: #fff;
 
     opacity: 0;
 
-    top: 0.5em;
-    right: 5%;
+    top: 0.3333em;
+    right: 2%;
 
     border: 0;
+    background-color: transparent;
 
-    @include transition(opacity 0.5s ease-in, border-color 0.2s ease-in);
+    @include transition(opacity 0.5s ease-in, background-color 0.2s ease-in);
 
     &:hover {
-      &:before, &:after {
-        border-color: $red;
+      &:after {
+        background-color: $red;
       }
     }
 
-    &:before, &:after {
-      content: '';
+    &:after {
+      content: "\f014";
 
       position: absolute;
-      width: 2em;
-      height: 2em;
+      width: 1.2em;
+      height: 1.2em;
+      line-height: 1.2em;
 
-      @include rotate(45deg);
-    }
+      top: 0;
+      left: 0;
 
-    &:before {
-      top: -1em;
-      left: -1em;
-      border-right: 2px solid $grey;
-    }
+      text-align: center;
 
-    &:after {
-      top: 0.4em;
-      left: -1em;
-
-      border-top: 2px solid $grey;
+      font-family: 'FontAwesome', sans-serif;
     }
   }
 
