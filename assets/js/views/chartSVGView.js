@@ -13,9 +13,15 @@ define([
     template : Handlebars.compile( ChartSvgItem ),
 
     events : {
-      'click button' : 'deleteChart',
-      'click svg'    : 'handleSvgClick',
-      'blur h3'    : 'handleNameChange'
+      'click .closeBtn'     : 'deleteChart',
+
+      'click svg'           : 'handleSvgClick',
+
+      'blur h3'             : 'handleNameChange',
+
+      'dragend .changeSizeBtn' : 'changeViewSize',
+      'dragstart .moveBtn'     : 'moveViewStart',
+      'dragend .moveBtn'       : 'moveView'
     },
 
 
@@ -43,6 +49,7 @@ define([
       return html;
     },
 
+
     renderSvg : function() {
       var margin = { top: 20, right: 20, bottom: 30, left: 80 },
           width  = this.$el.width() - margin.left - margin.right,
@@ -64,9 +71,14 @@ define([
                     .scale( y )
                     .orient( 'left' ),
 
-          data = this.model.get( 'data' );
+          data = this.model.get( 'data' ),
 
-      this.svg = d3.select( this.el ).append( 'svg' )
+          d3el = d3.select( this.el );
+
+      //remove old svg for example after resize
+      d3el.select( 'svg' ).remove();
+
+      this.svg = d3el.append( 'svg' )
               .attr( 'width', width + margin.left + margin.right )
               .attr( 'height', height +  margin.top + margin.bottom )
               .append( 'g' )
@@ -193,9 +205,23 @@ define([
     },
 
 
+    changeViewSize : function( event ) {
+      var origEvent = event.originalEvent,
+          width     = this.$el.width() + origEvent.offsetX,
+          height    = this.$el.height() + origEvent.offsetY;
+
+      this.$el.width( width );
+      this.$el.height( height );
+
+      this.renderSvg();
+      origEvent.preventDefault();
+    },
+
+
     deleteChart : function() {
       this.model.destroy();
     },
+
 
     handleModelHighlight : function( model, highlighted ) {
       if ( highlighted ) {
@@ -204,6 +230,7 @@ define([
         this.$el.removeClass( 'highlighted' );
       }
     },
+
 
     handleBarClick : function( event, target ) {
       var detailInformation = this.svg.select( '.detailInformation' ),
@@ -216,9 +243,11 @@ define([
       this.showDetailInformation( event.offsetX, event.offsetY, target );
     },
 
+
     handleNameChange : function( event ) {
       this.model.set( 'name', event.target.innerText );
     },
+
 
     handleSvgClick : function( event ) {
       var target     = event.target,
@@ -230,9 +259,11 @@ define([
       }
     },
 
+
     handleDetailClick : function() {
       this.hideDetailInformation();
     },
+
 
     hideDetailInformation : function( detailInformation ) {
       var information = detailInformation || this.svg.select( '.detailInformation' );
@@ -264,6 +295,23 @@ define([
       } );
     },
 
+
+    moveViewStart : function( event ) {
+
+    },
+
+    moveView : function( event ) {
+
+      var origEvent = event.originalEvent,
+          posX      = ( origEvent.offsetX >= 0 ) ? origEvent.offsetX : 0,
+          posY      = ( origEvent.offsetY >= 0 ) ? origEvent.offsetY : 0;
+
+      this.$el.addClass( 'moved' );
+
+      this.$el.css( 'top', posY );
+      this.$el.css( 'left', posX );
+    },
+
     remove : function() {
       this.$el.addClass( 'removed' )
               .on(
@@ -273,6 +321,7 @@ define([
                 }, this )
               );
     },
+
 
     showDetailInformation : function( x, y, target ) {
       var width        = 240,
