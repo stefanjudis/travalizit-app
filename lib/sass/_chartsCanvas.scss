@@ -90,17 +90,16 @@
     }
   }
 
+  .bar, .closeBtnSvg, .closeBtnSvgText, .successBar, .successStar {
+    cursor: pointer;
+  }
+
   .bar {
     fill: $red;
-    cursor: pointer;
 
     &.active {
       fill: adjust-lightness( $red, 15 );
     }
-  }
-
-  .closeBtnSvg, .closeBtnSvgText {
-    cursor: pointer;
   }
 
   .closeBtnSvg {
@@ -121,7 +120,6 @@
 
   .successBar {
     fill: adjust-lightness( $red, 10 );
-    cursor: pointer;
   }
 
   .successStar {

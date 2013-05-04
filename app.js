@@ -42,7 +42,10 @@ fs.readdir( apiPath, function( err, files ) {
         source   = require( apiPath + '/' + callPath);
 
     Object.keys( source ).forEach( function( verb ) {
-      app[ verb ]( callPath, source[ verb ] );
+      // ignore "privates"
+      if ( verb[ 0 ] !== '_' ) {
+        app[ verb ]( callPath, source[ verb ] );
+      }
     });
   });
 });

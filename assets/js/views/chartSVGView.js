@@ -152,7 +152,7 @@ define([
                                 }
                               );
 
-      this.svgSuccessThumbs = this.svg.selectAll( '.successStar' )
+      this.svgSuccessStars = this.svg.selectAll( '.successStar' )
                               .data( data )
                               .enter().append( 'text' )
                               .attr( 'class', 'successStar' )
@@ -178,6 +178,19 @@ define([
                                   return returnValue;
                                 }
 
+                              )
+                              .attr( 'data-label', 'Count' )
+                              .attr(
+                                'data-value',
+                                function( d ) {
+                                  return d.successful;
+                                }
+                              )
+                              .attr(
+                                'data-date',
+                                function( d ) {
+                                  return d.day.substr( 0, 10 );
+                                }
                               );
     },
 
@@ -239,6 +252,14 @@ define([
           this.parentNode.remove();
         });
 
+      information
+        .selectAll( '.arc' )
+        .transition()
+        .attr( 'height', 0 )
+        .each( 'end', function() {
+          this.parentNode.remove();
+        });
+
       // that feels totally hacky :(
       this.svgBars[ 0 ].forEach( function( bar, i ) {
         bar.classList.remove( 'active' );
@@ -256,26 +277,55 @@ define([
     },
 
     showDetailInformation : function( x, y, target ) {
-      var width     = 120,
-          height    = 120,
-          xPos      = x - 80 - width / 2,
-          yPos      = y - 20 - height / 4,
-          svgWidth  = this.svg.attr( 'data-width' ) - 80, // it's translated
-          svgHeight = this.svg.attr( 'data-height' ) - 20,     // it's translated
-          d3Target  = d3.select( target ),
-          date      = d3Target.attr( 'data-date' ),
-          label     = d3Target.attr( 'data-label' ),
-          value     = d3Target.attr( 'data-value' ),
+      var width        = 240,
+          height       = 140,
+          xPos         = x - 80 - width / 2,
+          yPos         = y - 20 - height / 4,
+          svgWidth     = this.svg.attr( 'data-width' ) - 80, // it's translated
+          svgHeight    = this.svg.attr( 'data-height' ) - 20,     // it's translated
+          d3Target     = d3.select( target ),
+          date         = d3Target.attr( 'data-date' ),
+          label        = d3Target.attr( 'data-label' ),
+          value        = d3Target.attr( 'data-value' ),
+
+          // data to to work with
+
+          // pie stuff
+          dayData      = this.model.get( 'data' ).filter( function( object ) {
+                            return object.day.match( target.dataset.date );
+                          } )[ 0 ],
+          circleData   = _.filter( _.map( dayData, function( value, name ) {
+                            var returnValue = false;
+                            if ( +value === value ) {
+                              returnValue = {
+                                name  : name,
+                                value : value
+                              };
+                            }
+
+                            return returnValue;
+                        }), function( value ) {
+                          return value;
+                        }),
+          circleWidth  = 100,
+          circleHeight = 100,
+          radius       = Math.min( circleWidth, circleHeight) / 2,
+          color        = d3.scale.ordinal()
+                            .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]),
+          arc,
+          pie,
+          pieGroup,
+
           detailInformation;
 
       d3Target.attr( 'class', d3Target.attr( 'class' ) + ' active' );
 
-      if ( xPos > ( +svgWidth - width / 4 ) ) {
-        xPos = +svgWidth - width / 4;
+      if ( xPos >= ( +svgWidth - width / 2 - 30 ) ) {
+        xPos = +svgWidth - width / 2 - 30;
       }
 
       // that's 'pi mal daumen' - i know
-      if ( yPos > ( +svgHeight - height / 2 - 20 ) ) {
+      if ( yPos >= ( +svgHeight - height / 2 - 20 ) ) {
         yPos = +svgHeight - height / 2 - 20;
       }
 
@@ -341,6 +391,36 @@ define([
                         .attr( 'x', 25 )
                         .attr( 'y', height - 8 )
                         .text( 'Analyze!!!' );
+
+      arc = d3.svg.arc()
+          .outerRadius(radius - 10)
+          .innerRadius(radius - 30);
+
+      pie = d3.layout.pie()
+          .sort( null )
+          .value( function( d ) { return d.value; } );
+
+      pieGroup = detailInformation.selectAll( '.arc' )
+            .data( pie( circleData ) )
+            .enter().append( 'g' )
+            .attr( 'class', 'arc' )
+            .attr( 'transform', 'translate('+  ( width - ( circleWidth / 2 ) - 10 ) + ',' + ( circleHeight / 2 ) + ')' );
+
+      pieGroup.append( 'path' )
+          .attr( 'd', arc )
+          .style( 'fill', function( d ) {
+           return color( d.value ) ; } );
+
+      pieGroup.append( 'text' )
+          .attr(
+            'transform',
+            function( d ) {
+              return 'translate(' + arc.centroid( d.name ) + ')';
+            }
+          )
+          .attr( 'dy', '.35em' )
+          .style( 'text-anchor', 'middle' )
+          .text( function( d ) { return d.value; } );
     }
   });
 
