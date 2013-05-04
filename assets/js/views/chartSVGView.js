@@ -409,13 +409,14 @@ define([
       pieGroup.append( 'path' )
           .attr( 'd', arc )
           .style( 'fill', function( d ) {
-           return color( d.value ) ; } );
+            return color( d.value ) ;
+          } );
 
       pieGroup.append( 'text' )
           .attr(
             'transform',
             function( d ) {
-              return 'translate(' + arc.centroid( d.name ) + ')';
+              return 'translate(' + arc.centroid( d ) + ')';
             }
           )
           .attr( 'dy', '.35em' )
