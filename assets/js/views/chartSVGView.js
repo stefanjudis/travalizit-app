@@ -74,8 +74,6 @@ define([
               .attr( 'data-width', width )
               .attr( 'data-height', height );
 
-      console.log( data );
-
       x.domain( data.map( function( d ) { return d.day.substring( 0, 10 ); } ) );
       y.domain( [ 0, d3.max( data, function( d ) { return d.totalbuilds; } ) ] );
 
@@ -316,6 +314,7 @@ define([
           arc,
           pie,
           pieGroup,
+          pieValues,
 
           detailInformation,
           detailInformationMargin = 10,
@@ -381,21 +380,24 @@ define([
 
       detailInformation.append( 'text' )
                         .attr( 'class', 'date' )
-                        .attr( 'x', 10 )
-                        .attr( 'y', 30 )
+                        .attr( 'x', detailInformationMargin )
+                        .attr( 'y', detailInformationMargin * 2 )
                         .text( date );
 
-      detailInformation.append( 'text' )
-                        .attr( 'class', 'label' )
-                        .attr( 'x', 10 )
-                        .attr( 'y', 50 )
-                        .text( label );
+      pieValues = detailInformation.selectAll( '.donutValues' )
+                                    .data( circleData )
+                                    .enter().append( 'g' )
+                                    .attr( 'class', 'donutValues' );
 
-      detailInformation.append( 'text' )
-                        .attr( 'class', 'value' )
-                        .attr( 'x', 10 )
-                        .attr( 'y', 70 )
-                        .text( value );
+      pieValues.append( 'text' )
+                .data( circleData )
+                .attr( 'x', detailInformationMargin )
+                .attr( 'y', function( d, index ) {
+                  return 45 + index * 20;
+                })
+                .text( function( d ) {
+                  return d.name + ': ' + d.value;
+                });
 
       detailInformation.append( 'rect' )
                         .attr( 'class', 'analyzeBtn' )
@@ -407,7 +409,7 @@ define([
 
       detailInformation.append( 'text' )
                         .attr( 'class', 'analyzeBtnText' )
-                        .attr( 'x', 25 )
+                        .attr( 'x', detailInformationMargin )
                         .attr( 'y', height - 8 )
                         .text( 'Analyze!!!' );
 
@@ -423,7 +425,7 @@ define([
             .data( pie( circleData ) )
             .enter().append( 'g' )
             .attr( 'class', 'arc' )
-            .attr( 'transform', 'translate('+  ( width - ( circleWidth / 2 ) - 10 ) + ',' + ( circleHeight / 2 ) + ')' );
+            .attr( 'transform', 'translate('+  ( width - ( circleWidth / 2 ) ) + ',' + ( circleHeight / 2 + detailInformationMargin ) + ')' );
 
       pieGroup.append( 'path' )
           .attr( 'd', arc )

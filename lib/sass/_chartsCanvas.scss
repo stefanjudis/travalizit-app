@@ -110,15 +110,20 @@
     fill: #fff;
   }
 
+
+  .date, .donutText, .donutValues {
+    fill: $darkGrey;
+  }
+
+  .date {
+    font-weight: 600;
+  }
+
   .detailInformation {
     fill: $lightGrey;
   }
 
-  .date, .donutText, .label, .value {
-    fill: $darkGrey;
-  }
-
-  .donutText {
+  .donutText, .donutValues {
     font-size: 0.8em;
   }
 
