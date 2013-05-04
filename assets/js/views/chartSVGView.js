@@ -321,23 +321,7 @@ define([
 
       d3Target.attr( 'class', d3Target.attr( 'class' ) + ' active' );
 
-        console.log('widht', width, 'svgWidth', svgWidth, 'xPos', xPos );
-      if ( xPos >= ( svgWidth - width - detailInformationMargin ) ) {
-        xPos = svgWidth - width - detailInformationMargin;
-      }
-
-      if ( xPos <= 0 ) {
-        xPos = detailInformationMargin;
-      }
-
-      // that's 'pi mal daumen' - i know
-      if ( yPos >= ( svgHeight - height - detailInformationMargin ) ) {
-        yPos = svgHeight - height - detailInformationMargin;
-      }
-
-      if ( yPos <= 0 ) {
-        yPos = detailInformationMargin;
-      }
+      calculatePositionValues();
 
       detailInformation = this.svg.append( 'g' )
                             .attr( 'class', 'detailInformation' )
@@ -432,6 +416,25 @@ define([
           .attr( 'dy', '.35em' )
           .style( 'text-anchor', 'middle' )
           .text( function( d ) { return d.value; } );
+
+      function calculatePositionValues() {
+        if ( xPos >= ( svgWidth - width - detailInformationMargin ) ) {
+          xPos = svgWidth - width - detailInformationMargin;
+        }
+
+        if ( xPos <= 0 ) {
+          xPos = detailInformationMargin;
+        }
+
+        // that's 'pi mal daumen' - i know
+        if ( yPos >= ( svgHeight - height - detailInformationMargin ) ) {
+          yPos = svgHeight - height - detailInformationMargin;
+        }
+
+        if ( yPos <= 0 ) {
+          yPos = detailInformationMargin;
+        }
+      }
     }
   });
 
