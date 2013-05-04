@@ -296,7 +296,8 @@ define([
                           } )[ 0 ],
           circleData   = _.filter( _.map( dayData, function( value, name ) {
                             var returnValue = false;
-                            if ( +value === value ) {
+
+                            if ( +value === value && name !== 'totalbuilds') {
                               returnValue = {
                                 name  : name,
                                 value : value
@@ -317,7 +318,31 @@ define([
           pieGroup,
 
           detailInformation,
-          detailInformationMargin = 10;
+          detailInformationMargin = 10,
+
+          /**
+           *
+           * HELPER FUNCTIONS FOR THE WHOLE D3 CALCULATIONS
+           *
+           */
+          calculatePositionValues = function() {
+            if ( xPos >= ( svgWidth - width - detailInformationMargin ) ) {
+              xPos = svgWidth - width - detailInformationMargin;
+            }
+
+            if ( xPos <= 0 ) {
+              xPos = detailInformationMargin;
+            }
+
+            // that's 'pi mal daumen' - i know
+            if ( yPos >= ( svgHeight - height - detailInformationMargin ) ) {
+              yPos = svgHeight - height - detailInformationMargin;
+            }
+
+            if ( yPos <= 0 ) {
+              yPos = detailInformationMargin;
+            }
+          };
 
       d3Target.attr( 'class', d3Target.attr( 'class' ) + ' active' );
 
@@ -413,28 +438,10 @@ define([
               return 'translate(' + arc.centroid( d ) + ')';
             }
           )
+          .attr( 'class', 'donutText' )
           .attr( 'dy', '.35em' )
           .style( 'text-anchor', 'middle' )
           .text( function( d ) { return d.value; } );
-
-      function calculatePositionValues() {
-        if ( xPos >= ( svgWidth - width - detailInformationMargin ) ) {
-          xPos = svgWidth - width - detailInformationMargin;
-        }
-
-        if ( xPos <= 0 ) {
-          xPos = detailInformationMargin;
-        }
-
-        // that's 'pi mal daumen' - i know
-        if ( yPos >= ( svgHeight - height - detailInformationMargin ) ) {
-          yPos = svgHeight - height - detailInformationMargin;
-        }
-
-        if ( yPos <= 0 ) {
-          yPos = detailInformationMargin;
-        }
-      }
     }
   });
 

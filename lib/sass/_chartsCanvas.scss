@@ -114,8 +114,12 @@
     fill: $lightGrey;
   }
 
-  .date, .label, .value {
+  .date, .donutText, .label, .value {
     fill: $darkGrey;
+  }
+
+  .donutText {
+    font-size: 0.8em;
   }
 
   .successBar {
