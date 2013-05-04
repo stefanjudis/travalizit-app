@@ -281,8 +281,8 @@ define([
           height       = 140,
           xPos         = x - 80 - width / 2,
           yPos         = y - 20 - height / 4,
-          svgWidth     = this.svg.attr( 'data-width' ) - 80, // it's translated
-          svgHeight    = this.svg.attr( 'data-height' ) - 20,     // it's translated
+          svgWidth     = this.svg.attr( 'data-width' ),
+          svgHeight    = this.svg.attr( 'data-height' ),
           d3Target     = d3.select( target ),
           date         = d3Target.attr( 'data-date' ),
           label        = d3Target.attr( 'data-label' ),
@@ -316,17 +316,27 @@ define([
           pie,
           pieGroup,
 
-          detailInformation;
+          detailInformation,
+          detailInformationMargin = 10;
 
       d3Target.attr( 'class', d3Target.attr( 'class' ) + ' active' );
 
-      if ( xPos >= ( +svgWidth - width / 2 - 30 ) ) {
-        xPos = +svgWidth - width / 2 - 30;
+        console.log('widht', width, 'svgWidth', svgWidth, 'xPos', xPos );
+      if ( xPos >= ( svgWidth - width - detailInformationMargin ) ) {
+        xPos = svgWidth - width - detailInformationMargin;
+      }
+
+      if ( xPos <= 0 ) {
+        xPos = detailInformationMargin;
       }
 
       // that's 'pi mal daumen' - i know
-      if ( yPos >= ( +svgHeight - height / 2 - 20 ) ) {
-        yPos = +svgHeight - height / 2 - 20;
+      if ( yPos >= ( svgHeight - height - detailInformationMargin ) ) {
+        yPos = svgHeight - height - detailInformationMargin;
+      }
+
+      if ( yPos <= 0 ) {
+        yPos = detailInformationMargin;
       }
 
       detailInformation = this.svg.append( 'g' )
