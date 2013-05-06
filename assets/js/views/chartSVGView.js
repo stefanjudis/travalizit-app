@@ -301,10 +301,15 @@ define([
     },
 
     moveView : function( event ) {
-
       var origEvent = event.originalEvent,
-          posX      = ( origEvent.offsetX >= 0 ) ? origEvent.offsetX : 0,
-          posY      = ( origEvent.offsetY >= 0 ) ? origEvent.offsetY : 0;
+          cssTop    = +this.$el.css( 'top' ).replace( 'px', '' ),
+          cssLeft   = +this.$el.css( 'left' ).replace( 'px', '' ),
+          top       = ( cssTop === cssTop ) ? cssTop : 0,
+          left      = ( cssLeft === cssLeft ) ? cssLeft : 0,
+          newX      = left + origEvent.offsetX,
+          newY      = top + origEvent.offsetY,
+          posX      = ( newX >= 0 ) ? newX : 0,
+          posY      = ( newY >= 0 ) ? newY : 0;
 
       this.$el.addClass( 'moved' );
 
