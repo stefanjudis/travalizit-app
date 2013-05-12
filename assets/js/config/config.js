@@ -18,7 +18,7 @@ define([], function() {
             type         : 'date'
           }, {
             defaultValue : 'unitDay',
-            label        : 'Chart seperated in:',
+            label        : 'Bars seperated in:',
             name         : 'unit',
             type         : 'radio',
 
@@ -26,12 +26,12 @@ define([], function() {
               {
                 id    : 'unitDay',
                 value : 'day',
-                label : 'day'
+                label : 'days'
               },
               {
                 id    : 'unitWeek',
                 value : 'week',
-                label : 'week'
+                label : 'weeks'
               }
             ]
           }
