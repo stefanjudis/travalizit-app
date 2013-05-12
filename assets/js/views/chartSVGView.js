@@ -346,8 +346,6 @@ define([
           label        = d3Target.attr( 'data-label' ),
           value        = d3Target.attr( 'data-value' ),
 
-          // data to to work with
-
           // pie stuff
           dayData      = this.model.get( 'data' ).filter( function( object ) {
                             return object.day.match( target.dataset.date );
