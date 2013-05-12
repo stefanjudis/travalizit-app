@@ -27,10 +27,13 @@ requirejs.config({
     chartParamsTemplate : 'templates/chartParamsTemplate.hbs',
     chartSvgItem        : 'templates/chartSvgItemTemplate.hbs',
 
+    // helpers
+    hbsInputHelper : 'helpers/hbsInputHelper',
+
     config : 'config/config'
   },
   shim : {
-    d3 : {
+    d3         : {
       exports : 'd3'
     }
   }

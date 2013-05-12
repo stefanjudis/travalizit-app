@@ -8,12 +8,12 @@ define([
 ], function( _, Backbone, Handlebars, d3, ChartSvgItem ) {
 
   var ChartSVGView = Backbone.View.extend({
-    className : 'svgChartItem',
+    className : 'svgChartItem active',
 
     template : Handlebars.compile( ChartSvgItem ),
 
     events : {
-      'click' : 'activateModel',
+      'click' : 'triggerActiveModel',
 
       'click .closeBtn'     : 'deleteChart',
 
@@ -212,11 +212,6 @@ define([
     },
 
 
-    activateModel : function() {
-      this.model.trigger( 'activate', this.model );
-    },
-
-
     changeViewSize : function( event ) {
       var origEvent = event.originalEvent,
           width     = this.$el.width() + origEvent.offsetX,
@@ -264,9 +259,13 @@ define([
     handleSvgClick : function( event ) {
       var target     = event.target,
           attributes = target.attributes,
-          action     = attributes.getNamedItem( 'data-action-click' ).value;
+          action;
 
-      if ( this[ action ] && typeof this[ action ] === 'function' ) {
+      try {
+        action = attributes.getNamedItem( 'data-action-click' ).value;
+      } catch( e ) {}
+
+      if ( action && this[ action ] && typeof this[ action ] === 'function' ) {
         this[ action ]( event, target );
       }
     },
@@ -513,6 +512,11 @@ define([
           .attr( 'dy', '.35em' )
           .style( 'text-anchor', 'middle' )
           .text( function( d ) { return d.value; } );
+    },
+
+
+    triggerActiveModel : function() {
+      this.model.trigger( 'activate', this.model );
     }
   });
 

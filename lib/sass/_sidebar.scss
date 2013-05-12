@@ -27,8 +27,6 @@
 
     overflow: hidden;
 
-    @include border-radius(3px);
-
     &:before {
       position: absolute;
       width: image-width("header/travis64.png");
@@ -84,11 +82,6 @@
 
     overflow: hidden;
 
-    .animationContainer {
-      padding: 1em;
-      background-color: grey;
-    }
-
     #chartTypes, #chartParams {
       float:left;
 
@@ -111,6 +104,32 @@
 
     #paramInput-type {
       display: none;
+    }
+
+    .animationContainer {
+      padding: 1em;
+      background-color: grey;
+    }
+
+    .radioButtonList {
+      margin: 0;
+
+      input {
+        clear: none;
+      }
+
+      label {
+        display: inline;
+      }
+
+      li {
+        position: relative;
+
+        width: 33.333%;
+        float: left;
+        line-height: 2em;
+
+      }
     }
 
     button {
@@ -177,7 +196,7 @@
 
     background-color: $red;
 
-    border: 1px solid adjust-lightness($red, -10);
+    border: 1px solid $red;
 
     color: transparent;
 

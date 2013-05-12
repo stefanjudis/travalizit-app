@@ -3,17 +3,37 @@ define([], function() {
     charts : [
       {
         icon   : 'dashboard',
-        name   : 'Builds per Time',
+        name   : 'Success/Fail per day',
         url    : 'builds',
         params : [
           {
+            defaultValue : '2012-04-27',
+            label        : 'Date to start:',
             name         : 'startDate',
-            type         : 'date',
-            defaultValue : '2012-04-27'
+            type         : 'date'
           }, {
+            defaultValue : '2012-05-05',
+            label        : 'Date to end:',
             name         : 'endDate',
-            type         : 'date',
-            defaultValue : '2012-05-05'
+            type         : 'date'
+          }, {
+            defaultValue : 'unitDay',
+            label        : 'Chart seperated in:',
+            name         : 'unit',
+            type         : 'radio',
+
+            values       : [
+              {
+                id    : 'unitDay',
+                value : 'day',
+                label : 'day'
+              },
+              {
+                id    : 'unitWeek',
+                value : 'week',
+                label : 'week'
+              }
+            ]
           }
         ]
       }
