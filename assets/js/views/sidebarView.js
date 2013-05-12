@@ -59,8 +59,6 @@ define([
               data        = form.serializeArray(),
               chart;
 
-debugger
-
           data.push({
             name  : 'config',
             value : {

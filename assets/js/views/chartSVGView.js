@@ -382,6 +382,8 @@ define([
           pie,
           pieGroup,
           pieValues,
+          pieValuesAll    = 0,
+          pieValuesLength = 0,
 
           detailInformation,
           detailInformationMargin = 10,
@@ -451,20 +453,37 @@ define([
                         .attr( 'y', detailInformationMargin * 2 )
                         .text( date );
 
-      pieValues = detailInformation.selectAll( '.donutValues' )
-                                    .data( circleData )
-                                    .enter().append( 'g' )
-                                    .attr( 'class', 'donutValues' );
+      pieValues = detailInformation.append( 'g' )
+                    .attr( 'class', 'donutValues' )
+                    .selectAll( '.donutValue' )
+                    .data( circleData )
+                    .enter().append( 'g' )
+                    .attr( 'class', 'donutValue' );
 
       pieValues.append( 'text' )
                 .data( circleData )
                 .attr( 'x', detailInformationMargin )
                 .attr( 'y', function( d, index ) {
-                  return 45 + index * 20;
+                  pieValuesLength++;
+
+                  return 40 + index * 20;
                 })
                 .text( function( d ) {
+                  // NaN check
+                  if ( +d.value === +d.value ) {
+                    pieValuesAll += +d.value;
+                  }
+
                   return d.name + ': ' + d.value;
                 });
+
+      detailInformation.select( '.donutValues' )
+              .append( 'g' )
+              .attr( 'class', 'donutValue' )
+              .append( 'text' )
+              .attr( 'x', detailInformationMargin )
+              .attr( 'y', 40 + pieValuesLength * 20 )
+              .text( 'Over all: ' + pieValuesAll );
 
       detailInformation.append( 'rect' )
                         .attr( 'class', 'analyzeBtn' )
