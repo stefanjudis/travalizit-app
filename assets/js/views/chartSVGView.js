@@ -104,7 +104,10 @@ define([
           .style( 'text-anchor', 'end' )
           .text( 'Builds' );
 
-      this.svgBars = this.svg.selectAll( '.bar' )
+      this.svgBarsContainer = this.svg.append( 'g' )
+                                .attr( 'class', 'bars' );
+
+      this.svgBars = this.svgBarsContainer.selectAll( '.bar' )
                         .data( data )
                         .enter().append( 'rect' )
                         .attr( 'class', 'bar' )
@@ -133,7 +136,7 @@ define([
                           }
                         );
 
-      this.svgSuccessBars = this.svg.selectAll( '.successBar' )
+      this.svgSuccessBars = this.svgBarsContainer.selectAll( '.successBar' )
                               .data( data )
                               .enter().append( 'rect' )
                               .attr( 'class', 'successBar' )
@@ -162,7 +165,7 @@ define([
                                 }
                               );
 
-      this.svgSuccessStars = this.svg.selectAll( '.successStar' )
+      this.svgSuccessStars = this.svgBarsContainer.selectAll( '.successStar' )
                               .data( data )
                               .enter().append( 'text' )
                               .attr( 'class', 'successStar' )
