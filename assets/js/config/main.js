@@ -16,6 +16,7 @@ requirejs.config({
     appView      : 'views/appView',
     chartView    : 'views/chartView',
     chartSVGView : 'views/chartSVGView',
+    sidebarView  : 'views/sidebarView',
 
     // collections
     chartCollection : 'collections/chartsCollection',

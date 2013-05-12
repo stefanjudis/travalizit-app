@@ -488,8 +488,7 @@ define([
             .selectAll( '.arc' )
             .data( pie( circleData ) )
             .enter().append( 'g' )
-            .attr( 'class', 'arc' )
-            //.attr( 'transform', 'translate('+  ( width - radius ) + ',' + ( radius ) + ')' );
+            .attr( 'class', 'arc' );
 
       pieGroup.append( 'path' )
           .attr( 'd', arc );
