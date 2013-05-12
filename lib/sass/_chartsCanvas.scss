@@ -232,6 +232,10 @@
     cursor: move;
   }
 
+  &.active {
+    z-index: 1000;
+  }
+
   &.highlighted {
     h3 {
       color: $red;

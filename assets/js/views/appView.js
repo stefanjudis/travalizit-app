@@ -17,13 +17,25 @@ define([
 
 
     initialize : function() {
+      var sidebarView;
+
       charts = new Charts();
 
       this.$chartsCanvas = $( '#chartsCanvas' );
 
       this.listenTo( charts, 'add', this.addChart );
+      this.listenTo( charts, 'activate', this.activateChartView );
 
-      new SidebarView();
+      sidebarView = new SidebarView();
+    },
+
+
+    activateChartView : function( model ) {
+      this.$chartsCanvas
+          .find( '.svgChartItem' )
+            .removeClass( 'active' )
+          .filter( '#svgChartItem-' + model.cid )
+            .addClass( 'active' );
     },
 
 

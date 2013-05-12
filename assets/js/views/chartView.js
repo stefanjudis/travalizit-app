@@ -47,10 +47,12 @@ define([
       this.model.destroy();
     },
 
+
     highlightChart : function() {
       this.model.set( 'highlighted', true );
-
+      this.model.trigger( 'activate', this.model );
     },
+
 
     remove : function() {
       this.$el.addClass( 'removed' )
@@ -61,6 +63,7 @@ define([
                 }, this )
               );
     },
+
 
     unhighlighChart : function() {
       this.model.set( 'highlighted', false );

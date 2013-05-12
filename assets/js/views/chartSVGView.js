@@ -13,6 +13,8 @@ define([
     template : Handlebars.compile( ChartSvgItem ),
 
     events : {
+      'click' : 'activateModel',
+
       'click .closeBtn'     : 'deleteChart',
 
       'click svg'           : 'handleSvgClick',
@@ -27,6 +29,8 @@ define([
 
     initialize : function( chart ) {
       this.model = chart;
+
+      this.$el.attr( 'id', 'svgChartItem-' + this.model.cid );
 
       this.listenTo( this.model, 'destroy', this.remove );
       this.listenTo( this.model, 'sync', this.render );
@@ -205,6 +209,11 @@ define([
                                   return d.day.substr( 0, 10 );
                                 }
                               );
+    },
+
+
+    activateModel : function() {
+      this.model.trigger( 'activate', this.model );
     },
 
 
