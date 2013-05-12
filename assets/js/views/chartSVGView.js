@@ -313,8 +313,11 @@ define([
 
       this.$el.addClass( 'moved' );
 
-      this.$el.css( 'top', posY );
-      this.$el.css( 'left', posX );
+      this.$el.css( {
+        left: posX,
+        top: posY
+      } );
+
     },
 
     remove : function() {
