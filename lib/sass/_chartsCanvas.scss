@@ -32,6 +32,15 @@
   @include box-shadow( 0 2px 5px $darkGrey );
   @include animation( flyIn, 0.5s );
 
+  .arc {
+    fill: $red;
+    stroke: $darkGrey;
+
+    text {
+      //fill: $lightGrey;
+      stroke: $lightGrey;
+    }
+  }
 
   .analyzeBtn, .analyzeBtnText {
     cursor: pointer;

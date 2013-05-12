@@ -363,11 +363,11 @@ define([
                         }), function( value ) {
                           return value;
                         }),
-          circleWidth  = 100,
-          circleHeight = 100,
+          circleWidth  = 80,
+          circleHeight = 80,
           radius       = Math.min( circleWidth, circleHeight) / 2,
-          color        = d3.scale.ordinal()
-                            .range(['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56', '#d0743c', '#ff8c00']),
+          circleMargin = 15,
+
           arc,
           pie,
           pieGroup,
@@ -471,24 +471,27 @@ define([
                         .text( 'Analyze!!!' );
 
       arc = d3.svg.arc()
-          .outerRadius(radius - 10)
-          .innerRadius(radius - 30);
+          .outerRadius( function( ) {
+            return ( radius + Math.floor( ( Math.random() * 10 ) ) );
+          } )
+          .innerRadius( 0 );
 
       pie = d3.layout.pie()
           .sort( null )
           .value( function( d ) { return d.value; } );
 
-      pieGroup = detailInformation.selectAll( '.arc' )
+      pieGroup = detailInformation
+            .append( 'g' )
+            .attr( 'class', 'donutCircle' )
+            .attr( 'transform', 'translate(' + ( width - radius - circleMargin ) + ',' + ( radius + circleMargin ) + ')' )
+            .selectAll( '.arc' )
             .data( pie( circleData ) )
             .enter().append( 'g' )
             .attr( 'class', 'arc' )
-            .attr( 'transform', 'translate('+  ( width - ( circleWidth / 2 ) ) + ',' + ( circleHeight / 2 + detailInformationMargin ) + ')' );
+            //.attr( 'transform', 'translate('+  ( width - radius ) + ',' + ( radius ) + ')' );
 
       pieGroup.append( 'path' )
-          .attr( 'd', arc )
-          .style( 'fill', function( d ) {
-            return color( d.value ) ;
-          } );
+          .attr( 'd', arc );
 
       pieGroup.append( 'text' )
           .attr(
