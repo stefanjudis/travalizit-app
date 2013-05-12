@@ -90,7 +90,7 @@ define([
               .attr( 'data-width', width )
               .attr( 'data-height', height );
 
-      x.domain( data.map( function( d ) { return d.day.substring( 0, 10 ); } ) );
+      x.domain( data.map( function( d ) { return d.unit.substring( 0, 10 ); } ) );
       y.domain( [ 0, d3.max( data, function( d ) { return d.totalbuilds; } ) ] );
 
       this.svg.append( 'g' )
@@ -115,7 +115,7 @@ define([
                         .data( data )
                         .enter().append( 'rect' )
                         .attr( 'class', 'bar' )
-                        .attr( 'x', function( d ) { return x( d.day ); } )
+                        .attr( 'x', function( d ) { return x( d.unit ); } )
                         .attr( 'width', x.rangeBand() )
                         .attr( 'y', function( d ) { return y( d.totalbuilds ); } )
                         .attr( 'data-action-click', 'handleBarClick' )
@@ -136,7 +136,7 @@ define([
                         .attr(
                           'data-date',
                           function( d ) {
-                            return d.day.substr( 0, 10 );
+                            return d.unit.substr( 0, 10 );
                           }
                         );
 
@@ -144,7 +144,7 @@ define([
                               .data( data )
                               .enter().append( 'rect' )
                               .attr( 'class', 'successBar' )
-                              .attr( 'x', function( d ) { return x( d.day ); } )
+                              .attr( 'x', function( d ) { return x( d.unit ); } )
                               .attr( 'width', x.rangeBand() )
                               .attr( 'y', function( d ) { return y( d.successful ); } )
                               .attr( 'data-action-click', 'handleBarClick' )
@@ -165,7 +165,7 @@ define([
                               .attr(
                                 'data-date',
                                 function( d ) {
-                                  return d.day.substr( 0, 10 );
+                                  return d.unit.substr( 0, 10 );
                                 }
                               );
 
@@ -173,7 +173,7 @@ define([
                               .data( data )
                               .enter().append( 'text' )
                               .attr( 'class', 'successStar' )
-                              .attr( 'x', function( d ) { return x( d.day ) + x.rangeBand() / 2  - 12; } )
+                              .attr( 'x', function( d ) { return x( d.unit ) + x.rangeBand() / 2  - 12; } )
                               .attr(
                                 'y',
                                 function( d ) {
@@ -206,7 +206,7 @@ define([
                               .attr(
                                 'data-date',
                                 function( d ) {
-                                  return d.day.substr( 0, 10 );
+                                  return d.unit.substr( 0, 10 );
                                 }
                               );
     },
@@ -356,7 +356,7 @@ define([
 
           // pie stuff
           dayData      = this.model.get( 'data' ).filter( function( object ) {
-                            return object.day.match( target.dataset.date );
+                            return object.unit.match( target.dataset.date );
                           } )[ 0 ],
           circleData   = _.filter( _.map( dayData, function( value, name ) {
                             var returnValue = false;

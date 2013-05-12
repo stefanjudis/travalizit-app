@@ -25,12 +25,12 @@ define([], function() {
             values       : [
               {
                 id    : 'unitDay',
-                value : 'day',
+                value : 'days',
                 label : 'days'
               },
               {
                 id    : 'unitWeek',
-                value : 'week',
+                value : 'weeks',
                 label : 'weeks'
               }
             ]
