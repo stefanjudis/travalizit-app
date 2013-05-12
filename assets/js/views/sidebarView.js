@@ -54,10 +54,12 @@ define([
           var form        = $( event.target ),
               type        = form.find( '#paramInput-type' ).val(),
               chartConfig = _.find( Config.charts, function( chart ) {
-                              return chart.name === type;
+                              return chart.type === type;
                             }),
               data        = form.serializeArray(),
               chart;
+
+debugger
 
           data.push({
             name  : 'config',
@@ -126,7 +128,7 @@ define([
                 chartParams : _.find(
                                 Config.charts,
                                 function( chart ) {
-                                  return chart.name === type;
+                                  return chart.type === type;
                                 }
                               ).params
               });

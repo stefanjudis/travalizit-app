@@ -3,8 +3,7 @@ define([], function() {
     charts : [
       {
         icon   : 'dashboard',
-        name   : 'Success/Fail per day',
-        url    : 'builds',
+        name   : 'Success/Fail per time unit',
         params : [
           {
             defaultValue : '2012-04-27',
@@ -35,7 +34,9 @@ define([], function() {
               }
             ]
           }
-        ]
+        ],
+        type : 'barChartSuccessFail',
+        url  : 'builds'
       }
       // {
       //   icon   : 'wrench',

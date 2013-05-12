@@ -3,9 +3,10 @@ define([
   'backbone',
   'handlebars',
   'd3',
-  'text!chartSvgItem'
+  'text!chartSvgItem',
+  'config'
 
-], function( _, Backbone, Handlebars, d3, ChartSvgItem ) {
+], function( _, Backbone, Handlebars, d3, ChartSvgItem, Config ) {
 
   var ChartSVGView = Backbone.View.extend({
     className : 'svgChartItem active',
