@@ -22,16 +22,23 @@ define([
 
       'blur h3'             : 'handleNameChange',
 
-      'dragend .changeSizeBtn' : 'changeViewSize',
-      'dragstart .moveBtn'     : 'moveViewStart',
-      'dragend .moveBtn'       : 'moveView'
+      'mousedown  .changeSizeBtn' : 'handleMouseDownViewSize',
+      'mouseup    .changeSizeBtn' : 'handleMouseUpViewSize',
+      'mouseleave .changeSizeBtn' : 'handleMouseLeaveViewSize',
+
+      'mousedown .moveBtn' : 'handleMouseDownMove',
+      'mouseup   .moveBtn' : 'handleMouseUpMove',
+
+      'mouseleave' : 'handleMouseLeaveView'
     },
 
 
     initialize : function( chart ) {
       this.model = chart;
 
-      this.$el.attr( 'id', 'svgChartItem-' + this.model.cid );
+      this.$el.attr({
+        id        : 'svgChartItem-' + this.model.cid
+      });
 
       this.listenTo( this.model, 'destroy', this.remove );
       this.listenTo( this.model, 'sync', this.render );
@@ -213,19 +220,6 @@ define([
     },
 
 
-    changeViewSize : function( event ) {
-      var origEvent = event.originalEvent,
-          width     = this.$el.width() + origEvent.offsetX,
-          height    = this.$el.height() + origEvent.offsetY;
-
-      this.$el.width( width );
-      this.$el.height( height );
-
-      this.renderSvg();
-      origEvent.preventDefault();
-    },
-
-
     deleteChart : function() {
       this.model.destroy();
     },
@@ -277,6 +271,85 @@ define([
     },
 
 
+    handleMouseDownMove : function( e ) {
+      var dragHeight = this.$el.outerHeight(),
+          dragWidth  = this.$el.outerWidth(),
+          dragOffset = this.$el.offset(),
+          posY       = dragOffset.top + dragHeight - e.pageY,
+          posX       = dragOffset.left + dragWidth - e.pageX;
+
+      this.$el.addClass( 'draggable' );
+
+      this.$el.on( 'mousemove', _.bind( function(e) {
+        if ( this.$el.hasClass( 'draggable' ) ) {
+          this.$el.offset({
+            top  : e.pageY + posY - dragHeight,
+            left : e.pageX + posX - dragWidth
+          });
+        }
+      }, this ) );
+
+      e.preventDefault();
+    },
+
+
+    handleMouseDownViewSize : function( e ) {
+      var changeSizeBtn = this.$changeSizeBtn || this.$( '.changeSizeBtn' ),
+          dragHeight    = this.$el.outerHeight(),
+          dragWidth     = this.$el.outerWidth(),
+          dragOffset    = this.$el.offset();
+
+      // save it for later
+      this.$changeSizeBtn = changeSizeBtn;
+
+      changeSizeBtn.addClass( 'draggable' );
+
+      changeSizeBtn.on( 'mousemove', _.bind( function(e) {
+        if ( changeSizeBtn.hasClass( 'draggable' ) ) {
+          this.$el.css({
+            width  : dragWidth + e.pageX - ( dragWidth + dragOffset.left ) - this.$changeSizeBtn.width() / 2,
+            height : dragHeight + e.pageY - ( dragHeight + dragOffset.top ) + this.$changeSizeBtn.height() / 2
+          })
+        }
+      }, this ) );
+
+      e.preventDefault();
+    },
+
+
+    handleMouseLeaveView : function( e ) {
+      this.$el.removeClass( 'draggable' );
+    },
+
+
+    handleMouseLeaveViewSize : function( e ) {
+      // don't touch dom when there is no need to
+      if (
+        this.$changeSizeBtn &&
+        this.$changeSizeBtn.hasClass( 'draggable' )
+      ) {
+        this.$changeSizeBtn.removeClass( 'draggable' );
+      }
+    },
+
+
+    handleMouseUpViewSize : function( e ) {
+      if (
+        this.$changeSizeBtn &&
+        this.$changeSizeBtn.hasClass( 'draggable' )
+      ) {
+        this.$changeSizeBtn.removeClass( 'draggable' );
+      }
+
+      this.renderSvg();
+    },
+
+
+    handleMouseUpMove : function( e ) {
+      this.$el.removeClass( 'draggable' );
+    },
+
+
     hideDetailInformation : function( detailInformation ) {
       var information = detailInformation || this.svg.select( '.detailInformation' );
 
@@ -307,30 +380,6 @@ define([
       } );
     },
 
-
-    moveViewStart : function( event ) {
-
-    },
-
-    moveView : function( event ) {
-      var origEvent = event.originalEvent,
-          cssTop    = +this.$el.css( 'top' ).replace( 'px', '' ),
-          cssLeft   = +this.$el.css( 'left' ).replace( 'px', '' ),
-          top       = ( cssTop === cssTop ) ? cssTop : 0,
-          left      = ( cssLeft === cssLeft ) ? cssLeft : 0,
-          newX      = left + origEvent.offsetX,
-          newY      = top + origEvent.offsetY,
-          posX      = ( newX >= 0 ) ? newX : 0,
-          posY      = ( newY >= 0 ) ? newY : 0;
-
-      this.$el.addClass( 'moved' );
-
-      this.$el.css( {
-        left: posX,
-        top: posY
-      } );
-
-    },
 
     remove : function() {
       this.$el.addClass( 'removed' )
