@@ -2,7 +2,7 @@ define([], function() {
   return {
     charts : [
       {
-        icon   : 'dashboard',
+        icon   : 'bar-chart',
         name   : 'Success/Fail per time unit',
         params : [
           {
