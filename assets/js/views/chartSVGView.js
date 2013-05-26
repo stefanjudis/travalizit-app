@@ -309,7 +309,7 @@ define([
           this.$el.css({
             width  : dragWidth + e.pageX - ( dragWidth + dragOffset.left ) - this.$changeSizeBtn.width() / 2,
             height : dragHeight + e.pageY - ( dragHeight + dragOffset.top ) + this.$changeSizeBtn.height() / 2
-          })
+          });
         }
       }, this ) );
 

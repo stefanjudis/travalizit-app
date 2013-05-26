@@ -115,12 +115,14 @@ define([
 
 
     showParamMenu : function( event ) {
+      var button = $( event.target ),
+          type   = button.data( 'type' );
+
+      console.log(type + 'ParamsTemplate');
       require(
-        [ 'handlebars', 'text!chartParamsTemplate', 'hbsInputHelper'],
+        [ 'handlebars', 'text!' + type + 'ParamsTemplate', 'hbsInputHelper'],
         _.bind(function( Handlebars, ChartParamsTemplate ) {
-          var button   = $( event.target ),
-              type     = button.data( 'type' ),
-              params   = this.$chartMenu.find( '#chartParams' ),
+          var params   = this.$chartMenu.find( '#chartParams' ),
               template = Handlebars.compile( ChartParamsTemplate ),
               html     = template({
                 chartParams : _.find(
@@ -130,6 +132,8 @@ define([
                                 }
                               ).params
               });
+
+              console.log(type);
 
               this.$chartMenu.show();
 
