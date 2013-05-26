@@ -5,21 +5,6 @@ define([
 
 ], function( _, d3, GeneralSVGView ) {
   var BarSVGView = GeneralSVGView.extend({
-    className : 'svgChartItem active',
-
-
-    initialize : function( chart ) {
-      this.model = chart;
-
-      this.$el.attr({
-        id        : 'svgChartItem-' + this.model.cid
-      });
-
-      this.listenTo( this.model, 'destroy', this.remove );
-      this.listenTo( this.model, 'sync', this.render );
-      this.listenTo( this.model, 'change:highlighted', this.handleModelHighlight );
-    },
-
 
     renderSvg : function() {
       var margin = { top: 20, right: 20, bottom: 30, left: 80 },

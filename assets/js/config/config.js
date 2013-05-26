@@ -72,7 +72,7 @@ define([], function() {
             ]
           }
         ],
-        type : 'detailChartDetails',
+        type : 'circleChart',
         url  : 'builds'
       }
     ]

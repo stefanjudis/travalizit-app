@@ -44,7 +44,6 @@ define([
       require(
         [ chart.get( 'type' ) + 'View' ],
         _.bind( function( SVGView ) {
-          debugger
           var SVGView      = new SVGView( chart ),
               svgHtml      = SVGView.render();
 

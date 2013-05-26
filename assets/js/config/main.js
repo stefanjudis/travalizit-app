@@ -20,6 +20,7 @@ requirejs.config({
     // svg views
     generalSVGView : 'views/svg/generalView',
     barChartView     : 'views/svg/barChart',
+    circleChartView     : 'views/svg/circleChart',
 
     // collections
     chartCollection : 'collections/chartsCollection',
@@ -31,7 +32,7 @@ requirejs.config({
 
     // params templates
     barChartParamsTemplate : 'templates/params/barChartParamsTemplate.hbs',
-    detailChartDetailsParamsTemplate : 'templates/params/detailChartDetailsParamsTemplate.hbs',
+    circleChartParamsTemplate : 'templates/params/circleChartParamsTemplate.hbs',
 
     // helpers
     hbsInputHelper : 'helpers/hbsInputHelper',
