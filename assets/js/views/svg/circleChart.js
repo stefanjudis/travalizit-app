@@ -7,9 +7,74 @@ define([
   var CircleSVGView = GeneralSVGView.extend({
 
     renderSvg : function() {
-      console.log('yeah');
+      var data        = this.model.get( 'data' ),
+          generalData = data[0].general,
+          repoData    = data[0].repos,
+          repoAll     = _.reduce(repoData, function(memo, value) {
+            return memo + value.count;
+          }, 0),
+          repoNodes   = {
+            name : 'repos',
+            count : repoAll,
+            children : repoData
+          },
+          reposGroup,
+          repoGroup,
 
-    },
+          margin = { top: 10, right: 10, bottom: 10, left: 10 },
+          width  = this.$el.width() - margin.left - margin.right,
+          height = this.$el.height() - this.$( '.topBar' ).height() -  margin.top - margin.bottom,
+
+          d3el = d3.select( this.el ),
+
+          bubble = d3.layout.pack()
+                      .padding( 1.5 )
+                      .size( [ width / 2 , height ] )
+                      .value( function( d ) {
+                        return d.count;
+                      });
+
+      d3el.select( 'svg' ).remove();
+
+      this.svg = d3el.append( 'svg' )
+              .attr( 'width', width + margin.left + margin.right )
+              .attr( 'height', height +  margin.top + margin.bottom );
+
+      reposGroup = this.svg.append( 'g' )
+                    .attr( 'class', 'repos' )
+                    .attr( 'transform', 'translate(' +( width / 2 ) + ',' + margin.top + ')' )
+                    .attr( 'data-width', width )
+                    .attr( 'data-height', height );
+
+      repoGroup = reposGroup.selectAll( '.repo' )
+                            .data(bubble.nodes( repoNodes ) )
+                            .enter().append( 'g' )
+                            .attr( 'class', 'repo' )
+                            .attr(
+                              'transform',
+                              function( d ) {
+                                return 'translate(' + d.x + ',' + d.y + ')';
+                              }
+                            );
+
+      repoGroup.append( 'circle' )
+                .attr(
+                  'r',
+                  function( d ) { return d.r; }
+                )
+                .attr( 'data-count', function( d ) {
+                  return d.count;
+                } );
+
+      repoGroup.append('text')
+                .attr( 'dy', '.3em' )
+                .style( 'text-anchor', 'middle' )
+                .text(
+                  function( d ) {
+                    return d.repo;
+                  }
+                );
+    }
 
 
     // handleBarClick : function( event, target ) {

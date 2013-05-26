@@ -44,8 +44,8 @@ define([
       require(
         [ chart.get( 'type' ) + 'View' ],
         _.bind( function( SVGView ) {
-          var SVGView      = new SVGView( chart ),
-              svgHtml      = SVGView.render();
+          var view    = new SVGView( chart ),
+              svgHtml = view.render();
 
           this.$chartsCanvas.append( svgHtml );
 
