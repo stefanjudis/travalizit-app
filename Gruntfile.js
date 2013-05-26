@@ -20,11 +20,6 @@ module.exports = function(grunt) {
       }
     },
 
-    concurrent : {
-      target1 : [ 'compass', 'jshint' ],
-      target2 : [ 'csscss' ]
-    },
-
     csscss : {
       options : {
         colorize         : true,
@@ -50,7 +45,7 @@ module.exports = function(grunt) {
         'assets/js/collections/*.js',
         'assets/js/config/*.js',
         'assets/js/models/*.js',
-        'assets/js/views/*.js',
+        'assets/js/views/**/*.js',
         'test/**/*.js'
       ],
       options : {
@@ -78,10 +73,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks( 'grunt-contrib-watch' );
   grunt.loadNpmTasks( 'grunt-contrib-compass' );
   grunt.loadNpmTasks('grunt-csscss');
-  grunt.loadNpmTasks( 'grunt-concurrent' );
   //grunt.loadNpmTasks( 'grunt-contrib-nodeunit' );
 
   // Default task.
-  grunt.registerTask( 'default', [ 'concurrent:target1', 'concurrent:target2' ]);
+  grunt.registerTask( 'default', [ 'compass', 'jshint', 'csscss' ]);
   //grunt.registerTask('travis', ['jshint', 'nodeunit']);
 };
