@@ -40,10 +40,12 @@ define([
 
 
     addChart : function( chart ) {
+      console.log(chart.get( 'type' ) + 'View');
       require(
-        [ 'chartSVGView' ],
-        _.bind( function( ChartSVGView ) {
-          var SVGView      = new ChartSVGView( chart ),
+        [ chart.get( 'type' ) + 'View' ],
+        _.bind( function( SVGView ) {
+          debugger
+          var SVGView      = new SVGView( chart ),
               svgHtml      = SVGView.render();
 
           this.$chartsCanvas.append( svgHtml );

@@ -15,8 +15,11 @@ requirejs.config({
     // views
     appView      : 'views/appView',
     chartView    : 'views/chartView',
-    chartSVGView : 'views/chartSVGView',
     sidebarView  : 'views/sidebarView',
+
+    // svg views
+    generalSVGView : 'views/svg/generalView',
+    barChartView     : 'views/svg/barChart',
 
     // collections
     chartCollection : 'collections/chartsCollection',
@@ -27,7 +30,7 @@ requirejs.config({
     chartSvgItem        : 'templates/chartSvgItemTemplate.hbs',
 
     // params templates
-    barChartSuccessFailParamsTemplate : 'templates/params/barChartSuccessFailParamsTemplate.hbs',
+    barChartParamsTemplate : 'templates/params/barChartParamsTemplate.hbs',
     detailChartDetailsParamsTemplate : 'templates/params/detailChartDetailsParamsTemplate.hbs',
 
     // helpers

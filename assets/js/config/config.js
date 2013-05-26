@@ -35,7 +35,7 @@ define([], function() {
             ]
           }
         ],
-        type : 'barChartSuccessFail',
+        type : 'barChart',
         url  : 'builds'
       },
       {

@@ -1,36 +1,11 @@
 define([
   'underscore',
-  'backbone',
-  'handlebars',
   'd3',
-  'text!chartSvgItem',
-  'config'
+  'generalSVGView'
 
-], function( _, Backbone, Handlebars, d3, ChartSvgItem, Config ) {
-
-  var ChartSVGView = Backbone.View.extend({
+], function( _, d3, GeneralSVGView ) {
+  var BarSVGView = GeneralSVGView.extend({
     className : 'svgChartItem active',
-
-    template : Handlebars.compile( ChartSvgItem ),
-
-    events : {
-      'click' : 'triggerActiveModel',
-
-      'click .closeBtn'     : 'deleteChart',
-
-      'click svg'           : 'handleSvgClick',
-
-      'blur h3'             : 'handleNameChange',
-
-      'mousedown  .changeSizeBtn' : 'handleMouseDownViewSize',
-      'mouseup    .changeSizeBtn' : 'handleMouseUpViewSize',
-      'mouseleave .changeSizeBtn' : 'handleMouseLeaveViewSize',
-
-      'mousedown .moveBtn' : 'handleMouseDownMove',
-      'mouseup   .moveBtn' : 'handleMouseUpMove',
-
-      'mouseleave' : 'handleMouseLeaveView'
-    },
 
 
     initialize : function( chart ) {
@@ -43,22 +18,6 @@ define([
       this.listenTo( this.model, 'destroy', this.remove );
       this.listenTo( this.model, 'sync', this.render );
       this.listenTo( this.model, 'change:highlighted', this.handleModelHighlight );
-    },
-
-
-    render : function() {
-      var html = this.$el.html(
-                this.template({
-                  name : this.model.get( 'name' )
-                })
-              );
-
-      // if data is already fetched
-      if ( this.model.get( 'data' ) ) {
-        this.renderSvg();
-      }
-
-      return html;
     },
 
 
@@ -220,20 +179,6 @@ define([
     },
 
 
-    deleteChart : function() {
-      this.model.destroy();
-    },
-
-
-    handleModelHighlight : function( model, highlighted ) {
-      if ( highlighted ) {
-        this.$el.addClass( 'highlighted' );
-      } else {
-        this.$el.removeClass( 'highlighted' );
-      }
-    },
-
-
     handleBarClick : function( event, target ) {
       var detailInformation = this.svg.select( '.detailInformation' ),
           d3Target = d3.select( target );
@@ -246,107 +191,8 @@ define([
     },
 
 
-    handleNameChange : function( event ) {
-      this.model.set( 'name', event.target.innerText );
-    },
-
-
-    handleSvgClick : function( event ) {
-      var target     = event.target,
-          attributes = target.attributes,
-          action;
-
-      try {
-        action = attributes.getNamedItem( 'data-action-click' ).value;
-      } catch( e ) {}
-
-      if ( action && this[ action ] && typeof this[ action ] === 'function' ) {
-        this[ action ]( event, target );
-      }
-    },
-
-
     handleDetailClick : function() {
       this.hideDetailInformation();
-    },
-
-
-    handleMouseDownMove : function( e ) {
-      var dragHeight = this.$el.outerHeight(),
-          dragWidth  = this.$el.outerWidth(),
-          dragOffset = this.$el.offset(),
-          posY       = dragOffset.top + dragHeight - e.pageY,
-          posX       = dragOffset.left + dragWidth - e.pageX;
-
-      this.$el.addClass( 'draggable' );
-
-      this.$el.on( 'mousemove', _.bind( function(e) {
-        if ( this.$el.hasClass( 'draggable' ) ) {
-          this.$el.offset({
-            top  : e.pageY + posY - dragHeight,
-            left : e.pageX + posX - dragWidth
-          });
-        }
-      }, this ) );
-
-      e.preventDefault();
-    },
-
-
-    handleMouseDownViewSize : function( e ) {
-      var changeSizeBtn = this.$changeSizeBtn || this.$( '.changeSizeBtn' ),
-          dragHeight    = this.$el.outerHeight(),
-          dragWidth     = this.$el.outerWidth(),
-          dragOffset    = this.$el.offset();
-
-      // save it for later
-      this.$changeSizeBtn = changeSizeBtn;
-
-      changeSizeBtn.addClass( 'draggable' );
-
-      changeSizeBtn.on( 'mousemove', _.bind( function(e) {
-        if ( changeSizeBtn.hasClass( 'draggable' ) ) {
-          this.$el.css({
-            width  : dragWidth + e.pageX - ( dragWidth + dragOffset.left ) - this.$changeSizeBtn.width() / 2,
-            height : dragHeight + e.pageY - ( dragHeight + dragOffset.top ) + this.$changeSizeBtn.height() / 2
-          });
-        }
-      }, this ) );
-
-      e.preventDefault();
-    },
-
-
-    handleMouseLeaveView : function( e ) {
-      this.$el.removeClass( 'draggable' );
-    },
-
-
-    handleMouseLeaveViewSize : function( e ) {
-      // don't touch dom when there is no need to
-      if (
-        this.$changeSizeBtn &&
-        this.$changeSizeBtn.hasClass( 'draggable' )
-      ) {
-        this.$changeSizeBtn.removeClass( 'draggable' );
-      }
-    },
-
-
-    handleMouseUpViewSize : function( e ) {
-      if (
-        this.$changeSizeBtn &&
-        this.$changeSizeBtn.hasClass( 'draggable' )
-      ) {
-        this.$changeSizeBtn.removeClass( 'draggable' );
-      }
-
-      this.renderSvg();
-    },
-
-
-    handleMouseUpMove : function( e ) {
-      this.$el.removeClass( 'draggable' );
     },
 
 
@@ -378,17 +224,6 @@ define([
       this.svgBars[ 0 ].forEach( function( bar, i ) {
         bar.classList.remove( 'active' );
       } );
-    },
-
-
-    remove : function() {
-      this.$el.addClass( 'removed' )
-              .on(
-                'animationend webkitAnimationEnd otransitionend',
-                _.bind( function() {
-                  this.$el.remove();
-                }, this )
-              );
     },
 
 
@@ -581,13 +416,9 @@ define([
           .attr( 'dy', '.35em' )
           .style( 'text-anchor', 'middle' )
           .text( function( d ) { return d.value; } );
-    },
-
-
-    triggerActiveModel : function() {
-      this.model.trigger( 'activate', this.model );
     }
   });
 
-  return ChartSVGView;
+
+  return BarSVGView;
 });
