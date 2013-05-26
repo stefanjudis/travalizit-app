@@ -24,8 +24,11 @@ requirejs.config({
     // templates
     chartTemplate       : 'templates/chartView.hbs',
     chartSelectTemplate : 'templates/chartSelectTemplate.hbs',
-    chartParamsTemplate : 'templates/chartParamsTemplate.hbs',
     chartSvgItem        : 'templates/chartSvgItemTemplate.hbs',
+
+    // params templates
+    barChartSuccessFailParamsTemplate : 'templates/params/barChartSuccessFailParamsTemplate.hbs',
+    detailChartDetailsParamsTemplate : 'templates/params/detailChartDetailsParamsTemplate.hbs',
 
     // helpers
     hbsInputHelper : 'helpers/hbsInputHelper',

@@ -37,59 +37,44 @@ define([], function() {
         ],
         type : 'barChartSuccessFail',
         url  : 'builds'
-      }
-      // {
-      //   icon   : 'wrench',
-      //   name   : 'builds',
-      //   params : [
-      //     'number',
-      //     'status',
-      //     'started_at',
-      //     'finished_at',
-      //     'repository_id',
-      //     'agent',
-      //     'create_at',
-      //     'updated_at',
-      //     'config',
-      //     'commit_id',
-      //     'request_id',
-      //     'state',
-      //     'language',
-      //     'archived_at',
-      //     'duration',
-      //     'owner_id',
-      //     'owner_type',
-      //     'result',
-      //     'previous_result',
-      //     'event_type'
-      //   ],
-      //   srcPath : '/builds'
-      // }, {
-      //   icon : 'bookmark-empty',
-      //   name : 'commits'
+      },
+      {
+        icon   : 'align-justify',
+        name   : 'Details per time unit',
+        params : [
+          {
+            defaultValue : '2012-06-21',
+            label        : 'Date',
+            name         : 'date',
+            type         : 'date'
+          }, {
+            defaultValue : '9',
+            label        : 'Week:',
+            name         : 'week',
+            type         : 'number'
+          }, {
+            defaultValue : 'unitDay',
+            label        : 'Bars seperated in:',
+            name         : 'unit',
+            type         : 'radio',
 
-      // }, {
-      //   icon : 'th-large',
-      //   name : 'dimensions'
-      // }, {
-      //   icon : 'suitcase',
-      //   name : 'jobs'
-      // }, {
-      //   icon : 'group',
-      //   name : 'memberships'
-      // }, {
-      //   icon : 'building',
-      //   name : 'organizations'
-      // }, {
-      //   icon : 'hdd',
-      //   name : 'repositories'
-      // }, {
-      //   icon : 'phone-sign',
-      //   name : 'requests'
-      // }, {
-      //   icon : 'signout',
-      //   name : 'urls'
-      // }
+            values       : [
+              {
+                id    : 'unitDay',
+                value : 'day',
+                label : 'day'
+              },
+              {
+                id    : 'unitWeek',
+                value : 'week',
+                label : 'week'
+              }
+            ]
+          }
+        ],
+        type : 'detailChartDetails',
+        url  : 'builds'
+      }
     ]
   };
 });
