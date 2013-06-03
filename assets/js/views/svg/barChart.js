@@ -6,6 +6,63 @@ define([
 ], function( _, d3, GeneralSVGView ) {
   var BarSVGView = GeneralSVGView.extend({
 
+
+    addCircleChart : function( event ) {
+      require(
+        [ 'chartModel', 'config' ],
+        _.bind(function( ChartModel, Config ) {
+          var type        = 'circleChart',
+              chartConfig = _.find( Config.charts, function( chart ) {
+                              return chart.type === type;
+                            }),
+              data        = [
+                {
+                  name  : 'paramInput-type',
+                  value : type
+                }
+              ],
+              date          = event.target.dataset.date,
+              chart;
+
+          data.push({
+            name  : 'config',
+            value : {
+              icon: chartConfig.icon
+            }
+          });
+
+          if ( date.length > 2 ) {
+            data.push({
+              name  : 'paramInput-date',
+              value : date
+            }, {
+              name  : 'paramInput-unit',
+              value : 'day'
+            });
+          } else {
+            data.push({
+              name  : 'paramInput-week',
+              value : date
+            }, {
+              name  : 'paramInput-unit',
+              value : 'week'
+            });
+          }
+
+          chart = new ChartModel(
+                        data,
+                        {
+                          parse : true,
+                          url   : chartConfig.url
+                        }
+                      );
+
+          charts.push( chart );
+        }, this)
+      );
+    },
+
+
     renderSvg : function() {
       var margin = { top: 20, right: 20, bottom: 30, left: 80 },
           width  = this.$el.width() - margin.left - margin.right,
@@ -356,6 +413,8 @@ define([
 
       detailInformation.append( 'rect' )
                         .attr( 'class', 'analyzeBtn' )
+                        .attr( 'data-action-click', 'addCircleChart' )
+                        .attr( 'data-date', target.dataset.date )
                         .attr( 'x', 0 )
                         .attr( 'y', height - 30 )
                         .attr( 'width', width )
@@ -364,6 +423,8 @@ define([
 
       detailInformation.append( 'text' )
                         .attr( 'class', 'analyzeBtnText' )
+                        .attr( 'data-action-click', 'addCircleChart' )
+                        .attr( 'data-date', target.dataset.date )
                         .attr( 'x', detailInformationMargin )
                         .attr( 'y', height - 8 )
                         .text( 'Analyze!!!' );
