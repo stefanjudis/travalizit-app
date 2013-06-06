@@ -12,7 +12,9 @@ var express  = require( 'express' ),
     fs       = require( 'fs' ),
 
     libPath = __dirname + '/lib',
-    apiPath = libPath + '/api';
+    apiPath = libPath + '/api',
+
+    port = process.env.PORT || 3000;
 
 
 
@@ -51,5 +53,6 @@ fs.readdir( apiPath, function( err, files ) {
 });
 
 
-app.listen(3000);
-console.log('Listening on port 3000')
+app.listen(port, function() {
+  console.log('Listening on port ' + port);
+});
