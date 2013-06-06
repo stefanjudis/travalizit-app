@@ -6,6 +6,9 @@
  * Licensed under the MIT license.
  */
 
+// call it with
+// DATABASE_URL=postgres://stefan@localhost/travis node app.js
+
 var express  = require( 'express' ),
     app      = express(),
     hbs      = require( 'express-hbs' ),
