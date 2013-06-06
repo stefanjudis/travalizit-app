@@ -66,6 +66,7 @@ define([
             }
           });
 
+          console.log(data, chartConfig.url);
           chart = new ChartModel(
                         data,
                         {
