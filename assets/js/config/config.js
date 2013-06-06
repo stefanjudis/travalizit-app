@@ -11,7 +11,7 @@ define([], function() {
             name         : 'startDate',
             type         : 'date'
           }, {
-            defaultValue : '2013-06-06',
+            defaultValue : '2013-06-07',
             label        : 'Date to end:',
             name         : 'endDate',
             type         : 'date'
