@@ -6,12 +6,12 @@ define([], function() {
         name   : 'Success/Fail per time unit',
         params : [
           {
-            defaultValue : '2012-04-27',
+            defaultValue : '2013-05-15',
             label        : 'Date to start:',
             name         : 'startDate',
             type         : 'date'
           }, {
-            defaultValue : '2012-05-05',
+            defaultValue : '2013-06-06',
             label        : 'Date to end:',
             name         : 'endDate',
             type         : 'date'
