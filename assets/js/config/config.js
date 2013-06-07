@@ -11,7 +11,7 @@ define([], function() {
             name         : 'startDate',
             type         : 'date'
           }, {
-            defaultValue : '2013-06-07',
+            defaultValue : '2013-06-08',
             label        : 'Date to end:',
             name         : 'endDate',
             type         : 'date'
@@ -43,7 +43,7 @@ define([], function() {
         name   : 'Details per time unit',
         params : [
           {
-            defaultValue : '2012-06-21',
+            defaultValue : '2012-06-06',
             label        : 'Date',
             name         : 'date',
             type         : 'date'
@@ -75,6 +75,11 @@ define([], function() {
         type : 'circleChart',
         url  : 'builds'
       }
-    ]
+    ],
+
+    svgChartView: {
+      height : 300,
+      width  : 500
+    }
   };
 });
