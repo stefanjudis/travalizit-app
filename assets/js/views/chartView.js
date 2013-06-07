@@ -9,7 +9,6 @@ define([
     tagName: 'li',
 
     className : function() {
-      console.log( this.attributes );
       return 'chartItem fontawesome-' + this.attributes.config.icon;
     },
 
