@@ -64,9 +64,9 @@ define([
 
 
     renderSvg : function() {
-      var margin = { top: 20, right: 20, bottom: 30, left: 80 },
+      var margin = { top: 20, right: 20, bottom: 80, left: 80 },
           width  = this.$el.width() - margin.left - margin.right,
-          height = this.$el.height() - this.$( '.topBar' ).height() -  margin.top - margin.bottom,
+          height = this.$el.height() - margin.top - margin.bottom,
 
           formatPercent = d3.format( '.0%' ),
 

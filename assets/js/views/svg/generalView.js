@@ -53,6 +53,12 @@ define([
                 })
               );
 
+
+      this.$el.css({
+        height : Config.svgChartView.height,
+        width  : Config.svgChartView.width
+      });
+
       // if data is already fetched
       if ( this.model.get( 'data' ) ) {
         this.renderSvg();
