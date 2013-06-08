@@ -283,10 +283,8 @@
     @include animation( flyOut, 0.5s );
   }
 
-  &[type="circleChart"] {
-    .repoList {
-      position: relative;
-      width: 50%;
+  &[type="circleChart"], &[type="repoChart"] {
+    .attributes {
       float: left;
 
       padding: 1em;
@@ -325,12 +323,6 @@
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-
-      width: 90%;
-      padding-right: 2em;
-
-      text-indent: 0;
-      @include transition(text-indent 0.5 ease-in);
     }
 
     dd {
@@ -339,8 +331,6 @@
       padding: 0.5em 0;
 
       text-align: center;
-
-      width: 10%;
     }
 
     h4 {
@@ -349,6 +339,24 @@
       text-align: left;
       color: $darkGrey;
     }
+  }
+
+
+  &[type="circleChart"] {
+    .attributes {
+      position: relative;
+      width: 50%;
+    }
+
+    dt {
+      width: 90%;
+      padding-right: 2em;
+    }
+
+    dd {
+      width: 10%;
+    }
+
 
     i {
       position: absolute;
@@ -369,6 +377,25 @@
     }
 
     svg {
+      width: 50%;
+    }
+  }
+
+  &[type="repoChart"] {
+    .attributes {
+      width: 50%;
+      height: calc(100% - 4em);
+
+      float: left;
+
+      overflow: scroll;
+    }
+
+    dt {
+      width: 50%;
+    }
+
+    dd {
       width: 50%;
     }
   }

@@ -41,7 +41,8 @@ requirejs.config({
     chartParamsTemplate : 'templates/params/chartParamsTemplate.hbs',
 
     // helpers
-    hbsInputHelper : 'helpers/hbsInputHelper',
+    hbsInputHelper      : 'helpers/hbsInputHelper',
+    hbsAttributesHelper : 'helpers/hbsAttributesHelper',
 
     config : 'config/config'
   },

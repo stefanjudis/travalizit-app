@@ -3,7 +3,9 @@ define([
   'd3',
   'handlebars',
   'generalSVGView',
-  'text!repoChartHtmlTemplate'
+  'text!repoChartHtmlTemplate',
+  'hbsAttributesHelper'
+
 ], function( _, d3, Handlebars, GeneralSVGView, RepoChartHtmlTemplate ) {
   var RepoSVGView = GeneralSVGView.extend({
 
@@ -18,7 +20,7 @@ define([
       this.$el.append(
         template(
           {
-            repos : this.model.get('data').github
+            repo : this.model.get('data').github
           }
         )
       );
