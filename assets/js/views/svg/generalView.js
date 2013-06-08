@@ -53,7 +53,6 @@ define([
                 })
               );
 
-
       this.$el.css({
         height : Config.svgChartView.height,
         width  : Config.svgChartView.width
