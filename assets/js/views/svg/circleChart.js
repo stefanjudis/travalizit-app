@@ -8,7 +8,7 @@ define([
   var CircleSVGView = GeneralSVGView.extend({
 
     handleCircleClick: function() {
-        this.model.getRepoData();
+
     },
 
 

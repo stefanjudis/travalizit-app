@@ -18,9 +18,12 @@ requirejs.config({
     sidebarView  : 'views/sidebarView',
 
     // svg views
-    generalSVGView : 'views/svg/generalView',
-    barChartView     : 'views/svg/barChart',
-    circleChartView     : 'views/svg/circleChart',
+    generalSVGView  : 'views/svg/generalView',
+
+    // specific svg views
+    barChartView    : 'views/svg/barChart',
+    circleChartView : 'views/svg/circleChart',
+    repoChartView   : 'views/svg/repoChart',
 
     // collections
     chartCollection : 'collections/chartsCollection',
