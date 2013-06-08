@@ -85,6 +85,10 @@
     cursor: nwse-resize;
   }
 
+  .circleGroup {
+    float: right;
+  }
+
   .closeBtn {
     position: relative;
     float: right;
@@ -281,5 +285,34 @@
 
   &.removed {
     @include animation( flyOut, 0.5s );
+  }
+
+  &[type="circleChart"] {
+    .repoList {
+      width: 50%;
+
+      margin: 1em;
+    }
+
+    dl {
+      font-size: 0.8em;
+    }
+
+    dt,dd {
+      display: inline-block;
+    }
+
+    dd {
+      text-align: right;
+    }
+
+    dt {
+      text-align: left;
+    }
+
+    h4 {
+      margin: 0 0 0.5em 0;
+      font-size: 1em;
+    }
   }
 }
