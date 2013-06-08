@@ -74,6 +74,25 @@ define([], function() {
         ],
         type : 'circleChart',
         url  : 'builds'
+      },
+      {
+        icon   : 'github',
+        name   : 'Repository details',
+        params : [
+          {
+            defaultValue : 'owner',
+            label        : 'Owner:',
+            name         : 'owner',
+            type         : 'text'
+          }, {
+            defaultValue : 'name',
+            label        : 'Name:',
+            name         : 'name',
+            type         : 'text'
+          }
+        ],
+        type : 'repoChart',
+        url  : 'repos'
       }
     ],
 
