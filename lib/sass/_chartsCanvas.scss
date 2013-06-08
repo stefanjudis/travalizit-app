@@ -318,6 +318,7 @@
 
     dt {
       clear: left;
+      position: relative;
 
       background-color: $lightGrey;
 
@@ -326,6 +327,7 @@
       text-overflow: ellipsis;
 
       width: 90%;
+      padding-right: 2em;
     }
 
     dd {
@@ -343,6 +345,20 @@
       font-size: 1em;
       text-align: left;
       color: $darkGrey;
+    }
+
+    i {
+      position: absolute;
+      right: 0.2em;
+      top: 0.075em;
+
+      color: $red;
+
+      font-size: 1.8em;
+      font-style: normal;
+      font-weight: 400;
+
+      cursor: pointer;
     }
 
     svg {
