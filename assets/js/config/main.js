@@ -34,8 +34,7 @@ requirejs.config({
     circleChartHtmlTemplate : 'templates/partHtml/circleChart.hbs',
 
     // params templates
-    barChartParamsTemplate : 'templates/params/barChartParamsTemplate.hbs',
-    circleChartParamsTemplate : 'templates/params/circleChartParamsTemplate.hbs',
+    chartParamsTemplate : 'templates/params/chartParamsTemplate.hbs',
 
     // helpers
     hbsInputHelper : 'helpers/hbsInputHelper',

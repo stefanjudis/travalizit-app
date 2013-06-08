@@ -120,7 +120,7 @@ define([
 
       console.log(type + 'ParamsTemplate');
       require(
-        [ 'handlebars', 'text!' + type + 'ParamsTemplate', 'hbsInputHelper'],
+        [ 'handlebars', 'text!chartParamsTemplate', 'hbsInputHelper'],
         _.bind(function( Handlebars, ChartParamsTemplate ) {
           var params   = this.$chartMenu.find( '#chartParams' ),
               template = Handlebars.compile( ChartParamsTemplate ),
