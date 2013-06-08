@@ -297,10 +297,21 @@
 
     dt,dd {
       display: inline-block;
+      padding: 0.5em;
+      color: #fff;
+      font-weight: 600;
+      margin-bottom: 0.5em;
+      letter-spacing: 1px;
+    }
+
+    dt {
+      background-color: $lightGrey;
     }
 
     dd {
+      background-color: $red;
       text-align: right;
+      margin: 0 0 0 0.1em;
     }
 
     h4 {

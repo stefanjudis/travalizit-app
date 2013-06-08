@@ -78,8 +78,8 @@ define([], function() {
     ],
 
     svgChartView: {
-      height : 300,
-      width  : 500
+      height : 350,
+      width  : 700
     }
   };
 });
