@@ -15,21 +15,24 @@ define([
               chartConfig = _.find( Config.charts, function( chart ) {
                               return chart.type === type;
                             }),
+              date          = event.target.dataset.date,
               data        = [
                 {
                   name  : 'paramInput-type',
                   value : type
+                },
+                {
+                  name  : 'config',
+                  value : {
+                    icon: chartConfig.icon
+                  }
+                },
+                {
+                  name  : 'name',
+                  value : 'Circle chart for ' + date
                 }
               ],
-              date          = event.target.dataset.date,
               chart;
-
-          data.push({
-            name  : 'config',
-            value : {
-              icon: chartConfig.icon
-            }
-          });
 
           if ( date.length > 2 ) {
             data.push({
