@@ -80,14 +80,14 @@ define([], function() {
         name   : 'Repository details',
         params : [
           {
-            defaultValue : 'owner',
+            defaultValue : 'stefanjudis',
             label        : 'Owner:',
-            name         : 'owner',
+            name         : 'repoOwner',
             type         : 'text'
           }, {
-            defaultValue : 'name',
+            defaultValue : 'cushion-cli',
             label        : 'Name:',
-            name         : 'name',
+            name         : 'repoName',
             type         : 'text'
           }
         ],
