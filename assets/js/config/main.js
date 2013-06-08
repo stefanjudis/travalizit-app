@@ -30,6 +30,9 @@ requirejs.config({
     chartSelectTemplate : 'templates/chartSelectTemplate.hbs',
     chartSvgItem        : 'templates/chartSvgItemTemplate.hbs',
 
+    // particular html part svg chart templates
+    circleChartHtmlTemplate : 'templates/partHtml/circleChart.hbs',
+
     // params templates
     barChartParamsTemplate : 'templates/params/barChartParamsTemplate.hbs',
     circleChartParamsTemplate : 'templates/params/circleChartParamsTemplate.hbs',

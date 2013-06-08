@@ -87,7 +87,6 @@ define([
           data = this.model.get( 'data' ),
 
           d3el = d3.select( this.el );
-
       //remove old svg for example after resize
       d3el.select( 'svg' ).remove();
 

@@ -64,6 +64,10 @@ define([
         this.renderSvg();
       }
 
+      if ( this.renderHtmlPart && typeof this.renderHtmlPart === 'function' ) {
+        this.renderHtmlPart();
+      }
+
       return html;
     },
 
