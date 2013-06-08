@@ -328,6 +328,9 @@
 
       width: 90%;
       padding-right: 2em;
+
+      text-indent: 0;
+      @include transition(text-indent 0.5 ease-in);
     }
 
     dd {

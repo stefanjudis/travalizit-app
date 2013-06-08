@@ -6,6 +6,11 @@ define([
   'text!circleChartHtmlTemplate'
 ], function( _, d3, Handlebars, GeneralSVGView, CircleChartHtmlTemplate) {
   var CircleSVGView = GeneralSVGView.extend({
+    events: function(){
+      return _.extend({},GeneralSVGView.prototype.events,{
+        'click i' : 'addRepoChart'
+      });
+     },
 
     addRepoChart: function( event ) {
       require(

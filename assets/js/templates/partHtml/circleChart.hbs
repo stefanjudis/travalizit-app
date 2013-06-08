@@ -2,7 +2,7 @@
   <h4>Included repositories</h4>
   <dl>
     {{#each repos}}
-      <dt><a href="https://github.com/{{this.owner}}/{{name}}" target="_blank">{{this.owner}} / {{name}}</a> | {{this.repo}} | <span>{{this.language}}</span><i class="fontawesome-info-sign"></i>
+      <dt><a href="https://github.com/{{this.owner}}/{{name}}" target="_blank">{{owner}} / {{name}}</a> | {{repo}} | <span>{{language}}</span><i class="fontawesome-info-sign" data-repo-name="{{name}}" data-repo-owner="{{owner}}"></i>
       <dd>{{this.count}}
     {{/each}}
   </dl>
