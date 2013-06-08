@@ -59,13 +59,18 @@ define([
         width  : Config.svgChartView.width
       });
 
-      // if data is already fetched
       if ( this.model.get( 'data' ) ) {
-        this.renderSvg();
-      }
+        if (
+          this.renderHtmlPart &&
+          typeof this.renderHtmlPart === 'function'
+        ) {
+          this.renderHtmlPart();
+        }
 
-      if ( this.renderHtmlPart && typeof this.renderHtmlPart === 'function' ) {
-        this.renderHtmlPart();
+        if ( this.model.get( 'data' ) ) {
+        // if data is already fetched
+          this.renderSvg();
+        }
       }
 
       return html;
