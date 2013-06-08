@@ -35,6 +35,7 @@ requirejs.config({
 
     // particular html part svg chart templates
     circleChartHtmlTemplate : 'templates/partHtml/circleChart.hbs',
+    repoChartHtmlTemplate : 'templates/partHtml/repoChart.hbs',
 
     // params templates
     chartParamsTemplate : 'templates/params/chartParamsTemplate.hbs',

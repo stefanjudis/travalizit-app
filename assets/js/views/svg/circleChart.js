@@ -7,11 +7,57 @@ define([
 ], function( _, d3, Handlebars, GeneralSVGView, CircleChartHtmlTemplate) {
   var CircleSVGView = GeneralSVGView.extend({
 
-    handleCircleClick: function() {
+    addRepoChart: function( event ) {
+      require(
+        [ 'chartModel', 'config' ],
+        _.bind(function( ChartModel, Config ) {
+          var type        = 'repoChart',
+              chartConfig = _.find( Config.charts, function( chart ) {
+                              return chart.type === type;
+                            }),
+              name        = event.target.dataset.repoName,
+              owner       = event.target.dataset.repoOwner,
+              data        = [
+                {
+                  name  : 'paramInput-type',
+                  value : type
+                },
+                {
+                  name  : 'config',
+                  value : {
+                    icon: chartConfig.icon
+                  }
+                },
+                {
+                  name  : 'name',
+                  value : 'Repo chart for ' + owner + ' / ' + name
+                },
+                {
+                  name  : 'repoName',
+                  value : name
+                },
+                {
+                  name  : 'repoOwner',
+                  value : owner
+                }
+              ],
+              chart;
 
+          console.log(event.target.dataset);
+          chart = new ChartModel(
+                        data,
+                        {
+                          parse : true,
+                          url   : chartConfig.url
+                        }
+                      );
+
+          charts.push( chart );
+        }, this)
+      );
     },
 
-
+    // TODO that can be refactored and be mored into general view
     renderHtmlPart : function() {
       var template = Handlebars.compile( CircleChartHtmlTemplate );
 
@@ -86,7 +132,13 @@ define([
                 .attr( 'data-count', function( d ) {
                   return d.count;
                 } )
-                .attr( 'data-action-click', 'handleCircleClick');
+                .attr( 'data-action-click', 'addRepoChart')
+                .attr( 'data-repo-name', function( d ) {
+                  return d.name;
+                } )
+                .attr( 'data-repo-owner', function( d ) {
+                  return d.owner;
+                } );
 
       repoGroup.append('text')
                 .attr( 'dy', '.3em' )
@@ -96,7 +148,14 @@ define([
                     return d.repo;
                   }
                 )
-                .attr( 'data-action-click', 'handleCircleClick' );
+                .attr( 'data-action-click', 'addRepoChart' )
+                .attr( 'data-repoName', function( d ) {
+                  return d.name;
+                } )
+                .attr( 'data-repoOwner', function( d ) {
+                  return d.owner;
+                } );
+
     }
   });
 
