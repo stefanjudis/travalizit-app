@@ -300,18 +300,22 @@
       padding: 0.5em;
       color: #fff;
       font-weight: 600;
-      margin-bottom: 0.5em;
+      margin: 0 0 0.5em 0;
       letter-spacing: 1px;
+
+      float: left;
     }
 
     dt {
       background-color: $lightGrey;
+      clear: left;
     }
 
     dd {
       background-color: $red;
       text-align: right;
-      margin: 0 0 0 0.1em;
+      padding: 0.5em 1em;
+      text-align: center;
     }
 
     h4 {
