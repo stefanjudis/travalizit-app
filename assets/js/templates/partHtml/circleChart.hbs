@@ -2,7 +2,7 @@
   <h4>Included repositories</h4>
   <dl>
     {{#each repos}}
-      <dt>{{this.owner}} / {{name}} | {{this.repo}}
+      <dt><a href="https://github.com/{{this.owner}}/{{name}}" target="_blank">{{this.owner}} / {{name}}</a> | {{this.repo}}
       <dd>{{this.count}}
     {{/each}}
   </dl>
