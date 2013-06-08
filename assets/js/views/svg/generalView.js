@@ -91,7 +91,6 @@ define([
       var target     = event.target,
           attributes = target.attributes,
           action;
-
       try {
         action = attributes.getNamedItem( 'data-action-click' ).value;
       } catch( e ) {}

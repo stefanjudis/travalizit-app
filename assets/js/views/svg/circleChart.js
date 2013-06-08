@@ -21,9 +21,9 @@ define([
           reposGroup,
           repoGroup,
 
-          margin = { top: 10, right: 10, bottom: 10, left: 10 },
+          margin = { top: 10, right: 10, bottom: 60, left: 10 },
           width  = this.$el.width() - margin.left - margin.right,
-          height = this.$el.height() - this.$( '.topBar' ).height() -  margin.top - margin.bottom,
+          height = this.$el.height() -  margin.top - margin.bottom,
 
           d3el = d3.select( this.el ),
 

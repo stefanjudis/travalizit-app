@@ -43,7 +43,7 @@ define([], function() {
         name   : 'Details per time unit',
         params : [
           {
-            defaultValue : '2012-06-06',
+            defaultValue : '2013-06-07',
             label        : 'Date',
             name         : 'date',
             type         : 'date'
