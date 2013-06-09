@@ -148,6 +148,10 @@
     font-size: 0.8em;
   }
 
+  .link {
+    stroke: $darkGrey;
+  }
+
   .moveBtn {
     position: absolute;
 
@@ -169,6 +173,16 @@
     cursor: move;
 
     @include box-shadow( 0 1px 2px #000 );
+  }
+
+  .node {
+    rect {
+      fill: $red;
+    }
+
+    text {
+      fill: #fff;
+    }
   }
 
   .repos {
@@ -335,7 +349,7 @@
     }
 
     h4 {
-      margin: 0 0 0.5em 0;
+      margin: 0 0 0.3em 0;
       font-size: 1em;
       text-align: left;
       color: $darkGrey;
@@ -384,7 +398,7 @@
 
   &[type="repoChart"] {
     .attributes {
-      width: 50%;
+      width: 40%;
       height: calc(100% - 4em);
 
       float: left;
@@ -397,6 +411,9 @@
     }
 
     dd {
+      width: 60%;
+    }
+    svg {
       width: 60%;
     }
   }
