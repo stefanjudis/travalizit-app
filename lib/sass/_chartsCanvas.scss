@@ -312,6 +312,10 @@
       margin: 0 0 0.5em 0;
       letter-spacing: 1px;
       float: left;
+
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     dt {
@@ -320,9 +324,6 @@
 
       background-color: $lightGrey;
 
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
     }
 
     dd {
