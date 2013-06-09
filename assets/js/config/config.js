@@ -96,7 +96,24 @@ define([], function() {
       }
     ],
 
-    svgChartView: {
+    shownGithubRepoInformation : [
+      'id',
+      'name',
+      'description',
+      'homepage',
+      'language',
+      'owner.login',
+      'owner.id',
+      'owner.type',
+      'fork',
+      'forks',
+      'private',
+      'size',
+      'open_issues',
+      'watchers'
+    ],
+
+    svgChartView : {
       height : 350,
       width  : 700
     }

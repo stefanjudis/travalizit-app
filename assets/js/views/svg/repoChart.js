@@ -5,7 +5,6 @@ define([
   'generalSVGView',
   'text!repoChartHtmlTemplate',
   'hbsAttributesHelper'
-
 ], function( _, d3, Handlebars, GeneralSVGView, RepoChartHtmlTemplate ) {
   var RepoSVGView = GeneralSVGView.extend({
 
