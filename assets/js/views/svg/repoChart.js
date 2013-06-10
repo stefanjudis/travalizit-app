@@ -77,13 +77,18 @@ define([
                               }
                             )[ 0 ],
               offsetX = node.width / 2,
-              offsetY = node.height / 2;
+              offsetY = node.height / 2,
 
-          link.sourceX = sourceNode.x + offsetX;
-          link.sourceY = sourceNode.y + offsetY;
+              sourceX = sourceNode.x + offsetX,
+              sourceY = sourceNode.y + offsetY,
 
-          link.targetX = targetNode.x + offsetX;
-          link.targetY = targetNode.y + offsetY;
+              targetX = targetNode.x + offsetX,
+              targetY = targetNode.y + offsetY;
+
+          link.path = 'M' + sourceX + ' ' + sourceY +
+                      ' C ' + (sourceX + width / 3) + ' ' + sourceY + ', ' +
+                      (targetX - width /3 ) + ' ' + targetY + ', ' +
+                      targetX + ' ' + targetY;
         } );
 
         return links;
@@ -107,9 +112,10 @@ define([
                             .enter().append( 'path' )
                             .attr( 'class', 'link' )
                             .attr( 'd', function( d ) {
-                              return 'M' + d.sourceX + ' ' + d.sourceY +
-                                      ' L ' + d.targetX + ' ' + d.targetY;
-                            } );
+                              return d.path;
+                            } )
+                            .attr('stroke', 'black')
+                            .attr('fill', 'transparent');
 
       nodesGroup = this.svg.append( 'g' )
                             .attr( 'class', 'nodes' )
