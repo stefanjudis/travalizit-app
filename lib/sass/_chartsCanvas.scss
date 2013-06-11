@@ -363,6 +363,41 @@
       width: 50%;
     }
 
+    dl {
+      &:hover {
+        &:before, &:after {
+          position: absolute;
+          color: #fff;
+
+        }
+
+        &:before {
+          background-color: $red;
+          content: attr(data-help);
+          top: -3.5em;
+          right: 0;
+          width: 35%;
+          max-width: 105px;
+          font-size: 0.8em;
+          text-align: right;
+          padding: 0.25em;
+        }
+
+        &:after {
+          content: '';
+
+          width: 0;
+          height: 0;
+
+          top: -0.5em;
+          right: calc(10% + 10px);
+          border-left: 5px solid transparent;
+          border-right: 5px solid transparent;
+          border-top: 5px solid $red;
+        }
+      }
+    }
+
     dt {
       width: 90%;
       padding-right: 2em;
