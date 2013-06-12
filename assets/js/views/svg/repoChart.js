@@ -34,7 +34,7 @@ define([
           height = this.$el.height() - margin.top - margin.bottom,
 
           node = {
-            width  : 120,
+            width  : 150,
             height : 20
           },
 
@@ -115,7 +115,13 @@ define([
                               return d.path;
                             } )
                             .attr('stroke', 'black')
-                            .attr('fill', 'transparent');
+                            .attr('fill', 'transparent')
+                            .attr( 'data-source', function( d ) {
+                              return d.source;
+                            } )
+                            .attr( 'data-target', function( d ) {
+                              return d.target;
+                            } );
 
       nodesGroup = this.svg.append( 'g' )
                             .attr( 'class', 'nodes' )
@@ -130,7 +136,27 @@ define([
                       function( d ) {
                         return 'translate(' + d.x + ',' + d.y + ')';
                       }
-                    );
+                    )
+                    .on( 'mouseover', function( d ) {
+                      var selector = ( d.type === 'build' ) ? 'source' : 'target',
+                          paths = d3.selectAll(
+                                    'path[data-' + selector + '="' + d.name + '"]'
+                                  );
+
+                      if ( paths.length ) {
+                        paths.classed( 'highlighted', true );
+                      }
+                    } )
+                    .on( 'mouseleave', function( d ) {
+                      var selector = ( d.type === 'build' ) ? 'source' : 'target',
+                          paths = d3.selectAll(
+                                    'path[data-' + selector + '="' + d.name + '"]'
+                                  );
+
+                      if ( paths.length ) {
+                        paths.classed( 'highlighted', false );
+                      }
+                    } );
 
       nodeGroup.append( 'rect' )
                 .attr( 'height', node.height )

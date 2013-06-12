@@ -150,6 +150,11 @@
 
   .link {
     stroke: $darkGrey;
+
+    &.highlighted {
+      stroke: $red;
+      stroke-width: 2px;
+    }
   }
 
   .moveBtn {
