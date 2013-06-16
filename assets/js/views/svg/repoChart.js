@@ -130,7 +130,16 @@ define([
       nodeGroup = nodesGroup.selectAll( '.node' )
                     .data( nodes )
                     .enter().append( 'g' )
-                    .attr( 'class', 'node' )
+                    .attr( 'class', function( d ) {
+                      var classes = 'node';
+
+                      if ( d.type === 'build' && d.status === '0') {
+                        debugger;
+                        classes += 'failed';
+                      }
+
+                      return classes;
+                    } )
                     .attr(
                       'transform',
                       function( d ) {
