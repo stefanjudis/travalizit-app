@@ -188,6 +188,17 @@
     text {
       fill: #fff;
     }
+
+  }
+
+  .failed {
+    rect {
+      fill: $darkGrey;
+    }
+
+    text {
+      fill: #fff;
+    }
   }
 
   .repos {

@@ -133,9 +133,8 @@ define([
                     .attr( 'class', function( d ) {
                       var classes = 'node';
 
-                      if ( d.type === 'build' && d.status === '0') {
-                        debugger;
-                        classes += 'failed';
+                      if ( d.type === 'build' && d.status === 0) {
+                        classes += ' failed';
                       }
 
                       return classes;
