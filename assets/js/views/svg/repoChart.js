@@ -95,8 +95,8 @@ define([
               targetY = targetNode.y + targetOffsetY;
 
           link.path = 'M' + sourceX + ' ' + sourceY +
-                      ' C ' + (sourceX + width / 2) + ' ' + sourceY + ', ' +
-                      (targetX - width / 2 ) + ' ' + targetY + ', ' +
+                      ' C ' + (sourceX + width / 3 * 2) + ' ' + sourceY + ', ' +
+                      (targetX - width / 3 * 2 ) + ' ' + targetY + ', ' +
                       targetX + ' ' + targetY;
         } );
 
