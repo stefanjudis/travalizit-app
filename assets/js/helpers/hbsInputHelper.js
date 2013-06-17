@@ -3,7 +3,8 @@ define([
 ], function( Handlebars) {
   Handlebars.registerHelper('input', function() {
     var inputHtml = '',
-        i = 0;
+        i = 0,
+        first = true;
 
     if ( this.type === 'radio' ) {
       inputHtml += '<label for="paramInput-' + this.defaultValue + '">' +
@@ -19,8 +20,14 @@ define([
                         '<input id="paramInput-' + this.values[ i ].id + '" ' +
                           'name="paramInput-' + this.name + '" ' +
                           'type="' + this.type + '" ' +
-                          'value="' + this.values[ i ].value + '"' +
-                        '>' +
+                          'value="' + this.values[ i ].value + '"';
+
+        if ( first ) {
+          inputHtml += ' checked="checked"';
+          first = false;
+        }
+
+        inputHtml += '>' +
                       '</li>';
       }
 
