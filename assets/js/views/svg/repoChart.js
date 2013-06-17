@@ -34,8 +34,14 @@ define([
           height = this.$el.height() - margin.top - margin.bottom,
 
           node = {
-            width  : 150,
-            height : 20
+            build : {
+              width  : 50,
+              height : 20
+            },
+            file : {
+              width : 200,
+              height: 20
+            }
           },
 
           d3el = d3.select( this.el ),
@@ -167,8 +173,12 @@ define([
                     } );
 
       nodeGroup.append( 'rect' )
-                .attr( 'height', node.height )
-                .attr( 'width', node.width );
+                .attr( 'height', function( d ) {
+                  return node[ d.type ].height;
+                } )
+                .attr( 'width', function( d ) {
+                  return node[ d.type ].width;
+                } );
 
       nodeGroup.append('text')
                 .attr( 'x', '5' )
