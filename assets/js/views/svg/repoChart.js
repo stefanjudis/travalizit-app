@@ -71,6 +71,7 @@ define([
       }
 
       function calculateNodePaths( links, nodes ) {
+        debugger
         links.forEach( function( link ) {
           var sourceNode = nodes.filter(
                               function( node ) {
