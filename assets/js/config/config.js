@@ -6,12 +6,43 @@ define([], function() {
         name   : 'Success/Fail per time unit',
         params : [
           {
-            defaultValue : '2013-05-15',
+            defaultValue : (function() {
+              var date = new Date(),
+                  day,
+                  dayString,
+                  month,
+                  monthString;
+
+              date.setDate(date.getDate() - 14);
+
+              day = date.getDate();
+              dayString = ( day < 10) ? '0' + day : day;
+
+              month = date.getMonth() + 1;
+              monthString = ( month < 10) ? '0' + month : month;
+
+              return date.getUTCFullYear() + '-' + monthString + '-' + dayString;
+            })(),
             label        : 'Date to start:',
             name         : 'startDate',
             type         : 'date'
           }, {
-            defaultValue : '2013-06-08',
+            defaultValue : (function() {
+              var date = new Date(),
+                  day,
+                  dayString,
+                  month,
+                  monthString;
+
+              day = date.getDate();
+              dayString = ( day < 10) ? '0' + day : day;
+
+              month = date.getMonth() + 1;
+              monthString = ( month < 10) ? '0' + month : month;
+
+              console.log(date.getUTCFullYear() + '-' + monthString + '-' + dayString)
+              return date.getUTCFullYear() + '-' + monthString + '-' + dayString;
+            })(),
             label        : 'Date to end:',
             name         : 'endDate',
             type         : 'date'
