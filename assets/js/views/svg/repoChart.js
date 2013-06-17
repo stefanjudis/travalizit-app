@@ -82,15 +82,16 @@ define([
                                 return node.name === link.target;
                               }
                             )[ 0 ],
-              sourceOffsetX = node[ sourceNode.type ],
+              sourceOffsetX = node[ sourceNode.type ].width / 2,
               sourceOffsetY = node[ sourceNode.type ].height / 2,
 
+              targetOffsetX = node[ targetNode.type ].width / 2,
               targetOffsetY = node[ targetNode.type ].height / 2,
 
               sourceX = sourceNode.x + sourceOffsetX,
               sourceY = sourceNode.y + sourceOffsetY,
 
-              targetX = targetNode.x,
+              targetX = targetNode.x + targetOffsetX,
               targetY = targetNode.y + targetOffsetY;
 
           link.path = 'M' + sourceX + ' ' + sourceY +
