@@ -61,8 +61,8 @@ define([
         };
 
         nodes.forEach( function( value ) {
-          value.x = ( value.type === 'build') ? 0 : ( width - node.width - margin.right ),
-          value.y = ( node.height + 5 ) * index[ value.type ];
+          value.x = ( value.type === 'build') ? 0 : ( width - node[ value.type ].width - margin.right ),
+          value.y = ( node[ value.type ].height + 5 ) * index[ value.type ];
 
           ++index[ value.type ];
         } );
