@@ -71,7 +71,6 @@ define([
       }
 
       function calculateNodePaths( links, nodes ) {
-        debugger
         links.forEach( function( link ) {
           var sourceNode = nodes.filter(
                               function( node ) {
@@ -83,14 +82,17 @@ define([
                                 return node.name === link.target;
                               }
                             )[ 0 ],
-              offsetX = node.width / 2,
-              offsetY = node.height / 2,
+              sourceOffsetX = node[ sourceNode.type ].width / 2,
+              sourceOffsetY = node[ sourceNode.type ].height / 2,
 
-              sourceX = sourceNode.x + offsetX,
-              sourceY = sourceNode.y + offsetY,
+              targetOffsetX = node[ targetNode.type ].width / 2,
+              targetOffsetY = node[ targetNode.type ].height / 2,
 
-              targetX = targetNode.x + offsetX,
-              targetY = targetNode.y + offsetY;
+              sourceX = sourceNode.x + sourceOffsetX,
+              sourceY = sourceNode.y + sourceOffsetY,
+
+              targetX = targetNode.x + targetOffsetX,
+              targetY = targetNode.y + targetOffsetY;
 
           link.path = 'M' + sourceX + ' ' + sourceY +
                       ' C ' + (sourceX + width / 2) + ' ' + sourceY + ', ' +
