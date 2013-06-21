@@ -129,7 +129,7 @@ define([], function() {
             name         : 'repoOwner',
             type         : 'text'
           }, {
-            defaultValue : 'travalizit',
+            defaultValue : 'cushion-cli',
             label        : 'Name:',
             name         : 'repoName',
             type         : 'text'
