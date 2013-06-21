@@ -40,7 +40,6 @@ define([], function() {
               month = date.getMonth() + 1;
               monthString = ( month < 10) ? '0' + month : month;
 
-              console.log(date.getUTCFullYear() + '-' + monthString + '-' + dayString)
               return date.getUTCFullYear() + '-' + monthString + '-' + dayString;
             })(),
             label        : 'Date to end:',
@@ -74,7 +73,21 @@ define([], function() {
         name   : 'Details per time unit',
         params : [
           {
-            defaultValue : '2013-06-07',
+            defaultValue : (function() {
+              var date = new Date(),
+                  day,
+                  dayString,
+                  month,
+                  monthString;
+
+              day = date.getDate();
+              dayString = ( day < 10) ? '0' + day : day;
+
+              month = date.getMonth() + 1;
+              monthString = ( month < 10) ? '0' + month : month;
+
+              return date.getUTCFullYear() + '-' + monthString + '-' + dayString;
+            })(),
             label        : 'Date',
             name         : 'date',
             type         : 'date'
