@@ -273,7 +273,7 @@
     @include transition( color 0.2s ease-in);
   }
 
-  &:after {
+  &:before {
     position: absolute;
 
     left: 100%;
@@ -284,7 +284,6 @@
 
     line-height: 2em;
 
-    content: "\f0e4";
     font-family: 'FontAwesome', sans-serif;
     font-size: 1.5em;
     color: #fff;

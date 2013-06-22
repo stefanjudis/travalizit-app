@@ -2,9 +2,9 @@ define([], function() {
   return {
     charts : [
       {
-        icon   : 'bar-chart',
-        name   : 'Success/Fail per time unit',
-        params : [
+        icon     : 'bar-chart',
+        name     : 'Success/Fail per time unit',
+        params   : [
           {
             defaultValue : (function() {
               var date = new Date(),
@@ -65,13 +65,13 @@ define([], function() {
             ]
           }
         ],
-        type : 'barChart',
-        url  : 'builds'
+        type   : 'barChart',
+        url    : 'builds'
       },
       {
-        icon   : 'align-justify',
-        name   : 'Details per time unit',
-        params : [
+        icon     : 'circle',
+        name     : 'Details per time unit',
+        params   : [
           {
             defaultValue : (function() {
               var date = new Date(),
@@ -116,13 +116,13 @@ define([], function() {
             ]
           }
         ],
-        type : 'circleChart',
-        url  : 'builds'
+        type   : 'circleChart',
+        url    : 'builds'
       },
       {
-        icon   : 'github',
-        name   : 'Repository details',
-        params : [
+        icon     : 'github',
+        name     : 'Repository details',
+        params   : [
           {
             defaultValue : 'stefanjudis',
             label        : 'Owner:',
@@ -135,8 +135,8 @@ define([], function() {
             type         : 'text'
           }
         ],
-        type : 'repoChart',
-        url  : 'repos'
+        type   : 'repoChart',
+        url    : 'repos'
       }
     ],
 
