@@ -33,7 +33,7 @@ define([
 
 
     initialize : function( data ) {
-      this.fetch({ data : this.getQueryParams() });
+      this.fetch({ data  : this.getQueryParams() });
     },
 
     getQueryParams : function() {
