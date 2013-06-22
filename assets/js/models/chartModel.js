@@ -33,7 +33,12 @@ define([
 
 
     initialize : function( data ) {
-      this.fetch({ data  : this.getQueryParams() });
+      this.fetch(
+        {
+          data    : this.getQueryParams(),
+          timeout : 100000
+        }
+      );
     },
 
     getQueryParams : function() {
