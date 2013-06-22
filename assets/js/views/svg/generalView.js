@@ -43,7 +43,7 @@ define([
       this.listenTo( this.model, 'destroy', this.remove );
       this.listenTo( this.model, 'sync', this.render );
       this.listenTo( this.model, 'change:highlighted', this.handleModelHighlight );
-      this.listenTo( this.model, 'error', this.renderError )
+      this.listenTo( this.model, 'error', this.renderError );
     },
 
 
@@ -78,7 +78,7 @@ define([
 
 
     renderError : function( model, response ) {
-      console.log( 'render error!!!' );
+      console.log( 'render error!!!', response );
       this.$el.append(
         '<div class="errorMessage">' +
           this.model.get( 'error' ).message + '<hr>' +
