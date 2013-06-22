@@ -74,15 +74,42 @@
   .changeSizeBtn {
     position: absolute;
 
-    top: 100%;
+    background-color: $darkGrey;
+    border: 0;
+
+    @include box-shadow(inset 1px 0 2px #000);
+
+    bottom: 0;
     left: 100%;
 
     width: 3em;
-    height: 3em;
+    height: 0;
 
-    margin-top: -3em;
+    padding-top: 3em;
+    overflow: hidden;
+
 
     cursor: nwse-resize;
+    color: transparent;
+
+    &:before {
+      position: absolute;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+
+      text-align: center;
+
+      padding-top: 0.25em;
+
+      color: $lightGrey;
+      font-family: 'FontAwesome', sans-serif;
+      font-size: 2em;
+      content: "\f07e";
+    }
   }
 
   .closeBtn {

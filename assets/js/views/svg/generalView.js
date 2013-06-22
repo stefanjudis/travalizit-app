@@ -159,8 +159,8 @@ define([
       changeSizeBtn.on( 'mousemove', _.bind( function(e) {
         if ( changeSizeBtn.hasClass( 'draggable' ) ) {
           this.$el.css({
-            width  : dragWidth + e.pageX - ( dragWidth + dragOffset.left ) - this.$changeSizeBtn.width() / 2,
-            height : dragHeight + e.pageY - ( dragHeight + dragOffset.top ) + this.$changeSizeBtn.height() / 2
+            width  : dragWidth + e.pageX - ( dragWidth + dragOffset.left ) - this.$changeSizeBtn.outerWidth() / 2,
+            height : dragHeight + e.pageY - ( dragHeight + dragOffset.top ) + this.$changeSizeBtn.outerHeight() / 2
           });
         }
       }, this ) );
