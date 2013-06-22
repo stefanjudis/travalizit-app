@@ -64,6 +64,9 @@ define([
             value : {
               icon: chartConfig.icon
             }
+          }, {
+            name  : 'name',
+            value : type
           });
 
           chart = new ChartModel(
