@@ -4,7 +4,10 @@ define([
 ], function( _, Backbone) {
   var ChartModel = Backbone.Model.extend({
     defaults : {
-      name : 'Super fancy chart'
+      name  : 'Super fancy chart',
+      error : {
+        message : 'Sh⚠☹☠... something crashed. '
+      }
     },
 
     parse : function(data, options) {
