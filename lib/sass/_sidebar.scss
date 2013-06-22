@@ -230,6 +230,10 @@
       }
     }
 
+    .chartItem {
+      height: 130px;
+    }
+
     #chartSelectMenu {
       button {
         &:before {
@@ -369,7 +373,6 @@
 
 // this one is > li. :(
 .chartItem {
-  height: 130px;
 
   button {
     position: absolute;
