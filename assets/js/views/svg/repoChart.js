@@ -7,8 +7,23 @@ define([
   'hbsAttributesHelper'
 ], function( _, d3, Handlebars, GeneralSVGView, RepoChartHtmlTemplate ) {
   var RepoSVGView = GeneralSVGView.extend({
-
+    // TODO is that actual still needed
     handleCircleClick: function() {
+    },
+
+    renderError : function( model, response ) {
+      var html = '<div class="errorMessage">' +
+                    this.model.get( 'error' ).message + '<hr>';
+
+      if ( response.status === 503 || response.status === 500 ) {
+        html += 'Sorry connection to Github API is not workin\' correctly...';
+      } else {
+        html += response.code + ' ' + response.status + ' ' + response.message;
+      }
+
+      html += '</div>';
+
+      this.$el.append( html );
     },
 
 

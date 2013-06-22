@@ -6,7 +6,13 @@ define([
     defaults : {
       name  : 'Super fancy chart',
       error : {
-        message : 'Sh⚠☹☠... something crashed. '
+        message : 'Sh⚠☹☠... something crashed.\n' +
+                  'If you would like to know what happened and/or ' +
+                  'see the graph for your request, ' +
+                  'please contact me at ' +
+                  '<a href="https://twitter.com/stefanjudis">Twitter</a> or ' +
+                  'write me an ' +
+                  '<a href="mailto:stefanjudis@gmail.com">email</a>.'
       }
     },
 
