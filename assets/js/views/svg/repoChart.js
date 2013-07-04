@@ -38,7 +38,12 @@ define([
         // if data is already fetched
           this.renderSvg();
         } else {
-          this.$el.append('<div>Sorry no build data found.Wanna fetch it?</div>');
+          this.$el.append(
+            '<div class="errorContainer">' +
+              '<p>Sorry no build data found.Wanna fetch it?</p>' +
+              '<button>Fetch build data</button>' +
+            '</div>'
+          );
         }
       }
 
