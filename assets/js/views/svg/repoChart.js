@@ -4,12 +4,47 @@ define([
   'handlebars',
   'generalSVGView',
   'text!repoChartHtmlTemplate',
+  'config',
   'hbsAttributesHelper'
-], function( _, d3, Handlebars, GeneralSVGView, RepoChartHtmlTemplate ) {
+], function( _, d3, Handlebars, GeneralSVGView, RepoChartHtmlTemplate, Config ) {
   var RepoSVGView = GeneralSVGView.extend({
     // TODO is that actual still needed
     handleCircleClick: function() {
     },
+
+
+    render : function() {
+      var html = this.$el.html(
+                this.template({
+                  name : this.model.get( 'name' )
+                })
+              ),
+          data = this.model.get( 'data' );
+
+      this.$el.css({
+        height : Config.svgChartView.height,
+        width  : Config.svgChartView.width
+      });
+
+      if ( data ) {
+        if (
+          this.renderHtmlPart &&
+          typeof this.renderHtmlPart === 'function'
+        ) {
+          this.renderHtmlPart();
+        }
+
+        if ( data.nodes.length ) {
+        // if data is already fetched
+          this.renderSvg();
+        } else {
+          this.$el.append('<div>Sorry no build data found.Wanna fetch it?</div>');
+        }
+      }
+
+      return html;
+    },
+
 
     renderError : function( model, response ) {
       console.log( 'Render error' );
