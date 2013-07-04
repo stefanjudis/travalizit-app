@@ -12,6 +12,7 @@ define([
     },
 
     renderError : function( model, response ) {
+      console.log( 'Render error' );
       var html = '<div class="errorMessage">' +
                     this.model.get( 'error' ).message + '<hr>';
 

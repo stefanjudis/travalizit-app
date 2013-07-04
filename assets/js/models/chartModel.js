@@ -35,8 +35,7 @@ define([
     initialize : function( data ) {
       this.fetch(
         {
-          data    : this.getQueryParams(),
-          timeout : 100000
+          data    : this.getQueryParams()
         }
       );
     },
