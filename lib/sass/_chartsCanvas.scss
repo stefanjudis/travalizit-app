@@ -480,6 +480,11 @@
       overflow: visible;
     }
 
+    dd {
+      color: #fff;
+      @include box-shadow(inset 1px 0 3px #444);
+    }
+
     dl {
       position: relative;
       width: 100%;
