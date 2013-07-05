@@ -475,6 +475,11 @@
       color: $red;
     }
 
+    dt, dd {
+      font-size: 1em;
+      overflow: visible;
+    }
+
     dl {
       position: relative;
       width: 100%;
@@ -509,8 +514,8 @@
           width: 0;
           height: 0;
 
-          top: -0.5em;
-          right: calc(10% + 10px);
+          top: -0.6em;
+          right: calc(10% + 15px);
           border-left: 5px solid transparent;
           border-right: 5px solid transparent;
           border-top: 5px solid $red;
@@ -528,15 +533,17 @@
     i {
       position: absolute;
       right: 0.2em;
-      top: 0.075em;
+      top: -0.15em;
 
       color: $red;
 
-      font-size: 1.8em;
+      font-size: 2.5em;
       font-style: normal;
       font-weight: 400;
 
       cursor: pointer;
+
+      @include text-shadow(0 1px 1px #555);
     }
 
     span {
@@ -551,7 +558,7 @@
   &[type="repoChart"] {
     .attributes {
 
-      height: 95%;
+      padding: 1.5em 0;
 
       color: #fff;
 
@@ -604,6 +611,17 @@
       @include box-shadow(0 1px 1px #666);
 
       z-index: 10;
+
+      @include transition(background-color 0.2s ease-in, color 0.2s ease-in);
+
+      &.clicked {
+        background-color: $lightGrey;
+        color: $darkGrey;
+      }
+    }
+
+    h4 {
+      margin: 0;
     }
 
     dt {

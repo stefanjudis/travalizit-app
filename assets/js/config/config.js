@@ -158,7 +158,7 @@ define([], function() {
     ],
 
     svgChartView : {
-      height : 500,
+      height : 600,
       width  : 800
     }
   };

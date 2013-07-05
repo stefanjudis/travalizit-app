@@ -289,7 +289,9 @@ define([
     },
 
 
-    toggleAttributes : function() {
+    toggleAttributes : function( event ) {
+      $( event.target ).toggleClass( 'clicked' );
+
       var $attributes = this.$attributes || this.$el.find( '.attributes' );
       var $attributesContainer  = this.$attributesContainer || this.$el.find( '.attributesContainer' );
 
