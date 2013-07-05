@@ -46,6 +46,9 @@ define([
                           _.omit( this.attributes, 'config' )
                         );
 
+      // save it for later
+      this.set( 'queryParams', queryParams );
+
       return queryParams;
     }
   });

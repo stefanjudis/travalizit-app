@@ -2,11 +2,12 @@ define([
   'underscore',
   'd3',
   'handlebars',
+  'chartModel',
   'generalSVGView',
   'text!repoChartHtmlTemplate',
   'config',
   'hbsAttributesHelper'
-], function( _, d3, Handlebars, GeneralSVGView, RepoChartHtmlTemplate, Config ) {
+], function( _, d3, Handlebars, ChartModel, GeneralSVGView, RepoChartHtmlTemplate, Config ) {
   var RepoSVGView = GeneralSVGView.extend({
     events: function() {
       return _.extend( {}, GeneralSVGView.prototype.events, {
@@ -27,9 +28,13 @@ define([
         error : function() {
           console.log( 'shit error' );
         },
-        success : function() {
-
-        },
+        success : _.bind( function() {
+          this.model.fetch(
+            {
+              data : this.model.get( 'queryParams' )
+            }
+          );
+        }, this ),
         type : 'GET',
         url  : '/builds'
       } );
