@@ -93,6 +93,8 @@ define([
     },
 
     showChartMenu : function() {
+      this.$el.removeClass( 'minimized' );
+
       require(
         [ 'handlebars', 'text!chartSelectTemplate' ],
         _.bind(function( Handlebars, ChartSelectTemplate ) {
