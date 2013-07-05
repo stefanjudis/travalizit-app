@@ -98,7 +98,7 @@ define([
 
       html += '</div>';
 
-      this.$el.append( html );
+      this.$el.find( '.errorContainer' ).html( html );
     },
 
 
