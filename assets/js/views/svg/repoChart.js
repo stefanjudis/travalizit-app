@@ -8,8 +8,31 @@ define([
   'hbsAttributesHelper'
 ], function( _, d3, Handlebars, GeneralSVGView, RepoChartHtmlTemplate, Config ) {
   var RepoSVGView = GeneralSVGView.extend({
-    // TODO is that actual still needed
-    handleCircleClick: function() {
+    events: function() {
+      return _.extend( {}, GeneralSVGView.prototype.events, {
+          'click .fetchBuildData' : 'fetchBuildData'
+      } );
+    },
+
+
+    fetchBuildData : function() {
+      $.ajax( {
+        data : {
+          name        : this.model.get( 'name' ),
+          repoOwner   : this.model.get( 'repoOwner' ),
+          repoName    : this.model.get( 'repoName' ),
+          type        : this.model.get( 'type' ),
+          pleaseFetch : true
+        },
+        error : function() {
+          console.log( 'shit error' );
+        },
+        success : function() {
+
+        },
+        type : 'GET',
+        url  : '/builds'
+      } );
     },
 
 
@@ -41,7 +64,8 @@ define([
           this.$el.append(
             '<div class="errorContainer">' +
               '<p>Sorry no build data found.Wanna fetch it?</p>' +
-              '<button>Fetch build data</button>' +
+              '<p>That is only once - after that please implement Travis web hook to keep data up to date.</p>' +
+              '<button class="fetchBuildData">Fetch build data</button>' +
             '</div>'
           );
         }
