@@ -199,6 +199,8 @@
     &.highlighted {
       stroke: $red;
       stroke-width: 2px;
+
+      z-index: 10000;
     }
   }
 
@@ -357,6 +359,44 @@
     @include animation( flyOut, 0.5s );
   }
 
+  &[type="circleChart"], &[type="repoChart"] {
+    dt,dd {
+      padding: 0.2em;
+      color: $darkGrey;
+      font-weight: 400;
+      font-size: 0.8em;
+      margin: 0 0 0.5em 0;
+      letter-spacing: 1px;
+      float: left;
+
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    dt {
+      clear: left;
+      position: relative;
+
+      background-color: $lightGrey;
+
+      width: 90%;
+      padding-right: 2em;
+    }
+
+    dd {
+      background-color: $red;
+
+      padding: 0.2em 0;
+
+      text-align: center;
+
+      font-weight: 800;
+
+      width: 10%;
+    }
+  }
+
   &[type="circleChart"] {
     .attributes {
       float: left;
@@ -415,39 +455,6 @@
       }
     }
 
-    dt,dd {
-      padding: 0.5em;
-      color: #fff;
-      font-weight: 400;
-      margin: 0 0 0.5em 0;
-      letter-spacing: 1px;
-      float: left;
-
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    dt {
-      clear: left;
-      position: relative;
-
-      background-color: $lightGrey;
-
-      width: 90%;
-      padding-right: 2em;
-    }
-
-    dd {
-      background-color: $red;
-
-      padding: 0.5em 0;
-
-      text-align: center;
-
-      width: 10%;
-    }
-
     h4 {
       margin: 0 0 0.3em 0;
       font-size: 1em;
@@ -480,14 +487,60 @@
 
   &[type="repoChart"] {
     .attributes {
-      position: absolute;
 
-      width: 40%;
-      height: calc(100% - 4em);
+      height: 95%;
 
+      color: #fff;
+
+      background-color: $darkGrey;
       overflow: scroll;
 
-      @include transform(translate(-200%));
+      @include transform(translateX(-200%));
+      @include animation(flyOut, 0.5s);
+
+      z-index: 9;
+
+
+      &.shown {
+        @include transform(translateX(0));
+        @include animation(flyIn, 0.5s);
+      }
+    }
+
+    .attributesContainer {
+      position: absolute;
+      overflowX: hidden;
+
+      display: none;
+
+
+      width: 60%;
+
+      top: 17.5%;
+      left: 0;
+      bottom: 5%;
+
+      &.shown {
+        display: block;
+      }
+    }
+
+    .showAttributes {
+      position: absolute;
+      color: #fff;
+
+      left: 0;
+      top: 2.5em;
+
+      background-color: $red;
+
+      border: 0;
+
+      padding: 0.5em;
+
+      @include box-shadow(0 1px 1px #666);
+
+      z-index: 10;
     }
 
     dt {

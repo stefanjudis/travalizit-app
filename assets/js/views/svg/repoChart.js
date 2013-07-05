@@ -11,7 +11,8 @@ define([
   var RepoSVGView = GeneralSVGView.extend({
     events: function() {
       return _.extend( {}, GeneralSVGView.prototype.events, {
-          'click .fetchBuildData' : 'fetchBuildData'
+          'click .fetchBuildData' : 'fetchBuildData',
+          'click .showAttributes' : 'toggleAttributes'
       } );
     },
 
@@ -114,7 +115,7 @@ define([
     renderSvg : function() {
       var data          = this.model.get( 'data' ),
 
-          margin = { top: 10, right: 10, bottom: 60, left: 10 },
+          margin = { top: 80, right: 10, bottom: 60, left: 10 },
           width  = this.$el.width() - margin.left - margin.right,
           height = this.$el.height() - margin.top - margin.bottom,
 
@@ -279,6 +280,16 @@ define([
 
       console.log(nodes);
       console.log(links);
+    },
+
+
+    toggleAttributes : function() {
+      var $attributes = this.$attributes || this.$el.find( '.attributes' );
+      var $attributesContainer  = this.$attributesContainer || this.$el.find( '.attributesContainer' );
+
+      $attributesContainer.toggleClass( 'shown' );
+      $attributes.toggleClass( 'shown' );
+
     }
   });
 
