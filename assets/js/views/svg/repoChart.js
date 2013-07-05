@@ -66,6 +66,8 @@ define([
           this.renderHtmlPart();
         }
 
+        this.$el.find( '.loadingContainer' ).remove();
+
         if ( data.nodes.length ) {
         // if data is already fetched
           this.renderSvg();
