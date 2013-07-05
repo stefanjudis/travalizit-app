@@ -357,11 +357,14 @@
     @include animation( flyOut, 0.5s );
   }
 
-  &[type="circleChart"], &[type="repoChart"] {
+  &[type="circleChart"] {
     .attributes {
       float: left;
 
       padding: 1em;
+      position: relative;
+
+      width: 50%;
     }
 
     a {
@@ -377,53 +380,7 @@
       text-align: left;
 
       margin: 0;
-    }
 
-    dt,dd {
-      padding: 0.5em;
-      color: #fff;
-      font-weight: 400;
-      margin: 0 0 0.5em 0;
-      letter-spacing: 1px;
-      float: left;
-
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    dt {
-      clear: left;
-      position: relative;
-
-      background-color: $lightGrey;
-
-    }
-
-    dd {
-      background-color: $red;
-
-      padding: 0.5em 0;
-
-      text-align: center;
-    }
-
-    h4 {
-      margin: 0 0 0.3em 0;
-      font-size: 1em;
-      text-align: left;
-      color: $darkGrey;
-    }
-  }
-
-
-  &[type="circleChart"] {
-    .attributes {
-      position: relative;
-      width: 50%;
-    }
-
-    dl {
       &:hover {
         &:before, &:after {
           position: absolute;
@@ -458,15 +415,45 @@
       }
     }
 
+    dt,dd {
+      padding: 0.5em;
+      color: #fff;
+      font-weight: 400;
+      margin: 0 0 0.5em 0;
+      letter-spacing: 1px;
+      float: left;
+
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
     dt {
+      clear: left;
+      position: relative;
+
+      background-color: $lightGrey;
+
       width: 90%;
       padding-right: 2em;
     }
 
     dd {
+      background-color: $red;
+
+      padding: 0.5em 0;
+
+      text-align: center;
+
       width: 10%;
     }
 
+    h4 {
+      margin: 0 0 0.3em 0;
+      font-size: 1em;
+      text-align: left;
+      color: $darkGrey;
+    }
 
     i {
       position: absolute;
@@ -493,12 +480,14 @@
 
   &[type="repoChart"] {
     .attributes {
+      position: absolute;
+
       width: 40%;
       height: calc(100% - 4em);
 
-      float: left;
-
       overflow: scroll;
+
+      @include transform(translate(-200%));
     }
 
     dt {
@@ -506,9 +495,6 @@
     }
 
     dd {
-      width: 60%;
-    }
-    svg {
       width: 60%;
     }
   }

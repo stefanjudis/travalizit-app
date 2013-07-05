@@ -124,12 +124,12 @@ define([], function() {
         name     : 'Repository details',
         params   : [
           {
-            defaultValue : 'MatthewMueller',
+            defaultValue : 'stefanjudis',
             label        : 'Owner:',
             name         : 'repoOwner',
             type         : 'text'
           }, {
-            defaultValue : 'cheerio',
+            defaultValue : 'cushion-cli',
             label        : 'Name:',
             name         : 'repoName',
             type         : 'text'

@@ -115,7 +115,7 @@ define([
       var data          = this.model.get( 'data' ),
 
           margin = { top: 10, right: 10, bottom: 60, left: 10 },
-          width  = ( this.$el.width() ) * 0.6,
+          width  = this.$el.width() - margin.left - margin.right,
           height = this.$el.height() - margin.top - margin.bottom,
 
           node = {
@@ -146,7 +146,7 @@ define([
         };
 
         nodes.forEach( function( value ) {
-          value.x = ( value.type === 'build') ? 0 : ( width - node[ value.type ].width - margin.right ),
+          value.x = ( value.type === 'build') ? 0 : ( width - node[ value.type ].width ),
           value.y = ( node[ value.type ].height + 5 ) * index[ value.type ];
 
           ++index[ value.type ];
