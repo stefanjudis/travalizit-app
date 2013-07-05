@@ -190,6 +190,69 @@
       &:hover {
         background-color: adjust-lightness($red, 10);
       }
+
+      &:disabled {
+        background-color: $lightGrey;
+        color: $darkGrey;
+      }
+    }
+  }
+
+  .histogram {
+    -webkit-animation-play-state: pause;
+    animation-play-state: pause;
+
+    display: none;
+
+    ul {
+      height: 30px;
+      width: 30px;
+      list-style: none;
+      margin: 0 auto;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+
+      li {
+        -webkit-animation-direction: normal;
+        animation-direction: normal;
+        -webkit-animation-duration: 2s;
+        animation-duration: 2s;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-name: histogram;
+        animation-name: histogram;
+        -webkit-animation-play-state: inherit;
+        animation-play-state: inherit;
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+
+        background-color: $red;
+        @include box-shadow(inset 0 0 1px adjust-lightness($darkGrey, 45));
+
+        display: inline-block;
+
+        height: 50%;
+
+        margin: 70% 1px 0 0;
+        padding: 0;
+
+        width: 4px;
+
+        @for $i from 1 through 6 {
+          &:nth-child(#{$i}) {
+            -webkit-animation-delay: 1s * ( $i / 6 );
+            animation-delay: 1s * ( $i / 6 );
+          }
+        }
+      }
+    }
+
+    &.active {
+      -webkit-animation-play-state: running;
+      animation-play-state: running;
+
+      display: block;
     }
   }
 

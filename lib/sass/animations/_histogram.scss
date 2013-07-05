@@ -1,0 +1,23 @@
+@include keyframes(histogram) {
+  0% {
+    @include transform(scaleY(1));
+    background-color: $red;
+  }
+  15% {
+    @include transform(scaleY(2));
+    background-color: adjust-lightness($red, 20);
+  }
+  30% {
+    @include transform(scaleY(0.5));
+    background-color: $red;
+  }
+  45% {
+    @include transform(scaleY(1));
+    background-color: $red;
+  }
+  100% {
+    @include transform(scaleY(1));
+    background-color: $red;
+  }
+}
+

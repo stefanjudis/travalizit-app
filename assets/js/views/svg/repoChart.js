@@ -17,7 +17,10 @@ define([
     },
 
 
-    fetchBuildData : function() {
+    fetchBuildData : function( event ) {
+      event.target.disabled = true;
+      this.$el.find( '.histogram' ).addClass( 'active' );
+
       $.ajax( {
         data : {
           name        : this.model.get( 'name' ),
@@ -72,6 +75,7 @@ define([
               '<p>Sorry no build data found.Wanna fetch it?</p>' +
               '<p>That is only once - after that please implement Travis web hook to keep data up to date.</p>' +
               '<button class="fetchBuildData">Fetch build data</button>' +
+              '<div class="histogram"><ul><li><li><li><li><li><li></ul></div>' +
             '</div>'
           );
         }
