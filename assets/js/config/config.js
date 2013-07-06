@@ -143,12 +143,12 @@ define([], function() {
         name     : 'Repository job details',
         params   : [
           {
-            defaultValue : 'fail2ban',
+            defaultValue : 'hhatto',
             label        : 'Owner:',
             name         : 'repoOwner',
             type         : 'text'
           }, {
-            defaultValue : 'fail2ban',
+            defaultValue : 'autopep8',
             label        : 'Name:',
             name         : 'repoName',
             type         : 'text'

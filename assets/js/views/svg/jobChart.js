@@ -1,10 +1,87 @@
 define([
   'underscore',
   'd3',
-  'generalSVGView'
-
-], function( _, d3, GeneralSVGView ) {
+  'generalSVGView',
+  'config'
+], function( _, d3, GeneralSVGView, Config ) {
   var JobSVGView = GeneralSVGView.extend({
+    events: function() {
+      return _.extend( {}, GeneralSVGView.prototype.events, {
+          'click .fetchBuildData' : 'fetchBuildData'
+      } );
+    },
+
+
+    fetchBuildData : function( event ) {
+      event.target.disabled = true;
+      this.$el.find( '.histogram' ).addClass( 'active' );
+
+      $.ajax( {
+        data : {
+          name        : this.model.get( 'name' ),
+          repoOwner   : this.model.get( 'repoOwner' ),
+          repoName    : this.model.get( 'repoName' ),
+          type        : this.model.get( 'type' ),
+          pleaseFetch : true
+        },
+        error : function() {
+          console.log( 'shit error' );
+        },
+        success : _.bind( function() {
+          this.model.fetch(
+            {
+              data : this.model.get( 'queryParams' )
+            }
+          );
+        }, this ),
+        type : 'GET',
+        url  : '/builds'
+      } );
+    },
+
+
+    render : function() {
+      var html = this.$el.html(
+                this.template({
+                  name : this.model.get( 'name' )
+                })
+              ),
+          data = this.model.get( 'data' );
+
+      this.$el.css({
+        height : Config.svgChartView.height,
+        width  : Config.svgChartView.width
+      });
+
+      if ( data ) {
+        if (
+          this.renderHtmlPart &&
+          typeof this.renderHtmlPart === 'function'
+        ) {
+          this.renderHtmlPart();
+        }
+
+        this.$el.find( '.loadingContainer' ).remove();
+
+        if ( data.builds.length ) {
+        // if data is already fetched
+          this.renderSvg();
+        } else {
+          this.$el.append(
+            '<div class="errorContainer">' +
+              '<p>Sorry no build data found.Wanna fetch it?</p>' +
+              '<p>That is only once - after that please implement Travis web hook to keep data up to date.</p>' +
+              '<button class="fetchBuildData">Fetch build data</button>' +
+              '<div class="histogram"><ul><li><li><li><li><li><li></ul></div>' +
+            '</div>'
+          );
+        }
+      }
+
+      return html;
+    },
+
+
     renderSvg : function() {
       var margin = { top: 20, right: 20, bottom: 130, left: 80 },
           width  = this.$el.width() - margin.left - margin.right,
