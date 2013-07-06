@@ -143,19 +143,19 @@ define([], function() {
         name     : 'Repository job details',
         params   : [
           {
-            defaultValue : 'stefanjudis',
+            defaultValue : 'fail2ban',
             label        : 'Owner:',
             name         : 'repoOwner',
             type         : 'text'
           }, {
-            defaultValue : 'cushion-cli',
+            defaultValue : 'fail2ban',
             label        : 'Name:',
             name         : 'repoName',
             type         : 'text'
           }
         ],
         type   : 'jobChart',
-        url    : 'repos'
+        url    : 'jobs'
       }
     ],
 

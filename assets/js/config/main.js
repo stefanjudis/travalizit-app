@@ -24,6 +24,7 @@ requirejs.config({
     barChartView    : 'views/svg/barChart',
     circleChartView : 'views/svg/circleChart',
     repoChartView   : 'views/svg/repoChart',
+    jobChartView    : 'views/svg/jobChart',
 
     // collections
     chartCollection : 'collections/chartsCollection',

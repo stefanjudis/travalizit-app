@@ -69,6 +69,14 @@
     &.active {
       fill: adjust-lightness( $red, 15 );
     }
+
+    &.failed {
+      fill: adjust-lightness( $red, -30 );
+    }
+
+    &.errored {
+      fill: adjust-lightness( $red, -20 );
+    }
   }
 
   .changeSizeBtn {

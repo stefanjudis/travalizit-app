@@ -125,7 +125,7 @@ define([
           .attr( 'y', 6 )
           .attr( 'dy', '-4em' )
           .style( 'text-anchor', 'end' )
-          .text( 'Builds' );
+          .text( 'Number of builds per time unit' );
 
       this.svgBarsContainer = this.svg.append( 'g' )
                                 .attr( 'class', 'bars' );
