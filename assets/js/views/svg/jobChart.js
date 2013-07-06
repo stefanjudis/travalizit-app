@@ -118,6 +118,10 @@ define([
               .attr( 'data-width', width )
               .attr( 'data-height', height );
 
+      // store it for later at detailInformation
+      this.svgWidth  = width;
+      this.svgHeight = height;
+
       x.domain( builds.map( function( d ) { return Object.keys( d )[ 0 ]; } ) );
       y.domain( [ 0, data.maxDuration ] );
 
@@ -183,13 +187,75 @@ define([
                           } )
                           .attr( 'data-duration', function( d ) {
                             return d.duration;
-                          } );
+                          } )
+                          .on( 'mouseover', _.bind( function( d ) {
+                            this.showDetailInformation( d );
+                          }, this ) )
+                          .on(
+                            'mouseleave',
+                            _.bind( this.hideDetailInformation, this )
+                          );
 
 
       }, this ) );
+    },
+
+
+    hideDetailInformation : function() {
+      // this.svg.selectAll( '.detailInformation' ).remove();
+    },
+
+
+    showDetailInformation : function( job ) {
+      console.log( 'showDetailInformation' );
+      // remove it just for safety reasons
+      this.svg.selectAll( '.detailInformation' ).remove();
+
+      var width  = 200,
+          height = 80;
+
+      var detailInformation = this.svg.append( 'g' )
+                                .attr( 'class', 'detailInformation jobs' )
+                                .attr(
+                                  'transform',
+                                  'translate( ' + ( this.svgWidth - width ) + ', ' + '0 )'
+                                );
+
+      detailInformation.append( 'rect' )
+                        .attr( 'width' , width )
+                        .attr( 'height', height );
+
+      detailInformation.append( 'text' )
+                        .text( 'JobId: ' + job.id )
+                        .attr( 'class', 'jobHeadline' )
+                        .attr( 'x', 10 )
+                        .attr( 'y', 20 );
+
+      detailInformation.append( 'rect' )
+                        .attr( 'class', 'divider' )
+                        .attr( 'width', width - 20 )
+                        .attr( 'height', 1 )
+                        .attr( 'x', 10 )
+                        .attr( 'y', 25 );
+
+      detailInformation.append( 'text' )
+                        .text( 'Duration: ' + job.duration + ' ms' )
+                        .attr( 'class', 'jobHeadline' )
+                        .attr( 'x', 10 )
+                        .attr( 'y', 40 );
+
+      detailInformation.append( 'text' )
+                        .text( 'State: ' + job.state )
+                        .attr( 'class', 'jobHeadline' )
+                        .attr( 'x', 10 )
+                        .attr( 'y', 55 );
+
+      detailInformation.append( 'text' )
+                        .text( 'Language: ' + job.config.language + ' ' + job.config[ job.config.language ] )
+                        .attr( 'class', 'jobHeadline' )
+                        .attr( 'x', 10 )
+                        .attr( 'y', 70 );
     }
-
-
   });
 
 

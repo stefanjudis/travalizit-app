@@ -177,6 +177,16 @@
 
   .detailInformation {
     fill: $lightGrey;
+
+    &.jobs {
+      text {
+        font-size: 0.8em;
+      }
+    }
+  }
+
+  .divider {
+    fill: $darkGrey;
   }
 
   .donutText, .donutValues {
@@ -262,6 +272,10 @@
 
       display: block;
     }
+  }
+
+  .jobHeadline {
+    fill: $darkGrey;
   }
 
   .link {

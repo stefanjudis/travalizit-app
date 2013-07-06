@@ -143,12 +143,12 @@ define([], function() {
         name     : 'Repository job details',
         params   : [
           {
-            defaultValue : 'hhatto',
+            defaultValue : 'stefanjudis',
             label        : 'Owner:',
             name         : 'repoOwner',
             type         : 'text'
           }, {
-            defaultValue : 'autopep8',
+            defaultValue : 'cushion-cli',
             label        : 'Name:',
             name         : 'repoName',
             type         : 'text'
