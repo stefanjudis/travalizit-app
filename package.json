@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "engines": {
     "node": "0.10.6",
-    "npm":  "1.2.21"
+    "npm": "1.2.21"
   },
   "description": "'Travis' - analyze it!!!",
   "main": "app.js",
@@ -29,6 +29,7 @@
     "express": "~3.1.1",
     "express-hbs": "~0.1.3",
     "github": "~0.1.9",
-    "travalizit": "~0.0.4"
+    "travalizit": "~0.0.4",
+    "memwatch": "~0.2.2"
   }
 }
