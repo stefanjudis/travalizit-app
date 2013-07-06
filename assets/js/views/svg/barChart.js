@@ -67,7 +67,7 @@ define([
 
 
     renderSvg : function() {
-      var margin = { top: 20, right: 20, bottom: 80, left: 80 },
+      var margin = { top: 20, right: 20, bottom: 140, left: 80 },
           width  = this.$el.width() - margin.left - margin.right,
           height = this.$el.height() - margin.top - margin.bottom,
 
@@ -104,10 +104,18 @@ define([
       x.domain( data.map( function( d ) { return d.unit.substring( 0, 10 ); } ) );
       y.domain( [ 0, d3.max( data, function( d ) { return d.totalbuilds; } ) ] );
 
+
+
       this.svg.append( 'g' )
           .attr( 'class', 'x axis' )
           .attr( 'transform', 'translate(0,' + height + ')' )
-          .call( xAxis );
+          .call( xAxis )
+          .selectAll( 'text' )
+          .attr( 'dx', '-3em' )
+          .attr( 'dy', '0.5em' )
+          .attr( 'transform', function( d ) {
+            return 'rotate(-45)';
+          } );
 
       this.svg.append( 'g' )
           .attr( 'class', 'y axis' )

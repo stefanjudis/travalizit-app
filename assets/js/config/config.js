@@ -137,6 +137,25 @@ define([], function() {
         ],
         type   : 'repoChart',
         url    : 'repos'
+      },
+      {
+        icon     : 'bar-chart',
+        name     : 'Repository job details',
+        params   : [
+          {
+            defaultValue : 'stefanjudis',
+            label        : 'Owner:',
+            name         : 'repoOwner',
+            type         : 'text'
+          }, {
+            defaultValue : 'cushion-cli',
+            label        : 'Name:',
+            name         : 'repoName',
+            type         : 'text'
+          }
+        ],
+        type   : 'jobChart',
+        url    : 'repos'
       }
     ],
 
