@@ -67,7 +67,7 @@ define([
 
 
     renderSvg : function() {
-      var margin = { top: 20, right: 20, bottom: 140, left: 80 },
+      var margin = { top: 20, right: 20, bottom: 130, left: 80 },
           width  = this.$el.width() - margin.left - margin.right,
           height = this.$el.height() - margin.top - margin.bottom,
 
