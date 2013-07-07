@@ -92,6 +92,18 @@
         @include transform(translateX(0));
         @include animation(flyIn, 0.5s);
       }
+
+      .closeButton {
+        width: 1em;
+        height: 1em;
+
+        position: absolute;
+
+        padding: 0;
+
+        right: 0.5em;
+        top: 0.5;
+      }
     }
 
     #chartTypes {
@@ -107,7 +119,7 @@
     }
 
     .animationContainer {
-      padding: 1em;
+      padding: 1.5em;
       background-color: grey;
     }
 

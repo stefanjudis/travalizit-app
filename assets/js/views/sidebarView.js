@@ -18,6 +18,8 @@ define([
       'click .addChart' : 'showParamMenu',
       'click #sizeBtn'  : 'toggleViewSize',
 
+      'click .closeButton' : 'hideMenues',
+
       'submit #chartParamsForm' : 'createChart'
     },
 
