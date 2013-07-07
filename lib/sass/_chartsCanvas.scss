@@ -77,6 +77,10 @@
     &.errored {
       fill: adjust-lightness( $red, -20 );
     }
+
+    &:hover {
+      fill: $lightGrey;
+    }
   }
 
   .changeSizeBtn {

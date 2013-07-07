@@ -252,12 +252,14 @@ define([
 
       detailInformation.append( 'text' )
                         .text( function() {
-                          var text = 'Language: ' + job.config.language + ' ';
+                          var text = 'Language: ' + ( job.config.language || 'N/A' ) + ' ';
 
                           if ( job.config.language === 'ruby' ) {
                             text += job.config.rvm;
+                          } else if ( job.config.language === 'c' ) {
+                            text += job.config.compiler;
                           } else {
-                            text += job.config[ job.config.language ];
+                            text += job.config[ job.config.language ] || 'N/A';
                           }
 
                           return text;
