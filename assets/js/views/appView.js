@@ -33,9 +33,9 @@ define([
     activateChartView : function( model ) {
       this.$chartsCanvas
           .find( '.svgChartItem' )
-            .removeClass( 'active' )
+          .removeClass( 'active' )
           .filter( '#svgChartItem-' + model.cid )
-            .addClass( 'active' );
+          .addClass( 'active' );
     },
 
 
@@ -50,6 +50,10 @@ define([
           this.$chartsCanvas.append( svgHtml );
 
           this.$chartsCanvas.find( '.svgChartItem' ).addClass( 'shown' );
+
+          chart.fetch( {
+            data : chart.getQueryParams()
+          } );
         }, this )
       );
     }

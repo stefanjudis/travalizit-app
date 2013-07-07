@@ -32,15 +32,6 @@ define([
     },
 
 
-    initialize : function( data ) {
-      this.fetch(
-        {
-          data    : this.getQueryParams()
-        }
-      );
-    },
-
-
     getQueryParams : function() {
       // filter config params
       var queryParams = $.param(
