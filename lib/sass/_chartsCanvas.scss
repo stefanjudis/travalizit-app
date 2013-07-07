@@ -201,6 +201,10 @@
     padding: 5em 2em 2em 2em;
     color: $red;
 
+    .repoName {
+      font-weight: 800;
+    }
+
     button {
       border: 0;
       background-color: $red;

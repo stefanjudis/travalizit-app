@@ -40,6 +40,7 @@ define([
       );
     },
 
+
     getQueryParams : function() {
       // filter config params
       var queryParams = $.param(
@@ -52,7 +53,6 @@ define([
       return queryParams;
     }
   });
-
 
   return ChartModel;
 

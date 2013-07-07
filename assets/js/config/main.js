@@ -41,6 +41,9 @@ requirejs.config({
     // params templates
     chartParamsTemplate : 'templates/params/chartParamsTemplate.hbs',
 
+    // message template
+    noBuildDataTemplate : 'templates/messages/noBuildData.hbs',
+
     // helpers
     hbsInputHelper      : 'helpers/hbsInputHelper',
     hbsAttributesHelper : 'helpers/hbsAttributesHelper',

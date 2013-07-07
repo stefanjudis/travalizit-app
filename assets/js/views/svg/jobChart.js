@@ -67,13 +67,17 @@ define([
         // if data is already fetched
           this.renderSvg();
         } else {
-          this.$el.append(
-            '<div class="errorContainer">' +
-              '<p>Sorry no build data found.Wanna fetch it?</p>' +
-              '<p>That is only once - after that please implement Travis web hook to keep data up to date.</p>' +
-              '<button class="fetchBuildData">Fetch build data</button>' +
-              '<div class="histogram"><ul><li><li><li><li><li><li></ul></div>' +
-            '</div>'
+          require(
+            [ 'handlebars', 'text!noBuildDataTemplate'],
+            _.bind( function( Handlebars, NoBuildDataTemplate ) {
+              var template = Handlebars.compile( NoBuildDataTemplate ),
+                  html     = template( {
+                    name  : this.model.get( 'repoName' ),
+                    owner : this.model.get( 'repoOwner' )
+                  } );
+
+              this.$el.append( html );
+            }, this )
           );
         }
       }
