@@ -148,7 +148,7 @@ define([], function() {
       {
         icon        : 'bar-chart',
         description : 'Get a nice overview of the last builds of a ' +
-                      'particular project showing the jobs it consited of ' +
+                      'particular project showing the jobs it consisted of ' +
                       'and how these performed in comparison.',
         name        : 'Travis job details',
         params      : [
