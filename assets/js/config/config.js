@@ -2,9 +2,12 @@ define([], function() {
   return {
     charts : [
       {
-        icon     : 'bar-chart',
-        name     : 'Success/Fail for time unit',
-        params   : [
+        icon        : 'bar-chart',
+        description : 'Get a nice success/fail overview of all builds stored ' +
+                      'inside of the Travalizit database. This will be ' +
+                      'presented in a kind of bar chart',
+        name        : 'Success/Fail for time unit',
+        params      : [
           {
             defaultValue : (function() {
               var date = new Date(),
@@ -65,13 +68,15 @@ define([], function() {
             ]
           }
         ],
-        type   : 'barChart',
-        url    : 'builds'
+        type : 'barChart',
+        url  : 'builds'
       },
       {
-        icon     : 'circle',
-        name     : 'Detail view for time unit',
-        params   : [
+        icon        : 'circle',
+        description : 'Get a nice of overview which project was triggered the' +
+                      'most on a given day / week',
+        name        : 'Detail view for time unit',
+        params      : [
           {
             defaultValue : (function() {
               var date = new Date(),
@@ -120,9 +125,11 @@ define([], function() {
         url    : 'builds'
       },
       {
-        icon     : 'github',
-        name     : 'Github details',
-        params   : [
+        icon        : 'github',
+        description : 'Get a nice overview of which files were included in' +
+                      ' which builds.',
+        name        : 'Github details',
+        params      : [
           {
             defaultValue : 'stefanjudis',
             label        : 'Owner:',
@@ -139,9 +146,12 @@ define([], function() {
         url    : 'repos'
       },
       {
-        icon     : 'bar-chart',
-        name     : 'Travis job details',
-        params   : [
+        icon        : 'bar-chart',
+        description : 'Get a nice overview of the last builds of a ' +
+                      'particular project showing the jobs it consited of ' +
+                      'and how these performed in comparison.',
+        name        : 'Travis job details',
+        params      : [
           {
             defaultValue : 'stefanjudis',
             label        : 'Owner:',

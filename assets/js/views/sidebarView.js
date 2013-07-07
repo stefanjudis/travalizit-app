@@ -20,7 +20,10 @@ define([
 
       'click .closeButton' : 'hideMenues',
 
-      'submit #chartParamsForm' : 'createChart'
+      'submit #chartParamsForm' : 'createChart',
+
+      'mouseenter .addChart' : 'showChartInformation',
+      'mouseleave .addChart' : 'hideChartInformation'
     },
 
 
@@ -85,6 +88,11 @@ define([
     },
 
 
+    hideChartInformation : function( e ) {
+      this.$chartMenu.find( '.chartInformation' ).remove();
+    },
+
+
     hideMenues : function() {
       $( '.animationContainer' ).removeClass( 'shown' );
 
@@ -93,6 +101,20 @@ define([
         this.$chartMenu.hide();
       }, this) , 500 );
     },
+
+
+    showChartInformation : function( e ) {
+      var type        = e.target.dataset.type,
+          information = _.find( Config.charts, function( chart ) {
+                          return chart.type === type;
+                        }).description;
+
+      this.$chartMenu.find( '.chartInformation' ).remove();
+      this.$chartMenu.append(
+        '<div class="chartInformation">' + information + '</div>'
+      );
+    },
+
 
     showChartMenu : function() {
       this.$el.removeClass( 'minimized' );
