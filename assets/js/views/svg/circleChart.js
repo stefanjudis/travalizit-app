@@ -62,6 +62,14 @@ define([
       );
     },
 
+    generateChartName : function() {
+      var name = this.model.get( 'name' ).substr( 0, 12 );
+
+      name += 'for ' + this.model.get( 'date' );
+
+      this.model.set( 'name', name );
+    },
+
     // TODO that can be refactored and be mored into general view
     renderHtmlPart : function() {
       var template = Handlebars.compile( CircleChartHtmlTemplate );

@@ -46,6 +46,10 @@ define([
       this.listenTo( this.model, 'sync', this.render );
       this.listenTo( this.model, 'change:highlighted', this.handleModelHighlight );
       this.listenTo( this.model, 'error', this.renderError );
+
+      if ( this.generateChartName ) {
+        this.generateChartName();
+      }
     },
 
 

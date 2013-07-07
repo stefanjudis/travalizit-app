@@ -68,7 +68,7 @@ define([
             }
           }, {
             name  : 'name',
-            value : type
+            value : chartConfig.name
           });
 
           chart = new ChartModel(

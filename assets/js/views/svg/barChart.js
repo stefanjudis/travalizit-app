@@ -66,6 +66,18 @@ define([
     },
 
 
+    generateChartName : function() {
+      var name = this.model.get( 'name' ).substr( 0, 13 );
+
+      name += 'from ' + this.model.get( 'startDate' ) +
+              ' to ' + this.model.get( 'endDate' );
+
+      this.model.set( 'name', name );
+
+
+    },
+
+
     renderSvg : function() {
       var margin = { top: 20, right: 20, bottom: 130, left: 80 },
           width  = this.$el.width() - margin.left - margin.right,

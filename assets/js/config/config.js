@@ -3,7 +3,7 @@ define([], function() {
     charts : [
       {
         icon     : 'bar-chart',
-        name     : 'Success/Fail per time unit',
+        name     : 'Success/Fail for time unit',
         params   : [
           {
             defaultValue : (function() {
@@ -70,7 +70,7 @@ define([], function() {
       },
       {
         icon     : 'circle',
-        name     : 'Details per time unit',
+        name     : 'Detail view for time unit',
         params   : [
           {
             defaultValue : (function() {
@@ -121,7 +121,7 @@ define([], function() {
       },
       {
         icon     : 'github',
-        name     : 'Repository details',
+        name     : 'Github details',
         params   : [
           {
             defaultValue : 'stefanjudis',
@@ -140,7 +140,7 @@ define([], function() {
       },
       {
         icon     : 'bar-chart',
-        name     : 'Repository job details',
+        name     : 'Travis job details',
         params   : [
           {
             defaultValue : 'stefanjudis',

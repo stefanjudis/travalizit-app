@@ -40,6 +40,16 @@ define([
     },
 
 
+    generateChartName : function() {
+      var name = this.model.get( 'name' );
+
+      name += ' for ' + this.model.get( 'repoOwner' ) + ' / ' +
+              this.model.get( 'repoName' );
+
+      this.model.set( 'name', name );
+    },
+
+
     render : function() {
       var html = this.$el.html(
                 this.template({
