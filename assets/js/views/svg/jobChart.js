@@ -256,15 +256,29 @@ define([
 
       detailInformation.append( 'text' )
                         .text( function() {
-                          var text = 'Language: ' + ( job.config.language || 'N/A' ) + ' ';
+                          var text     = 'Language: ',
+                              language,
+                              version;
 
-                          if ( job.config.language === 'ruby' ) {
-                            text += job.config.rvm;
-                          } else if ( job.config.language === 'c' ) {
-                            text += job.config.compiler;
+                          if ( job.config.language ) {
+                            if ( job.config.language === 'ruby' ) {
+                              language = 'ruby';
+                              version  = job.config.rvw;
+                            } else if ( job.config.language === 'c' ) {
+                              language = 'c';
+                              version  = job.config.compiler;
+                            } else {
+                              language = job.config.language;
+                              version  = job.config[ job.config.language ];
+                            }
                           } else {
-                            text += job.config[ job.config.language ] || 'N/A';
+                            if ( job.config.rvm ) {
+                              language = 'rvm';
+                              version  = job.config.rvm;
+                            }
                           }
+
+                          text += language + ' ' + version;
 
                           return text;
                         } )
