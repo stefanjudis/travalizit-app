@@ -251,7 +251,17 @@ define([
                         .attr( 'y', 55 );
 
       detailInformation.append( 'text' )
-                        .text( 'Language: ' + job.config.language + ' ' + job.config[ job.config.language ] )
+                        .text( function() {
+                          var text = 'Language: ' + job.config.language + ' ';
+
+                          if ( job.config.language === 'ruby' ) {
+                            text += job.config.rvm;
+                          } else {
+                            text += job.config[ job.config.language ];
+                          }
+
+                          return text;
+                        } )
                         .attr( 'class', 'jobHeadline' )
                         .attr( 'x', 10 )
                         .attr( 'y', 70 );
