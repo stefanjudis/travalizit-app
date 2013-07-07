@@ -73,8 +73,8 @@ define([], function() {
       },
       {
         icon        : 'circle',
-        description : 'Get a nice of overview which project was triggered the' +
-                      'most on a given day / week',
+        description : 'Get a nice of overview which project was triggered ' +
+                      'the most on a given day / week',
         name        : 'Detail view for time unit',
         params      : [
           {
