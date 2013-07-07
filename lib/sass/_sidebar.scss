@@ -304,15 +304,15 @@
     background-color: $red;
     color: #fff;
     bottom: 0;
-    left: 33%;
+    left: 32%;
 
     font-size: 0.8em;
 
-    padding: 1.875em;
+    padding: 1em;
 
-    width: 33%%;
+    width: 33%;
 
-    @include box-shadow( inset 1px 0 1px #555);
+    @include box-shadow( -1px 0 1px #555);
   }
 
   h1 {

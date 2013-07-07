@@ -5,7 +5,7 @@ define([], function() {
         icon        : 'bar-chart',
         description : 'Get a nice success/fail overview of all builds stored ' +
                       'inside of the Travalizit database. This will be ' +
-                      'presented in a kind of bar chart',
+                      'presented in a kind of bar chart.',
         name        : 'Success/Fail for time unit',
         params      : [
           {
