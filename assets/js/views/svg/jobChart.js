@@ -288,6 +288,9 @@ define([
                             }
                           }
 
+                          language = language || 'N/A';
+                          version  = version  || 'N/A';
+
                           text += language + ' ' + version;
 
                           return text;
