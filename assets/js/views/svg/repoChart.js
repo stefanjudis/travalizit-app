@@ -11,11 +11,60 @@ define([
   var RepoSVGView = GeneralSVGView.extend({
     events: function() {
       return _.extend( {}, GeneralSVGView.prototype.events, {
+          'click .addChart'       : 'addJobChart',
           'click .fetchBuildData' : 'fetchBuildData',
           'click .showAttributes' : 'toggleAttributes'
       } );
     },
 
+    addJobChart : function() {
+      require(
+        [ 'chartModel', 'config' ],
+        _.bind(function( ChartModel, Config ) {
+          var type        = 'jobChart',
+              chartConfig = _.find( Config.charts, function( chart ) {
+                              return chart.type === type;
+                            }),
+              name        = this.model.get( 'repoName' ),
+              owner       = this.model.get( 'repoOwner' ),
+              data        = [
+                {
+                  name  : 'paramInput-type',
+                  value : type
+                },
+                {
+                  name  : 'config',
+                  value : {
+                    icon: chartConfig.icon
+                  }
+                },
+                {
+                  name  : 'name',
+                  value : chartConfig.name
+                },
+                {
+                  name  : 'repoName',
+                  value : name
+                },
+                {
+                  name  : 'repoOwner',
+                  value : owner
+                }
+              ],
+              chart;
+
+          chart = new ChartModel(
+                        data,
+                        {
+                          parse : true,
+                          url   : chartConfig.url
+                        }
+                      );
+
+          charts.push( chart );
+        }, this)
+      );
+    },
 
     fetchBuildData : function( event ) {
       event.target.disabled = true;

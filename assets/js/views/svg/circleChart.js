@@ -35,7 +35,7 @@ define([
                 },
                 {
                   name  : 'name',
-                  value : 'Repo chart for ' + owner + ' / ' + name
+                  value : chartConfig.name
                 },
                 {
                   name  : 'repoName',

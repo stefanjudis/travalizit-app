@@ -631,12 +631,11 @@
       }
     }
 
-    .showAttributes {
+    .addChart, .showAttributes, {
       position: absolute;
       color: #fff;
 
-      left: 0;
-      top: 2.5em;
+      top: 2.8em;
 
       background-color: $red;
 
@@ -654,7 +653,22 @@
         background-color: $lightGrey;
         color: $darkGrey;
       }
+
+      &:hover {
+        background-color: adjust-lightness( $red, 10 );
+      }
+
+
     }
+
+    .addChart {
+      right: 0;
+    }
+
+    .showAttributes {
+      left: 0;
+    }
+
 
     h4 {
       margin: 0;

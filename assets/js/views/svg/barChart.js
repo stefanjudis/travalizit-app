@@ -29,7 +29,7 @@ define([
                 },
                 {
                   name  : 'name',
-                  value : 'Circle chart for ' + date
+                  value : chartConfig.name
                 }
               ],
               chart;
