@@ -354,9 +354,6 @@ define([
                     return d.name;
                   }
                 );
-
-      console.log(nodes);
-      console.log(links);
     },
 
 
