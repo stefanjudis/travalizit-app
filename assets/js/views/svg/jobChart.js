@@ -277,6 +277,9 @@ define([
                             } else if ( job.config.language === 'c' ) {
                               language = 'c';
                               version  = job.config.compiler;
+                            } else if ( job.config.languae === 'java' ) {
+                              language = 'java';
+                              version  = job.config.jdk;
                             } else {
                               language = job.config.language;
                               version  = job.config[ job.config.language ];
