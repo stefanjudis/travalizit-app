@@ -274,8 +274,11 @@ define([
                             if ( job.config.language === 'ruby' ) {
                               language = 'ruby';
                               version  = job.config.rvm;
-                            } else if ( job.config.language === 'c' ) {
-                              language = 'c';
+                            } else if (
+                              job.config.language === 'c' ||
+                              job.config.language === 'cpp'
+                            ) {
+                              language = job.config.language;
                               version  = job.config.compiler;
                             } else if ( job.config.language === 'java' ) {
                               language = 'java';
