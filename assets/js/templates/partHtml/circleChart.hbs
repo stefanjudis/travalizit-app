@@ -1,9 +1,9 @@
 <div class="attributes">
-  <h4>Included repositories</h4>
+  <h4>Included repositories | Number of tracked builds</h4>
   <dl data-help="Click here for particalur information.">
     {{#each repos}}
-      <dt><a href="https://github.com/{{owner}}/{{name}}" target="_blank">{{owner}} / {{name}}</a> | {{repo}} | <span>{{language}}</span><i class="fontawesome-github" data-repo-name="{{name}}" data-repo-owner="{{owner}}"></i>
-      <dd>{{count}}
+      <dt data-id="{{repo}}"><a href="https://github.com/{{owner}}/{{name}}" target="_blank">{{owner}} / {{name}}</a> | {{repo}} | <span>{{language}}</span><i class="fontawesome-wrench travis" data-repo-name="{{name}}" data-repo-owner="{{owner}}"></i><i class="fontawesome-github github" data-repo-name="{{name}}" data-repo-owner="{{owner}}"></i>
+      <dd data-id="{{repo}}">{{count}}
     {{/each}}
   </dl>
 </div>

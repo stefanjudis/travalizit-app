@@ -291,7 +291,6 @@
 
     &.highlighted {
       stroke: $red;
-      stroke-width: 2px;
 
       z-index: 10000;
     }
@@ -559,6 +558,12 @@
       }
     }
 
+    circle {
+      &.highlighted {
+        fill: $darkGrey;
+      }
+    }
+
     h4 {
       margin: 0 0 0.3em 0;
       font-size: 1em;
@@ -568,18 +573,26 @@
 
     i {
       position: absolute;
-      right: 0.2em;
       top: -0.15em;
 
       color: $red;
 
-      font-size: 2.5em;
       font-style: normal;
       font-weight: 400;
 
       cursor: pointer;
 
       @include text-shadow(0 1px 1px #555);
+
+      &.github {
+        font-size: 2.5em;
+        right: 0.2em;
+      }
+
+      &.travis {
+        font-size: 2em;
+        right: 1.5em;
+      }
     }
 
     span {

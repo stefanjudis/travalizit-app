@@ -6,18 +6,25 @@ define([
   'text!circleChartHtmlTemplate'
 ], function( _, d3, Handlebars, GeneralSVGView, CircleChartHtmlTemplate) {
   var CircleSVGView = GeneralSVGView.extend({
-    events: function(){
+    events : function(){
       return _.extend({},GeneralSVGView.prototype.events,{
-        'click i' : 'addRepoChart'
-      });
-     },
+        'click .github' : 'addRepoChart',
+        'click .travis' : 'addJobChart',
 
-    addRepoChart: function( event ) {
+        'mouseenter .attributes dd' : 'highlightCircle',
+        'mouseenter .attributes dt' : 'highlightCircle',
+
+        'mouseleave .attributes dd' : 'unHighlightCircle',
+        'mouseleave .attributes dt' : 'unHighlightCircle'
+      });
+    },
+
+
+    addChart : function( event, type ) {
       require(
         [ 'chartModel', 'config' ],
         _.bind(function( ChartModel, Config ) {
-          var type        = 'repoChart',
-              chartConfig = _.find( Config.charts, function( chart ) {
+          var chartConfig = _.find( Config.charts, function( chart ) {
                               return chart.type === type;
                             }),
               name        = event.target.dataset.repoName,
@@ -48,7 +55,6 @@ define([
               ],
               chart;
 
-          console.log(event.target.dataset);
           chart = new ChartModel(
                         data,
                         {
@@ -62,12 +68,30 @@ define([
       );
     },
 
+
+    addRepoChart : function( event ) {
+      this.addChart( event, 'repoChart' );
+    },
+
+
+    addJobChart : function( event ) {
+      this.addChart( event, 'jobChart' );
+    },
+
+
     generateChartName : function() {
       var name = this.model.get( 'name' ).substr( 0, 12 );
 
       name += 'for ' + this.model.get( 'date' );
 
       this.model.set( 'name', name );
+    },
+
+
+    highlightCircle : function( event ) {
+      this.$el.find(
+        'circle[data-id="' + event.target.dataset.id + '"]'
+      ).attr( 'class', 'highlighted' );
     },
 
     // TODO that can be refactored and be mored into general view
@@ -151,6 +175,9 @@ define([
                 } )
                 .attr( 'data-repo-owner', function( d ) {
                   return d.owner;
+                } )
+                .attr( 'data-id', function( d ) {
+                  return d.repo;
                 } );
 
       repoGroup.append('text')
@@ -169,7 +196,13 @@ define([
                   return d.owner;
                 } );
 
+    },
+
+
+    unHighlightCircle : function( event ) {
+      this.$el.find( 'circle' ).removeAttr( 'class' );
     }
+
   });
 
 

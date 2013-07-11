@@ -162,6 +162,9 @@ define([
       } else if ( response.status === 404 ) {
         html += 'Sorry. Github doesn\'t know a repo ' +
                    model.get( 'repoOwner' ) + ' / ' + model.get( 'repoName' ) + '.';
+      } else if ( response.status === 403 ) {
+        html += 'Sorry. Github doesn\'t allow more request at the moment. ' +
+                   'Please try again later.';
       }
 
       html += '</div>';
@@ -312,13 +315,16 @@ define([
                             .attr( 'transform', 'translate( 0, 40 )');
 
       linkGroup = linksGroup.selectAll( 'link' )
-                            .data( links)
+                            .data( links )
                             .enter().append( 'path' )
                             .attr( 'class', 'link' )
                             .attr( 'd', function( d ) {
                               return d.path;
                             } )
-                            .attr('stroke', 'black')
+                            .attr( 'stroke', 'black' )
+                            .attr( 'stroke-width', function( d ) {
+                              return d.commits || 1;
+                            } )
                             .attr('fill', 'transparent')
                             .attr( 'data-source', function( d ) {
                               return d.source;
@@ -351,12 +357,16 @@ define([
                     )
                     .on( 'mouseover', function( d ) {
                       var selector = ( d.type === 'build' ) ? 'source' : 'target',
-                          paths = d3.selectAll(
-                                    'path[data-' + selector + '="' + d.name + '"]'
-                                  );
+                          paths    = d3.selectAll(
+                                      'path[data-' + selector + '="' + d.name + '"]'
+                                    );
 
                       if ( paths.length ) {
                         paths.classed( 'highlighted', true );
+
+                        d3el.selectAll( '.link' ).sort( function( link ) {
+                          return ( link[ selector ] === d.name ) ? 1 : -1;
+                        } );
                       }
                     } )
                     .on( 'mouseleave', function( d ) {
@@ -380,7 +390,10 @@ define([
 
       nodeGroup.append('text')
                 .attr( 'x', '5' )
-                .attr( 'y', '15' )
+                .attr( 'y', function( d ) {
+                  // 12px font-size atm -> centering it y wise
+                  return node[ d.type ].height / 2 + 6;
+                } )
                 .text(
                   function( d ) {
                     return d.name;
