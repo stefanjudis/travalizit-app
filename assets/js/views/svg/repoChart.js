@@ -193,22 +193,27 @@ define([
     renderSvg : function() {
       var data          = this.model.get( 'data' ),
 
-          margin = { top: 80, right: 10, bottom: 60, left: 10 },
+          margin = { top: 80, right: 10, bottom: 10, left: 10 },
           width  = this.$el.width() - margin.left - margin.right,
           height = this.$el.height() - margin.top - margin.bottom,
 
           node = {
             build : {
-              width  : 50,
-              height : 20
+              width  : 50
             },
             file : {
-              width : 300,
-              height: 20
+              width : 300
             }
           },
 
           d3el = d3.select( this.el ),
+
+          y = {
+            build : d3.scale.ordinal()
+                        .rangeRoundBands( [ 0, ( height ) ], 0.1 ),
+            file  : d3.scale.ordinal()
+                        .rangeRoundBands( [ 0, ( height ) ], 0.1 )
+          },
 
           nodesGroup,
           nodeGroup,
@@ -224,9 +229,36 @@ define([
           file  : 0
         };
 
+        y.build.domain(
+          nodes.filter(
+            function( node ) {
+              return node.type === 'build';
+            }
+          ).map(
+            function( d ) {
+              return d.name;
+            }
+          )
+        );
+
+        y.file.domain(
+          nodes.filter(
+            function( node ) {
+              return node.type === 'file';
+            }
+          ).map(
+            function( d ) {
+              return d.name;
+            }
+          )
+        );
+
+        node.build.height = y.build.rangeBand();
+        node.file.height  = y.file.rangeBand();
+
         nodes.forEach( function( value ) {
           value.x = ( value.type === 'build') ? 0 : ( width - node[ value.type ].width ),
-          value.y = ( node[ value.type ].height + 5 ) * index[ value.type ];
+          value.y = y[ value.type ]( value.name );
 
           ++index[ value.type ];
         } );
