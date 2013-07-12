@@ -196,9 +196,9 @@ define([
     renderSvg : function() {
       var data          = this.model.get( 'data' ),
 
-          margin = { top: 80, right: 10, bottom: 10, left: 10 },
-          width  = this.$el.width() - margin.left - margin.right,
-          height = this.$el.height() - margin.top - margin.bottom,
+          margin   = { top: 80, right: 10, bottom: 10, left: 10 },
+          elWidth  = this.$el.width(),
+          elHeight = this.$el.height(),
 
           node = {
             build : {
@@ -211,20 +211,52 @@ define([
 
           d3el = d3.select( this.el ),
 
-          y = {
-            build : d3.scale.ordinal()
-                        .rangeRoundBands( [ 0, ( height ) ], 0.1 ),
-            file  : d3.scale.ordinal()
-                        .rangeRoundBands( [ 0, ( height ) ], 0.1 )
-          },
+          nodes       = data.nodes,
+          buildNodes = nodes.filter( function( node ) {
+            return node.type === 'build';
+          } ),
+          fileNodes   = nodes.filter( function( node ) {
+            return node.type === 'file';
+          } ),
+
+          resizeForBuilds = (( elHeight / buildNodes.length ) < 20 ),
+          resizeForFiles   = (( elHeight / fileNodes.length ) < 20 ),
 
           nodesGroup,
           nodeGroup,
           linksGroup,
           linkGroup,
 
-          nodes,
-          links;
+          links,
+
+          width,
+          height,
+          y;
+
+      // check it will fit, if not resize window at beginning
+      if ( !this.optimizedView && ( resizeForBuilds || resizeForFiles ) ) {
+        this.optimizedView = true;
+
+        //it will be files let's ignore builds quickly
+        this.$el.height( fileNodes.length * 20 );
+
+      }
+
+      // this stuff needs to happen after check for resizing
+      elWidth  = this.$el.width();
+      elHeight = this.$el.height();
+      width    = elWidth - margin.left - margin.right;
+      height   = elHeight - margin.top - margin.bottom;
+
+      y = {
+        build : d3.scale.ordinal()
+                    .rangeRoundBands( [ 0, ( height ) ], 0.1 ),
+        file  : d3.scale.ordinal()
+                    .rangeRoundBands( [ 0, ( height ) ], 0.1 )
+      };
+
+      width    = elWidth - margin.left - margin.right;
+      height   = elHeight - margin.top - margin.bottom;
 
       function calculateNodePositions( nodes ) {
         var index = {
@@ -233,11 +265,7 @@ define([
         };
 
         y.build.domain(
-          nodes.filter(
-            function( node ) {
-              return node.type === 'build';
-            }
-          ).map(
+          buildNodes.map(
             function( d ) {
               return d.name;
             }
@@ -245,11 +273,7 @@ define([
         );
 
         y.file.domain(
-          nodes.filter(
-            function( node ) {
-              return node.type === 'file';
-            }
-          ).map(
+          fileNodes.map(
             function( d ) {
               return d.name;
             }
@@ -301,8 +325,8 @@ define([
         return links;
       }
 
-      nodes = calculateNodePositions( data.nodes ),
-      links = calculateNodePaths( data.links, data.nodes );
+      nodes = calculateNodePositions( nodes ),
+      links = calculateNodePaths( data.links, nodes );
 
       d3el.select( 'svg' ).remove();
 
