@@ -322,6 +322,9 @@
   .node {
     rect {
       fill: $red;
+      &.failed {
+        fill: $darkGrey
+      }
     }
 
     text {

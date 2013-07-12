@@ -205,7 +205,7 @@ define([
               width  : 50
             },
             file : {
-              width : 300
+              width : 350
             }
           },
 
@@ -396,25 +396,83 @@ define([
                       }
                     } );
 
-      nodeGroup.append( 'rect' )
+      nodeGroup.each( function( currentNode, index ) {
+        var d3Node = d3.select( this );
+
+        if ( currentNode.type === 'build' ) {
+          d3Node.append( 'rect' )
+                .attr( 'height', function() {
+                  return node[ currentNode.type ].height;
+                } )
+                .attr( 'width', function() {
+                  return node[ 'build' ].width;
+                } );
+        } else {
+          d3Node.append( 'rect' )
+                .attr( 'class', 'passed' )
                 .attr( 'height', function( d ) {
                   return node[ d.type ].height;
                 } )
                 .attr( 'width', function( d ) {
-                  return node[ d.type ].width;
+                  if ( d.type === 'file' ) {
+                    var passed = d.passed || 0,
+                        failed = d.failed || 0,
+                        width = node[ 'file' ].width / ( passed + failed ) * passed;
+
+                    return width;
+                  } else {
+                    return node[ 'build' ].width;
+                  }
+                } )
+                .attr( 'data-passed', function( d ) {
+                  return d.passed || 0;
                 } );
 
-      nodeGroup.append('text')
-                .attr( 'x', '5' )
-                .attr( 'y', function( d ) {
-                  // 12px font-size atm -> centering it y wise
-                  return node[ d.type ].height / 2 + 6;
+          d3Node.append( 'rect' )
+                .attr( 'class', 'failed' )
+                .attr( 'height', function( d ) {
+                  return node[ d.type ].height;
                 } )
-                .text(
-                  function( d ) {
-                    return d.name;
+                .attr( 'width', function( d ) {
+                  if ( d.type  === 'file' ) {
+                    var passed = d.passed || 0,
+                        failed = d.failed || 0,
+                        width = node[ 'file' ].width / ( passed + failed ) * failed;
+
+                    return width;
+                  } else {
+                    return node[ 'build' ].width;
                   }
-                );
+                } )
+                .attr( 'x', function( d ) {
+                  if ( d.type === 'file' ) {
+                    var passed = d.passed || 0,
+                        failed = d.failed || 0,
+                        x = node[ 'file' ].width / ( passed + failed ) * passed;
+
+                    return x;
+                  } else {
+                    return 0;
+                  }
+                } )
+                .attr( 'data-failed', function( d ) {
+                  return d.failed || 0;
+                } );
+        }
+
+        d3Node.append('text')
+              .attr( 'x', '5' )
+              .attr( 'y', function( d ) {
+                // 12px font-size atm -> centering it y wise
+                return node[ d.type ].height / 2 + 6;
+              } )
+              .text(
+                function( d ) {
+                  return d.name;
+                }
+              );
+      } );
+
     },
 
 
