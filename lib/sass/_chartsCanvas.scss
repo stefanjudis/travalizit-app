@@ -328,6 +328,17 @@
       fill: #fff;
     }
 
+    &.highlighted {
+      rect {
+        fill: adjust-lightness( $red, 20 );
+      }
+
+      &.failed {
+        rect {
+          fill: adjust-lightness( $darkGrey, 20 );
+        }
+      }
+    }
   }
 
   .failed {

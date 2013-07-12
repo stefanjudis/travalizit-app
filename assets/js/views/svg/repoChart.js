@@ -349,6 +349,9 @@ define([
 
                       return classes;
                     } )
+                    .attr( 'data-name', function( d ) {
+                      return d.name;
+                    } )
                     .attr(
                       'transform',
                       function( d ) {
@@ -356,16 +359,28 @@ define([
                       }
                     )
                     .on( 'mouseover', function( d ) {
-                      var selector = ( d.type === 'build' ) ? 'source' : 'target',
-                          paths    = d3.selectAll(
-                                      'path[data-' + selector + '="' + d.name + '"]'
-                                    );
+                      var sourceSelector = ( d.type === 'build' ) ? 'source' : 'target',
+                          targetSelector = ( d.type === 'build' ) ? 'target' : 'source',
+                          paths          = d3el.selectAll(
+                                            'path[data-' + sourceSelector + '="' + d.name + '"]'
+                                          );
 
                       if ( paths.length ) {
                         paths.classed( 'highlighted', true );
 
                         d3el.selectAll( '.link' ).sort( function( link ) {
-                          return ( link[ selector ] === d.name ) ? 1 : -1;
+                          if ( link[ sourceSelector ] === d.name ) {
+
+                            return 1;
+                          } else {
+                            return -1;
+                          }
+                        } );
+
+                        paths.each( function( path ) {
+                          d3el.selectAll(
+                            '.node[data-name="' + path[ targetSelector ] + '"]'
+                          ).classed( 'highlighted', true );
                         } );
                       }
                     } )
@@ -377,6 +392,7 @@ define([
 
                       if ( paths.length ) {
                         paths.classed( 'highlighted', false );
+                        nodeGroup.classed( 'highlighted', false );
                       }
                     } );
 
