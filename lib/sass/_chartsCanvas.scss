@@ -344,6 +344,12 @@
         }
       }
     }
+
+    &.unHighlighted {
+      rect {
+        fill: adjust-lightness( $lightGrey, 10 );
+      }
+    }
   }
 
   .failed {

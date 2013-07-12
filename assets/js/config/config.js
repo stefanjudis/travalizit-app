@@ -131,12 +131,12 @@ define([], function() {
         name        : 'Github details',
         params      : [
           {
-            defaultValue : 'stefanjudis',
+            defaultValue : 'zoddy',
             label        : 'Owner:',
             name         : 'repoOwner',
             type         : 'text'
           }, {
-            defaultValue : 'travalizit',
+            defaultValue : 'cushion',
             label        : 'Name:',
             name         : 'repoName',
             type         : 'text'

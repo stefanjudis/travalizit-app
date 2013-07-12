@@ -13,7 +13,10 @@ define([
       return _.extend( {}, GeneralSVGView.prototype.events, {
           'click .addChart'       : 'addJobChart',
           'click .fetchBuildData' : 'fetchBuildData',
-          'click .showAttributes' : 'toggleAttributes'
+          'click .showAttributes' : 'toggleAttributes',
+
+          'mouseenter' : 'unHighlightAllNodes',
+          'mouseleave' : 'hightlightAllNodes'
       } );
     },
 
@@ -101,6 +104,13 @@ define([
               + this.model.get( 'repoName' );
 
       this.model.set( 'name', name );
+    },
+
+
+    hightlightAllNodes : function() {
+      if ( this.d3el ) {
+        this.d3el.selectAll( '.node' ).classed( 'unHighlighted', false );
+      }
     },
 
 
@@ -232,6 +242,8 @@ define([
           width,
           height,
           y;
+
+      this.d3el = d3el;
 
       // check it will fit, if not resize window at beginning
       if ( !this.optimizedView && ( resizeForBuilds || resizeForFiles ) ) {
@@ -404,8 +416,12 @@ define([
                         paths.each( function( path ) {
                           d3el.selectAll(
                             '.node[data-name="' + path[ targetSelector ] + '"]'
-                          ).classed( 'highlighted', true );
+                          ).classed( 'unHighlighted', false );
                         } );
+
+                        d3el.selectAll(
+                          '.node[data-name="' + d.name + '"]'
+                        ).classed( 'unHighlighted', false );
                       }
                     } )
                     .on( 'mouseleave', function( d ) {
@@ -416,7 +432,7 @@ define([
 
                       if ( paths.length ) {
                         paths.classed( 'highlighted', false );
-                        nodeGroup.classed( 'highlighted', false );
+                        nodeGroup.classed( 'unHighlighted', true );
                       }
                     } );
 
@@ -509,6 +525,14 @@ define([
       $attributesContainer.toggleClass( 'shown' );
       $attributes.toggleClass( 'shown' );
 
+    },
+
+
+    unHighlightAllNodes : function() {
+      console.log( 'unhighlight that shit' );
+      if ( this.d3el ) {
+        this.d3el.selectAll( '.node' ).classed( 'unHighlighted', true );
+      }
     }
   });
 
