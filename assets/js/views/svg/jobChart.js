@@ -136,7 +136,7 @@ define([
       this.svgWidth  = width;
       this.svgHeight = height;
 
-      x.domain( builds.map( function( d ) { return Object.keys( d )[ 0 ]; } ) );
+      x.domain( builds.map( function( d ) { return d[ Object.keys( d )[ 0 ] ].number; } ) );
       y.domain( [ 0, data.maxDuration ] );
 
       this.svg.append( 'g' )
@@ -144,11 +144,7 @@ define([
           .attr( 'transform', 'translate(0,' + height + ')' )
           .call( xAxis )
           .selectAll( 'text' )
-          .attr( 'dx', '-3em' )
-          .attr( 'dy', '0.5em' )
-          .attr( 'transform', function( d ) {
-            return 'rotate(-45)';
-          } );
+          .attr( 'dy', '0.5em' );
 
       this.svg.append( 'g' )
           .attr( 'class', 'y axis' )
@@ -167,22 +163,23 @@ define([
         var buildId  = Object.keys( build )[ 0 ],
             currentX = d3.scale.ordinal()
                               .rangeRoundBands( [ 0, ( x.rangeBand() ) ], 0.1 ),
-            jobs     = build[ buildId ].jobs;
+            jobs     = build[ buildId ].jobs,
+            number   = build[ buildId ].number;
 
         currentX.domain(
-          jobs.map( function( d ) { return d.id; } ) );
+          jobs.map( function( d ) { return d.number; } ) );
 
         var svgBars = this.svgBarsContainer.append( 'g' )
-                          .attr( 'class', 'bars-' + buildId )
+                          .attr( 'class', 'bars-' + number )
                           .attr(
-                            'transform', 'translate( ' + x( buildId ) + ', 0 )'
+                            'transform', 'translate( ' + x( number ) + ', 0 )'
                           )
-                          .selectAll( '.bar-' + buildId )
+                          .selectAll( '.bar-' + number )
                           .data( jobs )
                           .enter()
                           .append( 'rect' )
                           .attr( 'x', function( d ) {
-                            return currentX( d.id );
+                            return currentX( d.number );
                           } )
                           .attr( 'y', function( d ) {
                             return y( d.duration );
@@ -197,7 +194,7 @@ define([
                             }
                           )
                           .attr( 'class', function( d ) {
-                            return 'bar-job-' + d.id + ' bar ' + d.state;
+                            return 'bar-job-' + d.number + ' bar ' + d.state;
                           } )
                           .attr( 'data-duration', function( d ) {
                             return d.duration;
@@ -216,7 +213,7 @@ define([
 
 
     hideDetailInformation : function() {
-      // this.svg.selectAll( '.detailInformation' ).remove();
+      this.svg.selectAll( '.detailInformation' ).remove();
     },
 
 
