@@ -320,6 +320,8 @@
   }
 
   .node {
+    cursor: pointer;
+
     rect {
       fill: $red;
       &.failed {
@@ -618,7 +620,7 @@
     }
   }
 
-  &[type="repoChart"] {
+  &[type="repoChart"], &[type="jobChart"] {
     .attributes {
 
       padding: 1.5em 0;
@@ -643,7 +645,6 @@
     .attributesContainer {
       position: absolute;
       overflowX: hidden;
-
       display: none;
 
 

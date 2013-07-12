@@ -1,16 +1,67 @@
 define([
   'underscore',
   'd3',
+  'handlebars',
   'generalSVGView',
+  'text!jobChartHtmlTemplate',
   'config'
-], function( _, d3, GeneralSVGView, Config ) {
+], function( _, d3, Handlebars, GeneralSVGView, JobChartHtmlTemplate, Config ) {
   var JobSVGView = GeneralSVGView.extend({
     events: function() {
       return _.extend( {}, GeneralSVGView.prototype.events, {
+          'click .addChart'       : 'addJobChart',
           'click .fetchBuildData' : 'fetchBuildData'
       } );
     },
 
+    addJobChart : function() {
+      require(
+        [ 'chartModel', 'config' ],
+        _.bind(function( ChartModel, Config ) {
+          var type        = 'repoChart',
+              chartConfig = _.find( Config.charts, function( chart ) {
+                              return chart.type === type;
+                            }),
+              name        = this.model.get( 'repoName' ),
+              owner       = this.model.get( 'repoOwner' ),
+              data        = [
+                {
+                  name  : 'paramInput-type',
+                  value : type
+                },
+                {
+                  name  : 'config',
+                  value : {
+                    icon: chartConfig.icon
+                  }
+                },
+                {
+                  name  : 'name',
+                  value : chartConfig.name
+                },
+                {
+                  name  : 'repoName',
+                  value : name
+                },
+                {
+                  name  : 'repoOwner',
+                  value : owner
+                }
+              ],
+              chart;
+
+          chart = new ChartModel(
+                        data,
+                        {
+                          parse : true,
+                          url   : chartConfig.url
+                        }
+                      );
+
+          charts.push( chart );
+        }, this)
+      );
+    },
 
     fetchBuildData : function( event ) {
       event.target.disabled = true;
@@ -96,8 +147,18 @@ define([
     },
 
 
+    // TODO that can be refactored and be mored into general view
+    renderHtmlPart : function() {
+      var template = Handlebars.compile( JobChartHtmlTemplate );
+
+      this.$el.append(
+        template()
+      );
+    },
+
+
     renderSvg : function() {
-      var margin = { top: 20, right: 20, bottom: 130, left: 80 },
+      var margin = { top: 20, right: 20, bottom: 100, left: 80 },
           width  = this.$el.width() - margin.left - margin.right,
           height = this.$el.height() - margin.top - margin.bottom,
 
