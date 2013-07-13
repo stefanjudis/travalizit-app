@@ -166,6 +166,27 @@ define([], function() {
         ],
         type   : 'jobChart',
         url    : 'jobs'
+      },
+      {
+        icon        : 'random',
+        description : 'Get a nice overview of line changes included in each ' +
+                      'build in comparison to fail / success of depending builds.',
+        name        : 'Line change details',
+        params      : [
+          {
+            defaultValue : 'mitsuhiko',
+            label        : 'Owner:',
+            name         : 'repoOwner',
+            type         : 'text'
+          }, {
+            defaultValue : 'babel',
+            label        : 'Name:',
+            name         : 'repoName',
+            type         : 'text'
+          }
+        ],
+        type   : 'changeChart',
+        url    : 'repos'
       }
     ],
 

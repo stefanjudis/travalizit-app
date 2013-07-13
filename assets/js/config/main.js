@@ -15,6 +15,7 @@ requirejs.config({
     circleModel : 'models/circleModel',
     repoModel   : 'models/repoModel',
     jobModel    : 'models/jobModel',
+    changeModel : 'models/changeModel',
 
     // views
     appView      : 'views/appView',
@@ -29,6 +30,7 @@ requirejs.config({
     circleChartView : 'views/svg/circleChart',
     repoChartView   : 'views/svg/repoChart',
     jobChartView    : 'views/svg/jobChart',
+    changeChartView : 'views/svg/changeChart',
 
     // collections
     chartCollection : 'collections/chartsCollection',

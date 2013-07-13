@@ -1,0 +1,115 @@
+define([
+  'underscore',
+  'd3',
+  'generalSVGView'
+
+], function( _, d3, GeneralSVGView ) {
+  var ChangeSVGView = GeneralSVGView.extend({
+
+    renderSvg : function() {
+      var data      = this.model.getGroupedChanges( 50 ),
+          dataKeys  = Object.keys( data ),
+          margin    = { top: 20, right: 20, bottom: 100, left: 80 },
+          width     = this.$el.width() - margin.left - margin.right,
+          height    = this.$el.height() - margin.top - margin.bottom,
+
+          x = d3.scale.ordinal()
+                .rangeRoundBands( [ 0, ( width ) ], 0.1 ),
+
+          y = {
+            passed : d3.scale.linear()
+                        .range( [ height, 0 ] ),
+            failed : d3.scale.linear()
+                        .range( [ height, 0 ] )
+          },
+
+          xAxis = d3.svg.axis()
+                    .scale( x )
+                    .orient( 'bottom' ),
+
+          yAxis = {
+            passed : d3.svg.axis()
+                            .scale( y.passed )
+                            .orient( 'left' ),
+            failed : d3.svg.axis()
+                            .scale( y.failed )
+                            .orient( 'left' )
+          },
+
+          line = {
+            passed : d3.svg.line()
+                      .x( function( d ) { return x( d ) + x.rangeBand() / 2; } )
+                      .y( function( d ) { return y.passed( data[ d ].passed ); } ),
+            failed : d3.svg.line()
+                      .x( function( d ) { return x( d ) + x.rangeBand() / 2; } )
+                      .y( function( d ) { return y.failed( data[ d ].failed ); } )
+          },
+
+          maxValue,
+          maxValuePassed,
+          maxValueFailed,
+
+          circle = {
+            radius : 8
+          },
+
+          d3el = d3.select( this.el );
+
+      //remove old svg for example after resize
+      d3el.select( 'svg' ).remove();
+
+      //determine the max value
+      maxValuePassed = d3.max(
+                          dataKeys,
+                          function( d ) { return data[ d ].passed; }
+                        );
+      maxValueFailed = d3.max(
+                          dataKeys,
+                          function( d ) { return data[ d ].failed; }
+                        );
+
+      maxValue = ( maxValuePassed > maxValueFailed ) ? maxValuePassed : maxValueFailed;
+
+      this.svg = d3el.append( 'svg' )
+              .attr( 'width', width + margin.left + margin.right )
+              .attr( 'height', height +  margin.top + margin.bottom )
+              .append( 'g' )
+              .attr( 'transform', 'translate(' + margin.left + ',' + margin.top + ')' )
+              .attr( 'data-width', width )
+              .attr( 'data-height', height );
+
+      x.domain( dataKeys.map( function( d ) { return d; } ) );
+      y.passed.domain( [ 0, maxValue ] );
+      y.failed.domain( [ 0, maxValue ] );
+
+      this.svg.append( 'g' )
+          .attr( 'class', 'x axis' )
+          .attr( 'transform', 'translate(0,' + height + ')' )
+          .call( xAxis )
+          .selectAll( 'text' );
+
+      this.svg.append( 'g' )
+          .attr( 'class', 'y axis passed' )
+          .call( yAxis.passed )
+          .append( 'text' )
+          .attr( 'transform', 'rotate(-90)' )
+          .attr( 'y', 6 )
+          .attr( 'dy', '-4em' )
+          .style( 'text-anchor', 'end' )
+          .text( 'Number of passed / failed builds' );
+
+      this.svg.append( 'path' )
+              .datum( dataKeys )
+              .attr( 'class', 'line passed' )
+              .attr( 'd', line.passed );
+
+      this.svg.append( 'path' )
+              .datum( dataKeys )
+              .attr( 'class', 'line failed' )
+              .attr( 'd', line.failed );
+    }
+  });
+
+
+  return ChangeSVGView;
+});

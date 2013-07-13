@@ -67,7 +67,7 @@
     cursor: pointer;
   }
 
-  .bar {
+  .bar, .circle {
     fill: $red;
 
     &.active {
@@ -292,6 +292,21 @@
 
   .jobHeadline {
     fill: $darkGrey;
+  }
+
+  .line {
+    fill: transparent;
+
+    stroke: #000;
+    stroke-width: 3px;
+
+    &.passed {
+      stroke: $drBroseGreen;
+    }
+
+    &.failed {
+      stroke: $red;
+    }
   }
 
   .link {
