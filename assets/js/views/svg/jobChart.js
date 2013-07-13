@@ -16,7 +16,7 @@ define([
 
     addJobChart : function() {
       require(
-        [ 'chartModel', 'config' ],
+        [ 'repoModel', 'config' ],
         _.bind(function( ChartModel, Config ) {
           var type        = 'repoChart',
               chartConfig = _.find( Config.charts, function( chart ) {

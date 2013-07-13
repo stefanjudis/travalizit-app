@@ -13,16 +13,35 @@ define([
       return _.extend( {}, GeneralSVGView.prototype.events, {
           'click .addChart'       : 'addJobChart',
           'click .fetchBuildData' : 'fetchBuildData',
-          'click .showAttributes' : 'toggleAttributes',
-
-          'mouseenter' : 'unHighlightAllNodes',
-          'mouseleave' : 'hightlightAllNodes'
+          'click .showAttributes' : 'toggleAttributes'
       } );
     },
 
+
+    initialize : function( chart ) {
+      this.model = chart;
+
+      this.$el.attr({
+        id        : 'svgChartItem-' + this.model.cid
+      });
+
+      this.$el.addClass( 'fontawesome-' + this.model.get( 'config' ).icon );
+
+      this.listenTo( this.model, 'destroy', this.remove );
+      this.listenTo( this.model, 'sync', this.render );
+      this.listenTo( this.model, 'change:highlighted', this.handleModelHighlight );
+      this.listenTo( this.model, 'error', this.renderError );
+      this.listenTo( this.model, 'sorted', this.renderSvg );
+
+      if ( this.generateChartName ) {
+        this.generateChartName();
+      }
+    },
+
+
     addJobChart : function() {
       require(
-        [ 'chartModel', 'config' ],
+        [ 'jobModel', 'config' ],
         _.bind(function( ChartModel, Config ) {
           var type        = 'jobChart',
               chartConfig = _.find( Config.charts, function( chart ) {
@@ -69,6 +88,13 @@ define([
       );
     },
 
+
+    clearSort : function() {
+      console.log( 'clearSort' );
+      this.model.clear();
+    },
+
+
     fetchBuildData : function( event ) {
       event.target.disabled = true;
       this.$el.find( '.histogram' ).addClass( 'active' );
@@ -104,13 +130,6 @@ define([
               + this.model.get( 'repoName' );
 
       this.model.set( 'name', name );
-    },
-
-
-    hightlightAllNodes : function() {
-      if ( this.d3el ) {
-        this.d3el.selectAll( '.node' ).classed( 'unHighlighted', false );
-      }
     },
 
 
@@ -204,9 +223,10 @@ define([
 
 
     renderSvg : function() {
-      var data          = this.model.get( 'data' ),
+      var data          = this.model.get( 'displayedData' ) ||
+                          this.model.get( 'data' ),
 
-          margin   = { top: 80, right: 10, bottom: 10, left: 10 },
+          margin   = { top: 40, right: 10, bottom: 50, left: 10, nodeTop: 30 },
           elWidth  = this.$el.width(),
           elHeight = this.$el.height(),
 
@@ -217,6 +237,11 @@ define([
             file : {
               width : 350
             }
+          },
+
+          reset = {
+            height : 30,
+            width  : 200
           },
 
           d3el = d3.select( this.el ),
@@ -232,6 +257,8 @@ define([
           resizeForBuilds = (( elHeight / buildNodes.length ) < 20 ),
           resizeForFiles   = (( elHeight / fileNodes.length ) < 20 ),
 
+          view = this,
+
           nodesGroup,
           nodeGroup,
           linksGroup,
@@ -243,6 +270,7 @@ define([
           height,
           y;
 
+      // store it for later
       this.d3el = d3el;
 
       // check it will fit, if not resize window at beginning
@@ -262,13 +290,10 @@ define([
 
       y = {
         build : d3.scale.ordinal()
-                    .rangeRoundBands( [ 0, ( height ) ], 0.1 ),
+                    .rangeRoundBands( [ 0, ( height - margin.nodeTop ) ], 0.1 ),
         file  : d3.scale.ordinal()
-                    .rangeRoundBands( [ 0, ( height ) ], 0.1 )
+                    .rangeRoundBands( [ 0, ( height - margin.nodeTop ) ], 0.1 )
       };
-
-      width    = elWidth - margin.left - margin.right;
-      height   = elHeight - margin.top - margin.bottom;
 
       function calculateNodePositions( nodes ) {
         var index = {
@@ -297,7 +322,7 @@ define([
 
         nodes.forEach( function( value ) {
           value.x = ( value.type === 'build') ? 0 : ( width - node[ value.type ].width ),
-          value.y = y[ value.type ]( value.name );
+          value.y = y[ value.type ]( value.name ) + margin.nodeTop;
 
           ++index[ value.type ];
         } );
@@ -337,6 +362,7 @@ define([
         return links;
       }
 
+
       nodes = calculateNodePositions( nodes ),
       links = calculateNodePaths( data.links, nodes );
 
@@ -345,6 +371,29 @@ define([
       this.svg = d3el.append( 'svg' )
               .attr( 'width', width )
               .attr( 'height', height + margin.top );
+
+
+      if ( this.model.get( 'displayedData' ) ) {
+        var resetButton = this.svg.append( 'g' )
+                              .attr( 'class', 'resetButton' )
+                              .attr(
+                                'transform',
+                                'translate( ' + ( width - reset.width ) + ', ' + margin.top + ' )'
+                              )
+                              .attr( 'data-action-click', 'clearSort' );
+
+        resetButton.append( 'rect' )
+                    .attr( 'width', reset.width )
+                    .attr( 'height', reset.height )
+                    .attr( 'data-action-click', 'clearSort' );
+
+        resetButton.append( 'text' )
+                    .text( 'Reset and show all Builds!' )
+                    .attr( 'y', reset.height / 2 + 6 )
+                    .attr( 'x', 5 )
+                    .attr( 'data-action-click', 'clearSort' );
+
+      }
 
       linksGroup = this.svg.append( 'g' )
                             .attr( 'class', 'links' )
@@ -401,6 +450,8 @@ define([
                                             'path[data-' + sourceSelector + '="' + d.name + '"]'
                                           );
 
+                      nodeGroup.classed( 'unHighlighted', true );
+
                       if ( paths.length ) {
                         paths.classed( 'highlighted', true );
 
@@ -419,9 +470,14 @@ define([
                           ).classed( 'unHighlighted', false );
                         } );
 
-                        d3el.selectAll(
-                          '.node[data-name="' + d.name + '"]'
-                        ).classed( 'unHighlighted', false );
+                        var d3Node = d3.select( this ).classed( 'unHighlighted', false );
+
+                        if (
+                          d.type === 'build' &&
+                          !d3Node.selectAll( '.dialog' )[ 0 ].length
+                        ) {
+                          view.showSortDialog( d3Node, d, node );
+                        }
                       }
                     } )
                     .on( 'mouseleave', function( d ) {
@@ -432,7 +488,11 @@ define([
 
                       if ( paths.length ) {
                         paths.classed( 'highlighted', false );
-                        nodeGroup.classed( 'unHighlighted', true );
+                        nodeGroup.classed( 'unHighlighted', false );
+                      }
+
+                      if ( d.type === 'build' ) {
+                        d3el.selectAll( '.dialog' ).remove();
                       }
                     } );
 
@@ -516,6 +576,36 @@ define([
     },
 
 
+    showSortDialog : function( d3Node, currentNode, nodeConfig ) {
+      if ( !this.model.get( 'displayedData' ) ) {
+        var dialog = d3Node.append( 'g' )
+                            .attr( 'class', 'dialog' )
+                            .attr( 'data-action-click', 'sortItems' )
+                            .attr( 'data-type', currentNode.status ),
+            status = currentNode.status ? 'passed' : 'failed';
+
+        dialog.append( 'rect' )
+                .attr( 'width', 190 )
+                .attr( 'height', nodeConfig[ currentNode.type ].height )
+                .attr( 'x', nodeConfig[ currentNode.type ].width )
+                .attr( 'data-action-click', 'sortItems' )
+                .attr( 'data-type', currentNode.status );
+
+        dialog.append( 'text' )
+                .text( 'Show only ' + status + ' builds!' )
+                .attr( 'x', nodeConfig[ currentNode.type ].width )
+                .attr( 'y', nodeConfig[ currentNode.type ].height / 2 + 6 )
+                .attr( 'data-action-click', 'sortItems' )
+                .attr( 'data-type', currentNode.status );
+      }
+    },
+
+
+    sortItems : function( event, target ) {
+      this.model.sort( target.dataset.type );
+    },
+
+
     toggleAttributes : function( event ) {
       $( event.target ).toggleClass( 'clicked' );
 
@@ -525,14 +615,6 @@ define([
       $attributesContainer.toggleClass( 'shown' );
       $attributes.toggleClass( 'shown' );
 
-    },
-
-
-    unHighlightAllNodes : function() {
-      console.log( 'unhighlight that shit' );
-      if ( this.d3el ) {
-        this.d3el.selectAll( '.node' ).classed( 'unHighlighted', true );
-      }
     }
   });
 

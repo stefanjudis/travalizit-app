@@ -64,10 +64,10 @@
   }
 
   .bar {
-    fill: $red;
+    fill: $drBroseGreen;
 
     &.active {
-      fill: adjust-lightness( $red, 15 );
+      fill: adjust-lightness( $drBroseGreen, 15 );
     }
 
     &.failed {
@@ -290,7 +290,7 @@
     stroke: $darkGrey;
 
     &.highlighted {
-      stroke: $red;
+      stroke: $drBroseGreen;
 
       z-index: 10000;
     }
@@ -323,9 +323,9 @@
     cursor: pointer;
 
     rect {
-      fill: $red;
+      fill: $drBroseGreen;
       &.failed {
-        fill: $darkGrey
+        fill: $red;
       }
     }
 
@@ -354,7 +354,7 @@
 
   .failed {
     rect {
-      fill: $darkGrey;
+      fill: $red;
     }
 
     text {
@@ -395,6 +395,20 @@
       circle {
         fill: adjust-lightness( $red, -10 );
       }
+    }
+  }
+
+  .resetButton {
+    cursor: pointer;
+
+    rect {
+      cursor: pointer;
+      fill: $red;
+    }
+
+    text {
+      cursor: pointer;
+      fill: #fff;
     }
   }
 

@@ -53,15 +53,16 @@ define([
     createChart : function( event ) {
       event.preventDefault();
 
+      var form        = $( event.target ),
+          type = form.find( '#paramInput-type' ).val();
+
       require(
-        [ 'chartModel' ],
+        [ type.replace( 'Chart', '') + 'Model' ],
         _.bind(function( ChartModel ) {
-          var form        = $( event.target ),
-              type        = form.find( '#paramInput-type' ).val(),
-              chartConfig = _.find( Config.charts, function( chart ) {
+              var chartConfig = _.find( Config.charts, function( chart ) {
                               return chart.type === type;
                             }),
-              data        = form.serializeArray(),
+                  data        = form.serializeArray(),
               chart;
 
           data.push({

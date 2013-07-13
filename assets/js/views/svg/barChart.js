@@ -9,7 +9,7 @@ define([
 
     addCircleChart : function( event ) {
       require(
-        [ 'chartModel', 'config' ],
+        [ 'circleModel', 'config' ],
         _.bind(function( ChartModel, Config ) {
           var type        = 'circleChart',
               chartConfig = _.find( Config.charts, function( chart ) {

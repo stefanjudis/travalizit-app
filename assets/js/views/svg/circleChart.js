@@ -22,7 +22,7 @@ define([
 
     addChart : function( event, type ) {
       require(
-        [ 'chartModel', 'config' ],
+        [ type.replace( 'Chart', '' ) + 'Model', 'config' ],
         _.bind(function( ChartModel, Config ) {
           var chartConfig = _.find( Config.charts, function( chart ) {
                               return chart.type === type;

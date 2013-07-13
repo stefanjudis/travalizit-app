@@ -10,7 +10,11 @@ requirejs.config({
     text       : 'libs/requirejs-text/text',
 
     //models
-    chartModel : 'models/chartModel',
+    chartModel  : 'models/chartModel',
+    barModel    : 'models/barModel',
+    circleModel : 'models/circleModel',
+    repoModel   : 'models/repoModel',
+    jobModel    : 'models/jobModel',
 
     // views
     appView      : 'views/appView',
