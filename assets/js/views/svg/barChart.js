@@ -467,7 +467,9 @@ define([
             .selectAll( '.arc' )
             .data( pie( circleData ) )
             .enter().append( 'g' )
-            .attr( 'class', 'arc' );
+            .attr( 'class', function( d ) {
+              return 'arc ' + d.data.name;
+            } );
 
       pieGroup.append( 'path' )
           .attr( 'd', arc );

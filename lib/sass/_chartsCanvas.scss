@@ -37,6 +37,10 @@
       fill: $lightGrey;
       stroke: $lightGrey;
     }
+
+    &.successful {
+      fill: adjust-lightness( $drBroseGreen, 10 );
+    }
   }
 
   .analyzeBtn, .analyzeBtnText {
@@ -64,7 +68,7 @@
   }
 
   .bar {
-    fill: $drBroseGreen;
+    fill: $red;
 
     &.active {
       fill: adjust-lightness( $drBroseGreen, 15 );
@@ -76,6 +80,10 @@
 
     &.errored {
       fill: adjust-lightness( $red, -20 );
+    }
+
+    &.passed {
+      fill: $drBroseGreen;
     }
 
     &:hover {
@@ -124,7 +132,7 @@
     }
   }
 
-  .closeBtn {
+  .closeBtn, .searchBtn {
     position: relative;
     float: right;
 
@@ -290,7 +298,13 @@
     stroke: $darkGrey;
 
     &.highlighted {
-      stroke: $drBroseGreen;
+      &.passed {
+        stroke: $drBroseGreen;
+      }
+
+      &.failed {
+        stroke: $red;
+      }
 
       z-index: 10000;
     }
@@ -412,8 +426,36 @@
     }
   }
 
+  .searchContainer {
+    display: none;
+
+    height: 2em;
+
+    float: right;
+
+    button, input {
+      float: right;
+    }
+
+    button {
+      margin: 0.5em 0 0.5em 0.5em;
+    }
+
+    input {
+      height: 2em;
+      margin: 0.5em 0 0.5em 0.5em;
+      padding: 0 0.2em;
+
+      background-color: adjust-lightness( $darkGrey, 10 );
+
+      border: 0;
+
+      color: $lightGrey;
+    }
+  }
+
   .successBar {
-    fill: adjust-lightness( $red, 10 );
+    fill: adjust-lightness( $drBroseGreen, 10 );
   }
 
   .successStar {
@@ -432,7 +474,7 @@
     outline: 0;
 
     color: $lightGrey;
-    float :left;
+    position: absolute;
 
     margin: 0;
     padding: 0 0 0 1em;
@@ -728,6 +770,12 @@
 
     dd {
       width: 60%;
+    }
+  }
+
+  &[type="repoChart"] {
+    .searchContainer {
+      display: block;
     }
   }
 }

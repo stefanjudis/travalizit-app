@@ -13,7 +13,10 @@ define([
       return _.extend( {}, GeneralSVGView.prototype.events, {
           'click .addChart'       : 'addJobChart',
           'click .fetchBuildData' : 'fetchBuildData',
-          'click .showAttributes' : 'toggleAttributes'
+          'click .showAttributes' : 'toggleAttributes',
+
+          'keypress .searchInput' : 'handleSearchInput',
+          'click .searchBtn'      : 'searchFiles'
       } );
     },
 
@@ -90,7 +93,8 @@ define([
 
 
     clearSort : function() {
-      console.log( 'clearSort' );
+      this.optimizedView = false;
+      this.$el.find( '.searchInput' ).val( '' );
       this.model.clear();
     },
 
@@ -130,6 +134,19 @@ define([
               + this.model.get( 'repoName' );
 
       this.model.set( 'name', name );
+    },
+
+
+    handleSearchInput : function( event ) {
+      if ( event.keyCode === 13 ) {
+        this.optimizedView = false;
+
+        if ( event.target.value ) {
+          this.model.search( event.target.value );
+        } else {
+          this.model.clear();
+        }
+      }
     },
 
 
@@ -226,7 +243,7 @@ define([
       var data          = this.model.get( 'displayedData' ) ||
                           this.model.get( 'data' ),
 
-          margin   = { top: 40, right: 10, bottom: 50, left: 10, nodeTop: 30 },
+          margin   = { top: 40, right: 10, bottom: 50, left: 10, chartTop: 60 },
           elWidth  = this.$el.width(),
           elHeight = this.$el.height(),
 
@@ -254,8 +271,11 @@ define([
             return node.type === 'file';
           } ),
 
-          resizeForBuilds = (( elHeight / buildNodes.length ) < 20 ),
-          resizeForFiles   = (( elHeight / fileNodes.length ) < 20 ),
+          currentBuildNodeHeight = elHeight / buildNodes.length,
+          currentFileNodeHeight  = elHeight / fileNodes.length,
+          resizeForBuilds        = ( currentBuildNodeHeight < 20 || currentBuildNodeHeight > 40 ),
+          resizeForFiles         = ( currentFileNodeHeight < 20 || currentFileNodeHeight > 40 ),
+          maxNodeCounter         = ( buildNodes.length > fileNodes.length ) ? buildNodes.length : fileNodes.length,
 
           view = this,
 
@@ -263,6 +283,10 @@ define([
           nodeGroup,
           linksGroup,
           linkGroup,
+
+          legend,
+          buildDescription,
+          fileDescription,
 
           links,
 
@@ -278,8 +302,10 @@ define([
         this.optimizedView = true;
 
         //it will be files let's ignore builds quickly
-        this.$el.height( fileNodes.length * 20 );
-
+        // 50 stands for top nav bar
+        this.$el.height(
+          this.$el.find( '.topBar' ).height() + margin.top + margin.chartTop + ( maxNodeCounter * 20 )
+        );
       }
 
       // this stuff needs to happen after check for resizing
@@ -290,9 +316,9 @@ define([
 
       y = {
         build : d3.scale.ordinal()
-                    .rangeRoundBands( [ 0, ( height - margin.nodeTop ) ], 0.1 ),
+                    .rangeRoundBands( [ 0, ( height - margin.chartTop ) ], 0 ),
         file  : d3.scale.ordinal()
-                    .rangeRoundBands( [ 0, ( height - margin.nodeTop ) ], 0.1 )
+                    .rangeRoundBands( [ 0, ( height - margin.chartTop ) ], 0 )
       };
 
       function calculateNodePositions( nodes ) {
@@ -322,7 +348,7 @@ define([
 
         nodes.forEach( function( value ) {
           value.x = ( value.type === 'build') ? 0 : ( width - node[ value.type ].width ),
-          value.y = y[ value.type ]( value.name ) + margin.nodeTop;
+          value.y = y[ value.type ]( value.name ) + margin.chartTop;
 
           ++index[ value.type ];
         } );
@@ -330,7 +356,7 @@ define([
         return nodes;
       }
 
-      function calculateNodePaths( links, nodes ) {
+      function calculateNodePathsAndColor( links, nodes ) {
         links.forEach( function( link ) {
           var sourceNode = nodes.filter(
                               function( node ) {
@@ -357,6 +383,9 @@ define([
                       ' C ' + (sourceX + width / 2) + ' ' + sourceY + ', ' +
                       (targetX - width / 2 ) + ' ' + targetY + ', ' +
                       targetX + ' ' + targetY;
+
+          // set color of the path
+          link.status = sourceNode.status;
         } );
 
         return links;
@@ -364,7 +393,7 @@ define([
 
 
       nodes = calculateNodePositions( nodes ),
-      links = calculateNodePaths( data.links, nodes );
+      links = calculateNodePathsAndColor( data.links, nodes );
 
       d3el.select( 'svg' ).remove();
 
@@ -395,6 +424,32 @@ define([
 
       }
 
+      // show what the two coloumn mean
+      legend = this.svg.append( 'g' )
+                        .attr( 'class', 'legend' )
+                        .attr(
+                          'transform',
+                          'translate( 0, ' + ( margin.chartTop + reset.height ) + ')'
+                        );
+
+      // left column
+      buildDescription = legend.append( 'g' )
+                                .attr( 'class', 'buildDescription' );
+
+      buildDescription.append( 'text' )
+                      .text( 'Build number' )
+                      .attr( 'y', 6 );
+
+      // right column
+      fileDescription = legend.append( 'g' )
+                              .attr( 'class', 'buildDescription' );
+
+      fileDescription.append( 'text' )
+                      .text( 'Relation of commits included in passed/failed builds' )
+                      .attr( 'x', width - 370 )
+                      .attr( 'y', 6 );
+
+      // start drawing everything
       linksGroup = this.svg.append( 'g' )
                             .attr( 'class', 'links' )
                             .attr( 'transform', 'translate( 0, 40 )');
@@ -402,7 +457,17 @@ define([
       linkGroup = linksGroup.selectAll( 'link' )
                             .data( links )
                             .enter().append( 'path' )
-                            .attr( 'class', 'link' )
+                            .attr( 'class', function( d ) {
+                              var classString = 'link ';
+
+                              if ( d.status ) {
+                                classString += 'passed';
+                              } else {
+                                classString += 'failed';
+                              }
+
+                              return classString;
+                            } )
                             .attr( 'd', function( d ) {
                               return d.path;
                             } )
@@ -576,6 +641,12 @@ define([
     },
 
 
+    searchFiles : function() {
+      this.optimizedView = false;
+      this.model.search( this.$el.find( '.searchInput' ).val() );
+    },
+
+
     showSortDialog : function( d3Node, currentNode, nodeConfig ) {
       if ( !this.model.get( 'displayedData' ) ) {
         var dialog = d3Node.append( 'g' )
@@ -602,6 +673,7 @@ define([
 
 
     sortItems : function( event, target ) {
+      this.optimizedView = false;
       this.model.sort( target.dataset.type );
     },
 
