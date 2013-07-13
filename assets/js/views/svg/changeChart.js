@@ -196,7 +196,7 @@ define([
               .attr( 'd', line.passed );
 
       this.svg.append( 'path' )
-              .datum( dataKeys )
+              .datum( dataKeysFailed )
               .attr( 'class', 'line failed' )
               .attr( 'd', line.failed );
     }
