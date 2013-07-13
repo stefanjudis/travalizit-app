@@ -6,6 +6,51 @@ define([
 ], function( _, d3, GeneralSVGView ) {
   var ChangeSVGView = GeneralSVGView.extend({
 
+    render : function() {
+      var html = this.$el.html(
+                this.template({
+                  name : this.model.get( 'name' )
+                })
+              ),
+          data = this.model.get( 'data' );
+
+      this.$el.css({
+        height : Config.svgChartView.height,
+        width  : Config.svgChartView.width
+      });
+
+      if ( data ) {
+        if (
+          this.renderHtmlPart &&
+          typeof this.renderHtmlPart === 'function'
+        ) {
+          this.renderHtmlPart();
+        }
+
+        this.$el.find( '.loadingContainer' ).remove();
+
+        if ( data.nodes.length ) {
+        // if data is already fetched
+          this.renderSvg();
+        } else {
+          require(
+            [ 'handlebars', 'text!noBuildDataTemplate'],
+            _.bind( function( Handlebars, NoBuildDataTemplate ) {
+              var template = Handlebars.compile( NoBuildDataTemplate ),
+                  html     = template( {
+                    name  : this.model.get( 'repoName' ),
+                    owner : this.model.get( 'repoOwner' )
+                  } );
+
+              this.$el.append( html );
+            }, this )
+          );
+        }
+      }
+
+      return html;
+    },
+
     renderSvg : function() {
       var data      = this.model.getGroupedChanges( 50 ),
           dataKeys  = Object.keys( data ),

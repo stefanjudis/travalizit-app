@@ -149,7 +149,8 @@ define([
       }
     },
 
-
+    // that it is copied in change chart
+    // refactor that
     render : function() {
       var html = this.$el.html(
                 this.template({
