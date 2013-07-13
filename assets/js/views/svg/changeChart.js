@@ -5,6 +5,11 @@ define([
   'config'
 ], function( _, d3, GeneralSVGView, Config ) {
   var ChangeSVGView = GeneralSVGView.extend({
+    events: function() {
+      return _.extend( {}, GeneralSVGView.prototype.events, {
+          'click .fetchBuildData' : 'fetchBuildData'
+      } );
+    },
 
     render : function() {
       var html = this.$el.html(
