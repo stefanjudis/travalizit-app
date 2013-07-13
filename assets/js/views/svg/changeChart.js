@@ -11,6 +11,35 @@ define([
       } );
     },
 
+
+    fetchBuildData : function( event ) {
+      event.target.disabled = true;
+      this.$el.find( '.histogram' ).addClass( 'active' );
+
+      $.ajax( {
+        data : {
+          name        : this.model.get( 'name' ),
+          repoOwner   : this.model.get( 'repoOwner' ),
+          repoName    : this.model.get( 'repoName' ),
+          type        : this.model.get( 'type' ),
+          pleaseFetch : true
+        },
+        error : function() {
+          console.log( 'shit error' );
+        },
+        success : _.bind( function() {
+          this.model.fetch(
+            {
+              data : this.model.get( 'queryParams' )
+            }
+          );
+        }, this ),
+        type : 'GET',
+        url  : '/builds'
+      } );
+    },
+
+
     render : function() {
       var html = this.$el.html(
                 this.template({
@@ -56,8 +85,9 @@ define([
       return html;
     },
 
+
     renderSvg : function() {
-      var data      = this.model.getGroupedChanges( 50 ),
+      var data      = this.model.getGroupedChanges( 25 ),
           dataKeys  = Object.keys( data ),
           margin    = { top: 20, right: 20, bottom: 100, left: 80 },
           width     = this.$el.width() - margin.left - margin.right,

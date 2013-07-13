@@ -98,7 +98,7 @@ define([
       this.model.clear();
     },
 
-
+    // and this one is copied as well. :(
     fetchBuildData : function( event ) {
       event.target.disabled = true;
       this.$el.find( '.histogram' ).addClass( 'active' );
