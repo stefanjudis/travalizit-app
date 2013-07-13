@@ -1,9 +1,9 @@
 define([
   'underscore',
   'd3',
-  'generalSVGView'
-
-], function( _, d3, GeneralSVGView ) {
+  'generalSVGView',
+  'config'
+], function( _, d3, GeneralSVGView, Config ) {
   var ChangeSVGView = GeneralSVGView.extend({
 
     render : function() {
