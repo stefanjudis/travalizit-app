@@ -87,14 +87,21 @@ define([
 
 
     renderSvg : function() {
-      var data      = this.model.getGroupedChanges( 25 ),
-          dataKeys  = Object.keys( data ),
+      var data           = this.model.getGroupedChanges( 25 ),
+          dataKeys       = Object.keys( data ),
+          dataKeysPassed = dataKeys.filter( function( key ) {
+            return data[ key ].passed !== 0;
+          } ),
+          dataKeysFailed = dataKeys.filter( function( key ) {
+            return data[ key ].failed !== 0;
+          } ),
+
           margin    = { top: 20, right: 20, bottom: 100, left: 80 },
           width     = this.$el.width() - margin.left - margin.right,
           height    = this.$el.height() - margin.top - margin.bottom,
 
-          x = d3.scale.ordinal()
-                .rangeRoundBands( [ 0, ( width ) ], 0.1 ),
+          x = d3.scale.linear()
+                .range( [ 0, width ] ),
 
           y = {
             passed : d3.scale.linear()
@@ -118,16 +125,17 @@ define([
 
           line = {
             passed : d3.svg.line()
-                      .x( function( d ) { return x( d ) + x.rangeBand() / 2; } )
+                      .x( function( d ) { return x( d ); } )
                       .y( function( d ) { return y.passed( data[ d ].passed ); } ),
             failed : d3.svg.line()
-                      .x( function( d ) { return x( d ) + x.rangeBand() / 2; } )
+                      .x( function( d ) { return x( d ); } )
                       .y( function( d ) { return y.failed( data[ d ].failed ); } )
           },
 
           maxValue,
           maxValuePassed,
           maxValueFailed,
+          maxValueX,
 
           circle = {
             radius : 8
@@ -139,6 +147,10 @@ define([
       d3el.select( 'svg' ).remove();
 
       //determine the max value
+      maxValueX = d3.max(
+                    dataKeys,
+                    function( d ) { return +d; }
+                  );
       maxValuePassed = d3.max(
                           dataKeys,
                           function( d ) { return data[ d ].passed; }
@@ -158,7 +170,7 @@ define([
               .attr( 'data-width', width )
               .attr( 'data-height', height );
 
-      x.domain( dataKeys.map( function( d ) { return d; } ) );
+      x.domain( [ 0, +dataKeys[ dataKeys.length - 1 ] ] );
       y.passed.domain( [ 0, maxValue ] );
       y.failed.domain( [ 0, maxValue ] );
 
@@ -179,7 +191,7 @@ define([
           .text( 'Number of passed / failed builds' );
 
       this.svg.append( 'path' )
-              .datum( dataKeys )
+              .datum( dataKeysPassed )
               .attr( 'class', 'line passed' )
               .attr( 'd', line.passed );
 
