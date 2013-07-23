@@ -1,7 +1,7 @@
 define([
   'underscore',
   'backbone',
-  'chartModel'
+  'chartModel',
 ], function( _, Backbone, Chart ) {
   var Charts = Backbone.Collection.extend({
     model : Chart

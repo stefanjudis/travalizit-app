@@ -4,10 +4,15 @@ define([
   'generalSVGView',
   'config'
 ], function( _, d3, GeneralSVGView, Config ) {
+
   var ChangeSVGView = GeneralSVGView.extend({
+
     events: function() {
       return _.extend( {}, GeneralSVGView.prototype.events, {
-          'click .fetchBuildData' : 'fetchBuildData'
+          'click .fetchBuildData' : 'fetchBuildData',
+
+          'keypress .searchInput' : 'handleSearchInput',
+          'click .searchBtn'      : 'setNewGrouping'
       } );
     },
 
@@ -37,6 +42,23 @@ define([
         type : 'GET',
         url  : '/builds'
       } );
+    },
+
+
+    generateChartName : function() {
+      var name = this.model.get( 'name' );
+
+      name += ' for ' + this.model.get( 'repoOwner' ) + ' / '
+              + this.model.get( 'repoName' );
+
+      this.model.set( 'name', name );
+    },
+
+
+    handleSearchInput : function( event ) {
+      if ( event.keyCode === 13 ) {
+        this.renderSvg( event.target.value );
+      }
     },
 
 
@@ -86,8 +108,9 @@ define([
     },
 
 
-    renderSvg : function() {
-      var data           = this.model.getGroupedChanges( 25 ),
+    renderSvg : function( grouping ) {
+      var groupSize      = +grouping || 200,
+          data           = this.model.getGroupedChanges( groupSize ),
           dataKeys       = Object.keys( data ),
           dataKeysPassed = dataKeys.filter( function( key ) {
             return data[ key ].passed !== 0;
@@ -178,7 +201,12 @@ define([
           .attr( 'class', 'x axis' )
           .attr( 'transform', 'translate(0,' + height + ')' )
           .call( xAxis )
-          .selectAll( 'text' );
+          .append( 'text' )
+          .attr( 'class', 'label' )
+          .attr( 'x', width )
+          .attr( 'y', -6 )
+          .style( 'text-anchor', 'end' )
+          .text( 'Changed lines of code' );
 
       this.svg.append( 'g' )
           .attr( 'class', 'y axis passed' )
@@ -199,6 +227,11 @@ define([
               .datum( dataKeysFailed )
               .attr( 'class', 'line failed' )
               .attr( 'd', line.failed );
+    },
+
+
+    setNewGrouping : function() {
+      this.renderSvg( this.$el.find( '.searchInput' ).val() );
     }
   });
 

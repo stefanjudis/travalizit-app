@@ -33,7 +33,7 @@ requirejs.config({
     changeChartView : 'views/svg/changeChart',
 
     // collections
-    chartCollection : 'collections/chartsCollection',
+    chartCollection        : 'collections/chartsCollection',
 
     // templates
     chartTemplate       : 'templates/chartView.hbs',

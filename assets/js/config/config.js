@@ -171,7 +171,7 @@ define([], function() {
         icon        : 'random',
         description : 'Get a nice overview of line changes included in each ' +
                       'build in comparison to fail / success of depending builds.',
-        name        : 'Line change details',
+        name        : 'LOC | success / fail',
         params      : [
           {
             defaultValue : 'mitsuhiko',

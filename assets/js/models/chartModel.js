@@ -1,6 +1,6 @@
 define([
   'underscore',
-  'backbone'
+  'backbone',
 ], function( _, Backbone) {
   var ChartModel = Backbone.Model.extend({
     defaults : {

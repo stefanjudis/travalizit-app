@@ -32,7 +32,11 @@ app.engine(
 app.set( 'views', libPath + '/views' );
 
 // middleware handling
+
+
 app.use(express.static(__dirname + '/assets'));
+
+
 app.use(express.bodyParser());
 
 
